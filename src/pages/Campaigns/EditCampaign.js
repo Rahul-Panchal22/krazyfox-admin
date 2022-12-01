@@ -32,7 +32,7 @@ const defaultFormField = {
   campaign_price_range: "",
   campaign_guidelines: "",
   campaign_followers_range: "",
-  status: false,
+  status: 1,
 };
 
 const EditCampaign = () => {
@@ -66,12 +66,12 @@ const EditCampaign = () => {
   const [campaignGuideLinesError, setCampaignGuideLinesError] = useState(false);
   const [campaignFollowersRangeError, setCampaignFollowersRangeError] =
     useState(false);
-
+  const [imageError, setImageError] = useState(false);
   const fetchCampaignDetailThroughId = () => {
     dispatch(fetchCampaign(`?campaign_id=${params.campaignId}`))
       .then((res) => {
         if (res.code === 200) {
-          setSelectedBrandValue(res.data.brand_id);
+          setSelectedBrandValue(res.data.brand_id.toString());
           setFormField(() => ({
             campaign_name: res.data.campaign_title,
             campaign_description: res.data.campaign_description,
@@ -125,6 +125,7 @@ const EditCampaign = () => {
     setCampaignStepsError(false);
     setCampaignRequirementError(false);
     setBrandNameError(false);
+    setImageError(false);
 
     if (campaign_name === "") {
       return setCampaignNameError(true);
@@ -148,7 +149,18 @@ const EditCampaign = () => {
       return setCampaignGuideLinesError(true);
     }
 
+    if(selectedBrandValue === ""){
+      console.log("Helllo")
+      return setBrandNameError(true)
+    }
+
+    if(fileupload === undefined && imageUrl === ''){
+      return setImageError(true)
+    }
+
     const formData = new FormData();
+
+    console.log(" selectedBrandValue", fileupload)
 
     formData.append("brand_id", selectedBrandValue);
     formData.append("campaign_title", campaign_name);
@@ -301,7 +313,7 @@ const EditCampaign = () => {
             </FormControl>
             {brandNameError && (
               <p style={{ color: "red", marginTop: "5px" }}>
-                Brand Name is required
+                Brand is required
               </p>
             )}
           </Grid>
@@ -529,7 +541,13 @@ const EditCampaign = () => {
               imageUrl={imageUrl}
             />
           </Grid>
+          
         </Grid>
+        {imageError && (
+              <p style={{ color: "red", marginTop: "5px" }}>
+                Campaign image is required
+              </p>
+            )}
       </div>
       <div className="btn-row reverse mar-top-20">
         <Button

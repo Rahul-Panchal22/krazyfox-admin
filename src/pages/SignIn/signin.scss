@@ -10,8 +10,8 @@
   }
   fieldset { border-color: rgba(255, 255, 255, 0.75) }
   .auth-logo-text { font-weight: 400; font-size: 18px; line-height: 22px; color: #D9D9D9; }
-  .auth-btn { font-weight: 500; font-size: 20px; line-height: 20px; color: #FFFFFF; border-radius: 12px; padding: 20px 24px; background: $black; width: 100%; margin-top: 50px;
-    &:hover { background: $white !important; color: $black !important; }
+  .MuiButton-root.MuiButtonBase-root.MuiButton-contained.auth-btn { font-weight: 500; font-size: 20px; line-height: 20px; color: #FFFFFF; border-radius: 12px; padding: 20px 24px; background: $black; width: 100%; margin-top: 50px;
+    &:hover { background: $white; color: $black; }
   }
   .MuiFormLabel-root.extra-label.white { font-weight: 400; font-size: 14px; line-height: 17px; color: #D9D9D9; }
   

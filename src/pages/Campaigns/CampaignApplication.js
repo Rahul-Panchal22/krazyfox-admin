@@ -101,9 +101,9 @@ const CampaignApplication = () => {
     //   });
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     // getAllCampaignListing();
-  }, []);
+  // }, []);
 
   const handleRedirection = (e) => {
     navigate("/edit-campaign");
@@ -113,7 +113,7 @@ const CampaignApplication = () => {
     setSearched(value);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     // if (search !== null || search !== "" || search !== undefined) {
     //   if (search === null) {
     //     getAllCampaignListing();
@@ -127,7 +127,7 @@ const CampaignApplication = () => {
     // } else {
     //   getAllCampaignListing();
     // }
-  }, [search]);
+  // }, []);
 
   return (
     <>
