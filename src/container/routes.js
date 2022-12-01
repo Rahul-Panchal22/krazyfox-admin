@@ -2,10 +2,10 @@ import React, { lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import AuthGuard from '../components/auth';
 
-// const Layout = lazy(() => import('../components/layout'))
-// const Dashboard = lazy(() => import('../pages/Dashboard'))
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+
 const PageLayout = lazy(() => import("../pages/Layout"));
 const SignIn = lazy(() => import("../pages/SignIn"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -34,34 +34,35 @@ const Routing = () => {
       <Routes>
         <Route path ='/' element={<Navigate replace to='/signin' />} />
       {/* <Route path="/" element={<Navigate replace to="/dashboard" />}></Route> */}
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<PublicRoute><SignIn /></PublicRoute>} />
         <Route path="/" element={<PageLayout />}>
           <Route path='/' element={<Navigate replace to="/dashboard" />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard-overview" element={<DashboardOverview />} />
-          <Route path="/select-locations" element={<SelectLocations />} />
-          <Route path="/campaigns" element={<Campaigns />} />
-          <Route path="/add-campaign" element={<EditCampaign />} />
-          <Route path="/view-campaign/:campaignId" element={<ViewCampaign />} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/dashboard-overview" element={<PrivateRoute><DashboardOverview /></PrivateRoute>} />
+          <Route path="/select-locations" element={<PrivateRoute><SelectLocations /></PrivateRoute>} />
+          <Route path="/campaigns" element={<PrivateRoute><Campaigns /></PrivateRoute>} />
+          <Route path="/add-campaign" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
+          <Route path="/view-campaign/:campaignId" element={<PrivateRoute><ViewCampaign /></PrivateRoute>} />
           {/* <Route path="/view-campaign" element={<ViewCampaign />} /> */}
-          <Route path="/edit-campaign/:campaignId" element={<EditCampaign />} />
-          <Route path="/campaign-application" element={<CampaignApplication />} />
-          <Route path="/application-status" element={<ApplicationStatus />} />
-          <Route path="/brand" element={<Brand />} />
-          <Route path="/view-brand/:brandId" element={<ViewBrand />} />
-          <Route path="/add-brand" element={<EditBrand />} />
-          <Route path="/edit-brand/:brandId" element={<EditBrand />} />
-          <Route path="/creator" element={<Creator />} />
-          <Route path="/add-creator" element={<AddCreator />} />
-          <Route path="/view-creator/:creatorId" element={<ViewCreator />} />
-          <Route path="/kyc" element={<Kyc />} />
-          <Route path="/view-kyc" element={<ViewKyc />} />
-          <Route path="/payments" element={<Payments />} />
-          <Route path="/payments-approved" element={<PaymentsStatus />} />
-          <Route path="/payments-rejection-reason" element={<PaymentsRejectionReason />} />
+          <Route path="/edit-campaign/:campaignId" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
+          <Route path="/campaign-application" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
+          <Route path="/application-status" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
+          <Route path="/brand" element={<PrivateRoute><Brand /></PrivateRoute>} />
+          <Route path="/view-brand/:brandId" element={<PrivateRoute><ViewBrand /></PrivateRoute>} />
+          <Route path="/add-brand" element={<PrivateRoute><EditBrand /></PrivateRoute>} />
+          <Route path="/edit-brand/:brandId" element={<PrivateRoute><EditBrand /></PrivateRoute>} />
+          <Route path="/creator" element={<PrivateRoute><Creator /></PrivateRoute>} />
+          <Route path="/add-creator" element={<PrivateRoute><AddCreator /></PrivateRoute>} />
+          <Route path="/view-creator/:creatorId" element={<PrivateRoute><ViewCreator /></PrivateRoute>} />
+          <Route path="/kyc" element={<PrivateRoute><Kyc /></PrivateRoute>} />
+          <Route path="/view-kyc" element={<PrivateRoute><ViewKyc /></PrivateRoute>} />
+          <Route path="/payments" element={<PrivateRoute><Payments /></PrivateRoute>} />
+          <Route path="/payments-approved" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
+          <Route path="/payments-rejection-reason" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />}></Route>
       </Routes>
+      
       <ToastContainer
         position="top-center"
         autoClose={2000}
