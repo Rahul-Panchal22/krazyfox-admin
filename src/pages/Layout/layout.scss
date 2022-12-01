@@ -1,0 +1,28 @@
+@import "../../scss/mixin";
+@import "../../scss/variable";
+
+.page-layout {
+  .MuiPaper-root {
+    background: #ffffff;
+    z-index: 9999;
+    @include prefix(box-shadow, none);
+  }
+  .layout-header {
+    .MuiToolbar-root { padding: 0; }
+    .MuiIconButton-root { background: #000000; border-radius: 0; width: 65px;
+      img { height: 50px; }
+    }
+  }
+  .MuiToolbar-root .MuiButtonBase-root { margin: 0; }
+}
+.layout-sider { z-index: 0;
+  .MuiPaper-root { background: $black; }
+  .MuiTypography-root { color: $white; }
+  .MuiToolbar-root {
+    padding: 0 !important;
+    .MuiButtonBase-root {
+      padding: 3px;
+      width: 64px;
+    }
+  }
+}

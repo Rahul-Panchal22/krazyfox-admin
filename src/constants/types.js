@@ -1,0 +1,47 @@
+export const API = 'API'
+export const API_REQUEST = 'API_REQUEST'
+export const API_SUCCESS = 'API_SUCCESS'
+export const API_ERROR = 'API_ERROR'
+
+export const LOGIN_S = 'LOGIN_SUCCESS'
+export const LOGIN_F = 'LOGIN_FAIL'
+export const LOGOUT = 'LOGOUT'
+
+export const CAMPAIGN_S = "Campaign listed successfully"
+export const CAMPAIGN_F = "Campaign listing failed"
+
+export const CATEGORY_S = "Categories listed successfully"
+export const CATEGORY_F = "Categories listing failed"
+
+export const CREATORS_S = "Categories listed successfully"
+export const CREATORS_F = "Categories listing failed"
+
+export const CREATORS_VIEW_S = "Creator profile fetched successfully"
+export const CREATORS_VIEW_F = "Creator profile couldn't fetch successfully."
+
+export const VIEW_CAMPAIGN_S = "View campaign listed successfully"
+export const VIEW_CAMPAIGN_F = "View campaign list failed"
+
+export const ADD_CAMPAIGN_S = "Campaign Added successfully"
+export const ADD_CAMPAIGN_F = "Campaign can not be created"
+
+export const EDIT_CAMPAIGN_S = "Campaign details edited Added successfully"
+export const EDIT_CAMPAIGN_F = "Campaign details can not be updated"
+
+export const DELETE_CAMPAIGN_S = "Campaign deleted successfully"
+export const DELETE_CAMPAIGN_F = "Campaign can't be deleted"
+
+export const BRANDS_S = "Brands listed successfully"
+export const BRANDS_F = "Brands listing failed"
+
+export const ADD_BRAND_S = "Brand Added successfully"
+export const ADD_BRAND_F = "Brand can not be created"
+
+export const EDIT_BRAND_S = "Brand details edited Added successfully"
+export const EDIT_BRAND_F = "Brand details can not be updated"
+
+export const VIEW_BRAND_S = "View campaign listed successfully"
+export const VIEW_BRAND_F = "View campaign list failed"
+
+export const DELETE_BRAND_S = "Brand deleted successfully"
+export const DELETE_BRAND_F = "Brand can't be deleted"

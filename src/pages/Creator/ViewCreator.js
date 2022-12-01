@@ -1,0 +1,150 @@
+import React, { useEffect, useState } from "react";
+import { Divider, Grid, Chip, Avatar } from "@mui/material";
+import VeiwCard from "./VeiwCard";
+import { KycStatus } from "../../svg";
+import { toAbsoluteUrl } from "../../utils";
+import { fetchCreator } from "../../actions/creators";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
+
+const ViewCreator = () => {
+  const [creatorDetail, setCreatorDetail] = useState()
+  const dispatch = useDispatch();
+  const params = useParams()
+
+  const fetchCreatorDetailThroughId = () => {
+    dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
+      .then((res) => {
+        console.log(res)
+        if (res.code === 200) {
+          console.log(res)
+          setCreatorDetail(res.data);
+          toast.success(res.message);
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+  useEffect(() => {
+    fetchCreatorDetailThroughId();
+    
+  }, []);
+
+
+  // console.log(creatorDetail)
+  return (
+    <>
+      <div className="avtar-header">
+        <div className="avtar-info">
+          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <h4 className="user-name">{creatorDetail ? creatorDetail.name : '-'}</h4>
+        </div>
+      </div>
+      <div className='border-paper'>
+        <Grid container direction="row" spacing={2} className='mar-bottom-40'>
+          <VeiwCard
+            cardHeadign="Followers"
+            cardContent={creatorDetail ? creatorDetail.campaign_followers_range : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Contact Number"
+            cardContent={creatorDetail ? '+'.concat('',creatorDetail.phone_number) : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Email"
+            cardContent={creatorDetail ? creatorDetail.email : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Category"
+            chipList
+            chipItem={creatorDetail ? creatorDetail.categoriesArrayList : []}
+          />
+          <VeiwCard
+            cardHeadign="Address"
+            cardContent={creatorDetail ? creatorDetail.address : []}
+          />
+          <VeiwCard
+            cardHeadign="City"
+            cardContent="Pune"
+          />
+          <VeiwCard
+            cardHeadign="State"
+            cardContent="Maharashtra"
+          />
+          <VeiwCard
+            cardHeadign="Gender"
+            cardContent={creatorDetail ? creatorDetail.gender : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Language"
+            cardContent={creatorDetail ? creatorDetail.language : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Genre"
+            cardContent={creatorDetail ? creatorDetail.genre : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Sub-Genre"
+            cardContent={creatorDetail ? creatorDetail.sub_genre : '-'}
+          />
+        </Grid>
+        <Divider className='divide-mar-40--40' />
+        <Grid container direction="row" spacing={2} className='mar-bottom-40'>
+          {['It’s Harley', '@iam.harley', '@iam.harley'].map((text, i) => (
+            <Grid item xs={6} key={i}>
+              <KycStatus /> &nbsp;&nbsp;&nbsp;{text}
+            </Grid>
+          ))}
+        </Grid>
+        <Divider className='divide-mar-40--40' />
+        <Grid container direction="row" spacing={2} className='mar-bottom-40'>
+          <Grid item xs={6} className="veiw-card">
+            <p className="label">Aadhar Card</p>
+            <figure className='view-doc d-flex-start-start'>
+              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+            </figure>
+            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${creatorDetail?.is_adhar_verified == 1 ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_adhar_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} />
+          </Grid>
+          <Grid item xs={6} className="veiw-card">
+            <p className="label">PAN Card</p>
+            <figure className='view-doc d-flex-start-start'>
+              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+            </figure>
+            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${creatorDetail?.is_pan_card_verified == 1 ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_pan_card_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} />
+          </Grid>
+          <Grid item xs={6} className="veiw-card">
+            <p className="label">Passbook</p>
+            <figure className='view-doc d-flex-start-start'>
+              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+            </figure>
+            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${creatorDetail?.is_passbook_verified == 1 ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_passbook_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} />
+          </Grid>
+        </Grid>
+        <Divider className='divide-mar-40--40' />
+        <Grid container direction="row" spacing={2}>
+          <VeiwCard
+            cardWidth={4}
+            cardHeadign="Bank Account Number"
+            cardContent={creatorDetail ? creatorDetail.bank_ac_holder_name : '-'}
+          />
+          <VeiwCard
+            cardHeadign="IFSC"
+            cardContent={creatorDetail ? creatorDetail.bank_ifsc_code : '-'}
+          />
+          <VeiwCard
+            cardHeadign="Account Holder Name"
+            cardContent={creatorDetail ? creatorDetail.bank_ac_holder_name : '-'}
+          />
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+export default ViewCreator;
