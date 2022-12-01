@@ -123,7 +123,7 @@ const Creator = () => {
         };
 
         return (
-          <IconButton aria-label="fingerprint" onClick={onClick}>
+          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
             <VisibilityIcon />
           </IconButton>
         );

@@ -91,8 +91,6 @@ const Payments = () => {
           )
         );
       }
-    } else {
-      getAllCampaignListing();
     }
   }, [search]);
 

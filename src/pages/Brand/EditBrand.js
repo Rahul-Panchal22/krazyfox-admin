@@ -70,7 +70,7 @@ const EditBrand = () => {
   const [emailError, setEmailError] = useState(false);
   const [contactError, setContactError] = useState(false);
   const [categoriesError, setCategoriesError] = useState(false);
-
+  const [imageError, setImageError] = useState(false);
   const fetchCategory = () => {
     dispatch(CategoriesListing())
       .then((res) => {
@@ -158,6 +158,11 @@ const EditBrand = () => {
       return setCategoriesError(true);
     }
 
+    if(fileupload === undefined && imageUrl === ''){
+      return setImageError(true);
+    }
+
+    console.log("multiSelect", multiSelect)
     const formData = new FormData();
 
     formData.append("brand_name", brand_name);
@@ -277,6 +282,7 @@ const EditBrand = () => {
           spacing={2}
           className="mar-bottom-40"
         >
+          
           <Grid item xs={4}>
             <UploadHere
               uploadLabel="Brand Logo"
@@ -288,6 +294,11 @@ const EditBrand = () => {
               setImageUrl={setImageUrl}
               imageUrl={imageUrl}
             />
+            {imageError && (
+                <p style={{ color: "red", marginTop: "5px" }}>
+                  Brand Image is required
+                </p>
+              )}
           </Grid>
           <Grid item xs={4}>
             <InputLabel
@@ -389,9 +400,9 @@ const EditBrand = () => {
                 value={multiSelect}
                 onChange={handleSelect}
                 input={<OutlinedInput label="Tag" />}
-                renderValue={(value) =>
-                  value.map((obj) => categoriesList[obj - 1].name).join(", ")
-                }
+                // renderValue={(value) =>
+                //   value.map((obj) => categoriesList[obj - 1].name).join(", ")
+                // }
               >
                 {categoriesList?.map((item) => (
                   <MenuItem key={item.id} value={item.id}>
@@ -399,6 +410,11 @@ const EditBrand = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {categoriesError && (
+                <p style={{ color: "red", marginTop: "5px" }}>
+                  Categorie is required
+                </p>
+              )}
             </FormControl>
           </Grid>
         </Grid>

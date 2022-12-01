@@ -90,7 +90,7 @@ const Brand = () => {
         };
 
         return (
-          <IconButton aria-label="fingerprint" onClick={onClick}>
+          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
             <VisibilityIcon />
           </IconButton>
         );
@@ -105,7 +105,7 @@ const Brand = () => {
         setBrandList(res.data);
       })
       .catch((err) => {
-        toast.success(err);
+        toast.error(err);
       });
   };
 
@@ -130,8 +130,6 @@ const Brand = () => {
           brandList.filter((column) => search.includes(column.brand_name))
         );
       }
-    } else {
-      getAllBrandListing();
     }
   }, [search]);
 

@@ -10,6 +10,7 @@ const PageLayout = lazy(() => import("../pages/Layout"));
 const SignIn = lazy(() => import("../pages/SignIn"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const DashboardOverview = lazy(() => import("../pages/Dashboard/DashboardOverview"));
+const SelectLocations = lazy(() => import("../pages/Dashboard/SelectLocations"));
 const Campaigns = lazy(() => import("../pages/Campaigns"));
 const EditCampaign = lazy(() => import("../pages/Campaigns/EditCampaign"));
 const ViewCampaign = lazy(() => import("../pages/Campaigns/ViewCampaign"));
@@ -38,9 +39,11 @@ const Routing = () => {
           <Route path='/' element={<Navigate replace to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-overview" element={<DashboardOverview />} />
+          <Route path="/select-locations" element={<SelectLocations />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/add-campaign" element={<EditCampaign />} />
           <Route path="/view-campaign/:campaignId" element={<ViewCampaign />} />
+          {/* <Route path="/view-campaign" element={<ViewCampaign />} /> */}
           <Route path="/edit-campaign/:campaignId" element={<EditCampaign />} />
           <Route path="/campaign-application" element={<CampaignApplication />} />
           <Route path="/application-status" element={<ApplicationStatus />} />
