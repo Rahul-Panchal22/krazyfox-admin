@@ -5,13 +5,15 @@ import auth from './auth';
 import campaign from './campaign';
 import brands from './brands'
 import creators from './creators'
+import kyc from './kyc';
 
 const rootReducer = combineReducers({
     api,
     auth,
     campaign,
     brands,
-    creators
+    creators,
+    kyc
 })
 
 export default rootReducer;

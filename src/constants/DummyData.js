@@ -37,14 +37,14 @@ export const Sidermenu = [
     menupath: '/creator',
     submenu: false,
   },
-  // {
-  //   id: 5,
-  //   menuId: 9,
-  //   menulist: 'KYCs',
-  //   menuicon: 'MailIcon',
-  //   menupath: '',
-  //   submenu: false,    
-  // },
+  {
+    id: 4,
+    menuId: 8,
+    menulist: 'KYC',
+    menuicon: 'MailIcon',
+    menupath: '/kyc',
+    submenu: false,
+  },
   // {
   //   id: 6,
   //   menuId: 10,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
@@ -6,92 +6,109 @@ import {
   Grid,
   IconButton,
   TextField,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { KycStatus } from "../../svg";
-
-const columns = [
-  {
-    field: "id",
-    headerName: "Sr No.",
-    minWidth: 60,
-  },
-  {
-    field: "creator_name",
-    headerName: "Creator Name",
-    minWidth: 220,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: "followers",
-    headerName: "Followers",
-    minWidth: 120,
-  },
-  {
-    field: "state",
-    headerName: "State",
-    minWidth: 180,
-  },
-  {
-    field: "contact",
-    headerName: "Contact",
-    minWidth: 180,
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    minWidth: 110,
-  },
-  {
-    field: "kyc",
-    headerName: "KYC",
-    minWidth: 120,
-    renderCell: () => <Stack direction="row" spacing={2}><KycStatus scgFill="red" /><KycStatus scgFill="red" /></Stack>
-  },
-  {
-    field: "action",
-    headerName: "Action",
-    width: 110,
-    renderCell: () => <IconButton aria-label="fingerprint">
-    <VisibilityIcon />
-  </IconButton>
-  },
-];
-
-const rows = [
-  { id: 1, creator_name: 'Johny Depp', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 2, creator_name: 'Cersei', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 3, creator_name: 'Jaime', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 4, creator_name: 'Arya', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 5, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 6, creator_name: 'Bhautik', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 7, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 8, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 9, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 10, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 11, creator_name: 'Rahul', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 12, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 13, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 14, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-];
+import { KycFilterListing, KycListing } from "../../actions/kyc";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 const Kyc = () => {
-  // const [campaignList, setCampaignList] = useState([]);
-  // const [search, setSearched] = useState("");
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [kycList, setKycList] = useState([]);
+  const [AllkycList, setAllKycList] = useState([]);
+  const [filter, setFilter] = useState();
 
-  // const handleRedirection = (e) => {
-  //   navigate("/edit-campaign");
-  // };
+  const getAllKycListing = () => {
+		dispatch(KycListing())
+		  .then((res) => {
+			console.log("response -----> ", res.data)
+			toast.success(res.message);
+      setKycList(res.data);
+      setAllKycList(res.data);
+		  })
+		  .catch((err) => {
+			toast.success(err);
+		  });
+	  };
 
-  // const onMutate = (e, value) => {
-  //   setSearched(value);
-  // };
+  useEffect(() => {
+    getAllKycListing()
+  }, [])
 
-  // console.log(campaignList);
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "Sr No.",
+      minWidth: 60,
+      renderCell: (params) => params.id ? params.id : '-'
+    },
+    {
+      field: "creator_name",
+      headerName: "Creator Name",
+      minWidth: 220,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => params?.row?.name ? params?.row?.name : '-'
+    },
+    {
+      field: "followers",
+      headerName: "Followers",
+      minWidth: 120,
+      renderCell: (params) => params?.row?.campaign_followers_range ? params?.row?.campaign_followers_range : '-'
+    },
+    {
+      field: "state",
+      headerName: "State",
+      minWidth: 180,
+      renderCell: (params) => params?.row?.address ? params?.row?.address : '-'
+    },
+    {
+      field: "contact",
+      headerName: "Contact",
+      minWidth: 180,
+      renderCell: (params) => params?.row?.phone_number ? params?.row?.phone_number : '-'
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      minWidth: 110,
+      renderCell: (params) => {
+        // params?.row?.categoriesArrayList?.map((item, i) => {
+        //   return item?.name
+        // })
+      }
+    },
+    {
+      field: "kyc",
+      headerName: "KYC",
+      minWidth: 120,
+      // renderCell: (params) => <Stack direction="row" spacing={2}><KycStatus scgFill="red" /><KycStatus scgFill="red" /></Stack>
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 110,
+      renderCell: () => <IconButton aria-label="fingerprint">
+      <VisibilityIcon />
+    </IconButton>
+    },
+  ];
+
+  const handleChangeFilter = (e) => {
+    dispatch(KycFilterListing(`?kyc_filter=${e.target.value}`))
+		  .then((res) => {
+        setKycList(res.data);
+		  })
+		  .catch((err) => {
+			toast.error(err);
+		  });
+  }
+
   return (
     <>
       <div className="search-row">
@@ -102,6 +119,18 @@ const Kyc = () => {
           alignItems="center"
           spacing={2}
         >
+          <Select
+                value={filter}
+                onChange={handleChangeFilter}
+                displayEmpty
+                size="small"
+                required
+              >
+                <MenuItem value={1}>KYC completed</MenuItem>
+                <MenuItem value={2}>KYC NOt completed</MenuItem>
+                <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>
+                <MenuItem value={4}>Bank Completed</MenuItem>
+              </Select>
           <Grid item xs={12}>
             <Stack spacing={2} sx={{ width: 630 }}>
               <Autocomplete
@@ -117,8 +146,9 @@ const Kyc = () => {
       </div>
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={kycList}
           columns={columns}
+          getRowId={row => row.creator_id}
           pageSize={10}
           rowsPerPageOptions={[5]}
           checkboxSelection

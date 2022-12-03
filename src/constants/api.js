@@ -22,3 +22,9 @@ export const API_BRAND_CREATE = `${API_BASE}brands/create`
 export const API_BRAND_EDIT = `${API_BASE}brands/edit-brand`
 export const API_BRAND_VIEW = `${API_BASE}brands`
 export const API_BRAND_DELETE = `${API_BASE}brands/delete/`
+
+// KYC API Call url's
+export const GET_KYC_LIST = `${API_BASE}kyc`
+
+// creators VerifyDocs 
+export const Creator = `${API_BASE}creators/verifyDocs`

@@ -45,3 +45,18 @@ export const VIEW_BRAND_F = "View campaign list failed"
 
 export const DELETE_BRAND_S = "Brand deleted successfully"
 export const DELETE_BRAND_F = "Brand can't be deleted"
+
+export const GET_LIST_KYC_S = "KYC listed successfully"
+export const GET_LIST_KYC_F = "KYC listing failed"
+
+export const ADD_KYC_S = "KYC Added successfully"
+export const ADD_KYC_F = "KYC can not be created"
+
+export const EDIT_KYC_S = "KYC details edited Added successfully"
+export const EDIT_KYC_F = "KYC details can not be updated"
+
+export const VIEW_KYC_S = "View KYC listed successfully"
+export const VIEW_KYC_F = "View KYC list failed"
+
+export const DELETE_KYC_S = "KYC deleted successfully"
+export const DELETE_KYC_F = "KYC can't be deleted"
