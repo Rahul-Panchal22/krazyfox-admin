@@ -91,15 +91,25 @@ const Creator = () => {
       },
     },
     {
-      field: "kyc",
+      field: "kyc_status",
       headerName: "KYC",
       minWidth: 120,
-      renderCell: () => (
-        <Stack direction="row" spacing={2}>
-          <KycStatus scgFill="red !important"  />
-          {/* <KycStatus scgFill="red" /> */}
-        </Stack>
-      ),
+      renderCell: (params) => {
+        if (params.value === null || params.value === "0") {
+          return (
+            <Stack direction="row" spacing={2}>
+              <KycStatus svgFill="red" />
+            </Stack>
+          );
+        } else {
+          return (
+            <Stack direction="row" spacing={2}>
+              <KycStatus svgFill="green" />
+            </Stack>
+          );
+        }
+      },
+      // console.log("params", params.value)
     },
     {
       field: "action",

@@ -3,7 +3,6 @@ import { Chip, Grid, Stack } from "@mui/material";
 
 
 const VeiwCard = ({ cardWidth, cardHeadign, cardContent, chipList, chipItem }) => {
-
   return (
     <>
       <Grid item xs={cardWidth ? cardWidth : 3} className="veiw-card">

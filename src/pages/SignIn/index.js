@@ -111,6 +111,7 @@ const SignIn = () => {
                     value={username}
                     name="username"
                     onChange={handleChange}
+                    autoComplete={false}
                     sx={{ input: { color: "white" } }}
                   />
                 </FormControl>
@@ -129,12 +130,12 @@ const SignIn = () => {
                 >
                   Password
                 </InputLabel>
-                <FormControl variant="Outlined">
+                <FormControl variant="Outlined" >
                   <TextField
                     id="outlined-password-input"
                     label="Password"
                     type="password"
-                    autoComplete="current-password"
+                    autoComplete={false}
                     value={password}
                     name="password"
                     onChange={handleChange}

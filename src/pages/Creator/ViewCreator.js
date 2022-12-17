@@ -66,7 +66,7 @@ const ViewCreator = () => {
           />
           <VeiwCard
             cardHeadign="Address"
-            cardContent={creatorDetail ? creatorDetail.address : []}
+            cardContent={creatorDetail ? creatorDetail.address : '-'}
           />
           <VeiwCard
             cardHeadign="City"
