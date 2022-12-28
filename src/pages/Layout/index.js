@@ -15,7 +15,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import LogoutIcon from "@mui/icons-material/Logout";
 import MailIcon from '@mui/icons-material/Mail';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../utils';
 import { ListItem, Stack } from '@mui/material';
 import Button from "@mui/material/Button";
@@ -96,9 +96,19 @@ export default function MiniDrawer(props) {
   const [headerName, setHeaderName] = React.useState();
   const navigate = useNavigate()
   const location = useLocation();
+  const params = useParams();
 
   React.useEffect(() => {
-    setHeaderName(location.pathname.split("/").filter((item) => item).pop());
+    if(params.campaignId || params.creatorId){
+      let pathname = location.pathname.split("/").filter((item) => item);
+      const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
+      const real = capatilize(pathname[0])
+      setHeaderName(real)
+		}else{
+      const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
+      const real = capatilize(location.pathname.split("/").filter((item) => item).pop())
+      setHeaderName(real);
+		}
   }, [location])
 
   const handleLogout = () => {
