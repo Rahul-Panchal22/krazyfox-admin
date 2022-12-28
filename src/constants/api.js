@@ -27,4 +27,4 @@ export const API_BRAND_DELETE = `${API_BASE}brands/delete/`
 export const GET_KYC_LIST = `${API_BASE}kyc`
 
 // creators VerifyDocs 
-export const Creator = `${API_BASE}creators/verifyDocs`
+export const API_CREATOR_VERIFY = `${API_BASE}creators/verifyDocs`

@@ -3,11 +3,14 @@ import {
     CREATORS_F,
     CREATORS_VIEW_F,
     CREATORS_VIEW_S,
+    CREATORS_VERIFY_DOCS_S,
+    CREATORS_VERIFY_DOCS_F,
   } from "../constants/types";
   
   const initialState = {
     creators: [],
-    creator: {}
+    creator: {},
+    verifyDocs: {}
   };
   
   const creators = (state = initialState, action) => {
@@ -21,6 +24,10 @@ import {
           return { ...state, creator: action.payload.data };
       case CREATORS_VIEW_F:
           return { ...state, creator: undefined };
+      case CREATORS_VERIFY_DOCS_S:
+        return { ...state, verifyDocs: action.payload.data };
+      case CREATORS_VERIFY_DOCS_F:
+        return { ...state, verifyDocs: action.payload.data };
       default:
         return state;
     }

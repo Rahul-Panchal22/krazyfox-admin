@@ -19,6 +19,9 @@ export const CREATORS_F = "Categories listing failed"
 export const CREATORS_VIEW_S = "Creator profile fetched successfully"
 export const CREATORS_VIEW_F = "Creator profile couldn't fetch successfully."
 
+export const CREATORS_VERIFY_DOCS_S = "Creator docs verifyed successfully"
+export const CREATORS_VERIFY_DOCS_F = "Creator docs couldn't verifyed successfully"
+
 export const VIEW_CAMPAIGN_S = "View campaign listed successfully"
 export const VIEW_CAMPAIGN_F = "View campaign list failed"
 
