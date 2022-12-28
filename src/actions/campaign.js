@@ -1,4 +1,5 @@
 import {
+  API_CAMPAIGN_APPLICATION_LIST,
   API_CAMPAIGN_CREATE,
   API_CAMPAIGN_DELETE,
   API_CAMPAIGN_EDIT,
@@ -18,6 +19,8 @@ import {
   DELETE_CAMPAIGN_S,
   EDIT_CAMPAIGN_F,
   EDIT_CAMPAIGN_S,
+  VIEW_CAMPAIGN_APPLICATION_F,
+  VIEW_CAMPAIGN_APPLICATION_S,
   VIEW_CAMPAIGN_F,
   VIEW_CAMPAIGN_S,
 } from "../constants/types";
@@ -115,6 +118,22 @@ export const CategoriesListing = () => ({
     }),
     error: (data) => ({
       type: CATEGORY_F,
+      payload: data,
+    }),
+  },
+});
+
+export const CampaignApplicationListing = (data) => ({
+  type: API,
+  payload: {
+    url: API_CAMPAIGN_APPLICATION_LIST + data,
+    method: "GET",
+    success: (data) => ({
+      type: VIEW_CAMPAIGN_APPLICATION_S,
+      payload: data,
+    }),
+    error: (data) => ({
+      type: VIEW_CAMPAIGN_APPLICATION_F,
       payload: data,
     }),
   },

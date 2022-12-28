@@ -15,6 +15,7 @@ export const API_CAMPAIGN_VIEW = `${API_BASE}campaigns`
 export const API_CAMPAIGN_CREATE = `${API_BASE}campaigns/create`
 export const API_CAMPAIGN_EDIT = `${API_BASE}campaigns/edit-campaign`
 export const API_CAMPAIGN_DELETE = `${API_BASE}campaigns/delete/`
+export const API_CAMPAIGN_APPLICATION_LIST = `${API_BASE}campaigns/applicationListing`
 
 // Brand API call url's
 export const API_BRANDS_LIST = `${API_BASE}brands/all`

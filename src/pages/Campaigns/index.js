@@ -95,6 +95,35 @@ const Campaigns = () => {
         );
       },
     },
+    {
+      field: "viewApplication",
+      headerName: "View Application",
+      width: 110,
+      renderCell: (params, row) => {
+        const onClick = (e) => {
+          console.log('params, row: ', params, row);
+          e.stopPropagation();
+
+          const api = params.api;
+          const thisRow = {};
+
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== "__check__" && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+
+          navigate(`/campaign-application/${thisRow.id}`);
+        };
+
+        return (
+          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+            <VisibilityIcon />
+          </IconButton>
+        );
+      },
+    },
   ];
 
   const getAllCampaignListing = () => {

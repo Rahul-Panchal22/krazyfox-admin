@@ -45,7 +45,7 @@ const Routing = () => {
           <Route path="/view-campaign/:campaignId" element={<PrivateRoute><ViewCampaign /></PrivateRoute>} />
           {/* <Route path="/view-campaign" element={<ViewCampaign />} /> */}
           <Route path="/edit-campaign/:campaignId" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
-          <Route path="/campaign-application" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
+          <Route path="/campaign-application/:campaignId" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
           <Route path="/application-status" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
           <Route path="/brand" element={<PrivateRoute><Brand /></PrivateRoute>} />
           <Route path="/view-brand/:brandId" element={<PrivateRoute><ViewBrand /></PrivateRoute>} />

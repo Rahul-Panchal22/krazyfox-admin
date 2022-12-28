@@ -10,12 +10,13 @@ import {
   TextField,
 } from "@mui/material";
 import { SparkFill } from "../../svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { CampaignListing } from "../../actions/campaign";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useDispatch } from "react-redux";
 // import { toAbsoluteUrl } from "../../utils";
 import "./Campaigns.scss";
+// import { CampaignApplicationListing } from "../../actions/campaign";
 
 const CampaignApplication = () => {
   
@@ -23,6 +24,7 @@ const CampaignApplication = () => {
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const { campaignId } = useParams();
 
   const columns = [
     { field: "id", headerName: "Sr No.", width: 80 },
@@ -92,17 +94,18 @@ const CampaignApplication = () => {
     },
   ];
 
-  const getAllCampaignListing = () => {
-    // dispatch(CampaignListing())
-    //   .then((res) => {
-    //     setCampaignList(res.data);
-    //   })
-    //   .catch((err) => {
-    //   });
-  };
+  // const getAllCampaignListing = () => {
+  //   dispatch(CampaignApplicationListing(`?campaignId=${campaignId}`))
+  //     .then((res) => {
+  //       console.log('res: ', res.data);
+  //       setCampaignList(res.data);
+  //     })
+  //     .catch((err) => {
+  //     });
+  // };
 
   // useEffect(() => {
-    // getAllCampaignListing();
+  //   getAllCampaignListing();
   // }, []);
 
   const handleRedirection = (e) => {
