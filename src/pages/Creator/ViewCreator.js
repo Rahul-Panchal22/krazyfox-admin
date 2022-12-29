@@ -15,14 +15,13 @@ const ViewCreator = () => {
   const [adharCardflag, setAdharCardFlag] = useState();
   const [pashbookflag, setPashbookFlag] = useState();
   const dispatch = useDispatch();
-  const params = useParams()
-console.log("params", params.creatorId);
+  const params = useParams();
+
   const fetchCreatorDetailThroughId = () => {
     dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
       .then((res) => {
         console.log(res)
         if (res.code === 200) {
-          console.log("res000", res)
           setCreatorDetail(res.data);
           toast.success(res.message);
         } else {
@@ -44,19 +43,19 @@ console.log("params", params.creatorId);
       if(name === "pan_card_verification"){
         data = {
             creator_id: parseInt(params.creatorId),
-            pan_card_verification: 1,
+            pan_card_verification: "1",
           }
       }
       if(name === "adhar_verification"){
         data = {
             creator_id: parseInt(params.creatorId),
-            adhar_verification: 1
+            adhar_verification: "1"
           }
       }
       if(name === "passbook_verification"){
         data = {
             creator_id: parseInt(params.creatorId),
-            passbook_verification: 1
+            passbook_verification: "1"
           }
       }
 

@@ -47,7 +47,7 @@ export const creatorsVerify = (data, id) =>
   type: API,
   payload: {
     url: API_CREATOR_VERIFY,
-    method: "PETCH",
+    method: "POST",
     data:data,
     success: (data) => ({
       type: CREATORS_VERIFY_DOCS_S,
