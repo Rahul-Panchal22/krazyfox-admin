@@ -114,7 +114,7 @@ const Campaigns = () => {
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
 
-          navigate(`/campaign-application/${thisRow.id}`);
+          navigate(`/add-creator/${thisRow.id}`);
         };
 
         return (

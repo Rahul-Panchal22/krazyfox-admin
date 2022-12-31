@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const SubmitWork = () => {
 
   const [fileupload, setFileupload] = useState({});
+  const [imageUrl, setImageUrl] = useState();
 
   return (
     <>
@@ -18,10 +19,10 @@ const SubmitWork = () => {
       </Stack>
       <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link>
       <Stack direction="row" spacing={1}>
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} />
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} />
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} />
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
       </Stack>
     </>
   );

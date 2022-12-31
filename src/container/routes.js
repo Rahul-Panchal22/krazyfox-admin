@@ -46,13 +46,13 @@ const Routing = () => {
           {/* <Route path="/view-campaign" element={<ViewCampaign />} /> */}
           <Route path="/edit-campaign/:campaignId" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
           <Route path="/campaign-application/:campaignId" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
-          <Route path="/application-status" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
+          <Route path="/application-status/:creatorId" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
           <Route path="/brand" element={<PrivateRoute><Brand /></PrivateRoute>} />
           <Route path="/view-brand/:brandId" element={<PrivateRoute><ViewBrand /></PrivateRoute>} />
           <Route path="/add-brand" element={<PrivateRoute><EditBrand /></PrivateRoute>} />
           <Route path="/edit-brand/:brandId" element={<PrivateRoute><EditBrand /></PrivateRoute>} />
           <Route path="/creator" element={<PrivateRoute><Creator /></PrivateRoute>} />
-          <Route path="/add-creator" element={<PrivateRoute><AddCreator /></PrivateRoute>} />
+          <Route path="/add-creator/:creatorId" element={<PrivateRoute><AddCreator /></PrivateRoute>} />
           <Route path="/view-creator/:creatorId" element={<PrivateRoute><ViewCreator /></PrivateRoute>} />
           <Route path="/kyc" element={<PrivateRoute><Kyc /></PrivateRoute>} />
           <Route path="/view-kyc/:kycId" element={<PrivateRoute><ViewKyc /></PrivateRoute>} />

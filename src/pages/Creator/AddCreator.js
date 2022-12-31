@@ -1,77 +1,156 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
   Box,
   Button,
+  Chip,
   FormControl,
   Grid,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
-
-const columns = [
-  {
-    field: "id",
-    headerName: "Sr No.",
-    minWidth: 60,
-  },
-  {
-    field: "creator_name",
-    headerName: "Creator Name",
-    minWidth: 220,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: "followers",
-    headerName: "Followers",
-    minWidth: 120,
-  },
-  {
-    field: "state",
-    headerName: "State",
-    minWidth: 180,
-  },
-  {
-    field: "contact",
-    headerName: "Contact",
-    minWidth: 180,
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    minWidth: 110,
-  },
-];
-
-const rows = [
-  { id: 1, creator_name: 'Johny Depp', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 2, creator_name: 'Cersei', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 3, creator_name: 'Jaime', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 4, creator_name: 'Arya', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 5, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 6, creator_name: 'Bhautik', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 7, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 8, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 9, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 10, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 11, creator_name: 'Rahul', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 12, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 13, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  { id: 14, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-];
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { CampaignApplicationListing } from "../../actions/campaign";
 
 const AddCreator = () => {
   
-  const [age, setAge] = React.useState('');
-  
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const [status, setStatus] = React.useState('');
+  const [campaignList, setCampaignList] = useState([]);
+  const [search, setSearched] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { creatorId } = useParams();
+
+  const onMutate = (e, value) => {
+    setSearched(value);
   };
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "Sr No.",
+      minWidth: 60,
+    },
+    {
+      field: "name",
+      headerName: "Creator Name",
+      minWidth: 220,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (params.value ? params.value : "-"),
+    },
+    {
+      field: "followers",
+      headerName: "Followers",
+      minWidth: 120,
+      renderCell: (params) => (params.value ? params.value : "-"),
+    },
+    {
+      field: "address",
+      headerName: "State",
+      minWidth: 180,
+      renderCell: (params) => (params.value ? params.value : "-"),
+    },
+    {
+      field: "contact",
+      headerName: "Contact",
+      minWidth: 180,
+      renderCell: (params) => (params.value ? params.value : "-"),
+    },
+    {
+      field: "categoriesArrayList",
+      headerName: "Category",
+      minWidth: 110,
+      renderCell: (params) => {
+        const value = params.value;
+        console.log('value: ', value);
+        return (
+          <Chip
+            label={`${value.length > 0 ? value[0].name : "Not Data"}`}
+            variant="outlined"
+          />
+        );
+      },
+    },
+    {
+      field: "application_status",
+      headerName: "Status",
+      minWidth: 110,
+      renderCell: (params) => {
+        const value = params.value;
+        return (
+          <>
+            {value ? value : "Not Data"}
+          </>
+        );
+      },
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 110,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation();
+
+          const api = params.api;
+          const thisRow = {};
+
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== "__check__" && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+
+          navigate(`/application-status/${thisRow.id}`);
+        };
+
+        return (
+          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+            <VisibilityIcon />
+          </IconButton>
+        );
+      },
+    },
+  ];
+  
+  const handleChangeStaus = (event) => {
+    setStatus(event.target.value);
+  };
+
+  const getAllCampaignListing = () => {
+    dispatch(CampaignApplicationListing(`?campaignId=${creatorId}`))
+      .then((res) => {
+        console.log('res: ', res.data);
+        setCampaignList(res.data);
+      })
+      .catch((err) => {
+      });
+  };
+
+  useEffect(() => {
+    getAllCampaignListing();
+  }, []);
+
+  useEffect(() => {
+    if (search !== null || search !== "" || search !== undefined) {
+      if (search === null) {
+        getAllCampaignListing();
+      } else {
+        setCampaignList(
+          campaignList.filter((column) => search.includes(column.name))
+        );
+      }
+    }
+  }, [search]);
 
   return (
     <>
@@ -89,31 +168,36 @@ const AddCreator = () => {
                 id="free-solo-demo"
                 freeSolo
                 size='small'
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => <TextField {...params} label="Search for campaign" />}
+                options={campaignList.map((option) => option.name)}
+                onChange={(e, value) => onMutate(e, value)}
+                renderInput={(params) => (
+                  <TextField {...params} label="Search for creators" />
+                )}
                 />
             </Stack>
           </Grid>
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
               <Select
-                value={age}
-                onChange={handleChange}
+                value={status}
+                onChange={handleChangeStaus}
                 displayEmpty
                 size='small'
+                placeholder="Status"
                 >
-                <MenuItem value="">
-                  <em>Category</em>
-                </MenuItem>
-                <MenuItem value={1}>Fashion</MenuItem>
-                <MenuItem value={2}>Beauty</MenuItem>
-                <MenuItem value={3}>Acting</MenuItem>
+                {/* <MenuItem value="">
+                  <em>Status</em>
+                </MenuItem> */}
+                <MenuItem value={1}>Applied</MenuItem>
+                <MenuItem value={2}>In-Process</MenuItem>
+                <MenuItem value={3}>Completed</MenuItem>
+                <MenuItem value={3}>Rejected</MenuItem>
               </Select>
             </FormControl>
           </Grid>
         </Grid>
       </div>
-      <Grid
+      {/* <Grid
         container
         direction="row"
         justifyContent="space-between"
@@ -148,14 +232,14 @@ const AddCreator = () => {
             />
           </Stack>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={campaignList}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          // checkboxSelection
         />
       </Box>
     </>
