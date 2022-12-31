@@ -9,7 +9,6 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import { SparkFill, SparkOutline, RightStatus, DeleteRed } from "../../svg";
 import UploadHere from "../../components/UploadFile";
@@ -57,16 +56,14 @@ const EditCampaign = () => {
 
   const [brandNameError, setBrandNameError] = useState(false);
   const [campaignNameError, setCampaignNameError] = useState(false);
-  const [campaignDescriptionError, setCampaignDescriptionError] =
-    useState(false);
-  const [campaignRequirementError, setCampaignRequirementError] =
-    useState(false);
+  const [campaignDescriptionError, setCampaignDescriptionError] = useState(false);
+  const [campaignRequirementError, setCampaignRequirementError] = useState(false);
   const [campaignStepsError, setCampaignStepsError] = useState(false);
   const [campaignPriceRangeError, setCampaignPriceRangeError] = useState(false);
   const [campaignGuideLinesError, setCampaignGuideLinesError] = useState(false);
-  const [campaignFollowersRangeError, setCampaignFollowersRangeError] =
-    useState(false);
+  const [campaignFollowersRangeError, setCampaignFollowersRangeError] = useState(false);
   const [imageError, setImageError] = useState(false);
+
   const fetchCampaignDetailThroughId = () => {
     dispatch(fetchCampaign(`?campaign_id=${params.campaignId}`))
       .then((res) => {
@@ -220,11 +217,11 @@ const EditCampaign = () => {
 
   return (
     <>
-      <Grid item xs={6} style={{ marginTop: "20px" }}>
+      {/* <Grid item xs={6} style={{ marginTop: "20px" }}>
         <h3 className="page-title">
           {params.campaignId ? "Edit Campaign" : "Add Campaign"}
         </h3>
-      </Grid>
+      </Grid> */}
       <Grid
         container
         direction="row-reverse"
@@ -239,16 +236,10 @@ const EditCampaign = () => {
           direction="row"
           justifyContent="end"
           alignItems="center"
-          xs={6}
+          xs={12}
           textAlign="right"
         >
-          <Typography
-            variant="button"
-            display="block"
-            style={{ margin: "0 10px 0 0" }}
-          >
-            Campaign Status
-          </Typography>
+          <InputLabel id="demo-simple-select-label" className="extra-label" required error={brandNameError} style={{ margin: '4px 10px 0 0' }}>Campaign Status</InputLabel>
           <ButtonGroup
             className="campaign-status"
             variant="contained"
@@ -271,13 +262,13 @@ const EditCampaign = () => {
               className={`${status == 3 ? "active" : ""}`}
               onClick={(e) => handleStatus(e, 3)}
             >
-              <RightStatus />
+              <RightStatus svgFill="#1B5E20" />
             </Button>
           </ButtonGroup>
-          {/* <Button variant="outlined" className="delete-outline mar-left-20">
+          <Button variant="outlined" className="delete-outline mar-left-20">
             <DeleteRed />
-            &nbsp;&nbsp;Delete Campaign
-          </Button> */}
+            &nbsp;&nbsp;Edit Campaign
+          </Button>
         </Grid>
       </Grid>
       <div className="border-paper">
@@ -298,7 +289,7 @@ const EditCampaign = () => {
             >
               Brand Name
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
+            <FormControl variant="filled">
               <Select
                 value={selectedBrandValue}
                 onChange={handleChange}
@@ -317,7 +308,7 @@ const EditCampaign = () => {
               </p>
             )}
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <InputLabel
               id="demo-simple-select-label"
               className="extra-label"
@@ -326,7 +317,7 @@ const EditCampaign = () => {
             >
               Price Range
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 120 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
                 label="Price Range"
@@ -343,7 +334,7 @@ const EditCampaign = () => {
               </p>
             )}
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <InputLabel
               id="demo-simple-select-label"
               className="extra-label"
@@ -352,7 +343,7 @@ const EditCampaign = () => {
             >
               Follower Range
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 120 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
                 label="Follower Range"

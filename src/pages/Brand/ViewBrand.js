@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Divider, Grid, InputLabel } from "@mui/material";
+import { Button, Chip, Divider, Grid } from "@mui/material";
 import { DeleteRed, WhitePen } from "../../svg";
 import { toAbsoluteUrl } from "../../utils";
 import { Stack } from "@mui/system";
-import "./Brand.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteBrand, fetchBrand } from "../../actions/brands";
 import { toast } from "react-toastify";
+import "./Brand.scss";
 
 const ViewBrand = () => {
   const [viewBrand, setViewBrand] = useState({});

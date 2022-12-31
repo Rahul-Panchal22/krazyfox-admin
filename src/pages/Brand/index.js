@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
@@ -7,12 +7,12 @@ import {
   Chip,
   Grid,
   IconButton,
+  InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { SparkFill, SparkOutline } from "../../svg";
+import { ActionArrow, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { useDispatch } from "react-redux";
 import { BrandsListing } from "../../actions/brands";
 import { toast } from "react-toastify";
@@ -25,11 +25,15 @@ const Brand = () => {
   const dispatch = useDispatch();
 
   const columns = [
-    { field: "id", headerName: "Sr No.", width: 80 },
+    {
+      field: "id",
+      headerName: "Sr No.",
+      flex: 0.5,
+    },
     {
       field: "brand_logo_url",
       headerName: "Brand Logo",
-      width: 150,
+      flex: 0.75,
       sortable: false,
       filterable: false,
       renderCell: (params) => <img src={params.value} alt="" />,
@@ -37,25 +41,25 @@ const Brand = () => {
     {
       field: "brand_name",
       headerName: "Brand Name",
-      width: 150,
+      flex: 1.5,
       renderCell: (params) => params.value ? params.value : '-'
     },
     {
       field: "poc_name",
       headerName: "POC Name",
-      width: 180,
+      flex: 1.5,
       renderCell: (params) => params.value ? params.value : '-'
     },
     {
       field: "poc_phone",
       headerName: "POC Contact",
-      width: 160,
+      flex: 1,
       renderCell: (params) => params.value ? params.value : '-'
     },
     {
       field: "categoriesArrayList",
       headerName: "Category",
-      width: 110,
+      flex: 1,
       renderCell: (params) => {
         const value = params.value
         return <Chip label={`${value.length > 0 ? value[0].name : 'Not Data'}`} variant="outlined" />
@@ -64,34 +68,32 @@ const Brand = () => {
     {
       field: "status",
       headerName: "Live/ Paused",
-      width: 110,
-      renderCell: (params) =>
-        params.value === 1 ? <SparkFill /> : <SparkOutline />,
+      flex: 0.8,
+      align: 'center',
+      renderCell: (params) => params.value === 1 ? <SparkFill /> : <SparkOutline />,
     },
     {
       field: "action",
-      headerName: "Action",
-      width: 110,
+      headerName: "",
+      align: 'right',
+      flex: 0.4,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-
           const api = params.api;
           const thisRow = {};
-
           api
             .getAllColumns()
             .filter((c) => c.field !== "__check__" && !!c)
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
           navigate(`/view-brand/${thisRow.id}`);
         };
 
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <VisibilityIcon />
+            <ActionArrow />
           </IconButton>
         );
       },
@@ -152,7 +154,18 @@ const Brand = () => {
                 options={brandList.map((option) => option.brand_name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for brand" />
+                  <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for brand"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
                 )}
               />
             </Stack>

@@ -105,7 +105,7 @@ const AddCampaign = () => {
           <ButtonGroup className='campaign-status' variant="contained" aria-label="outlined primary button group">
             <Button className='active'><SparkFill /></Button>
             <Button><SparkOutline /></Button>
-            <Button><RightStatus scgFill="#1B5E20" /></Button>
+            <Button><RightStatus svgFill="#1B5E20" /></Button>
           </ButtonGroup>
           <Button variant="outlined" className='delete-outline mar-left-20'><DeleteRed />&nbsp;&nbsp;Delete Campaign</Button>
         </Grid>

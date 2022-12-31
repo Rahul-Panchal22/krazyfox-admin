@@ -6,15 +6,12 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import LogoutIcon from "@mui/icons-material/Logout";
-import MailIcon from '@mui/icons-material/Mail';
 import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../utils';
 import { ListItem, Stack } from '@mui/material';
@@ -90,7 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MiniDrawer(props) {
 
-  const headerTitle = props.title
+  // const headerTitle = props.title
   const [open, setOpen] = React.useState(true);
   const [menuCollapse, setMenuCollapse] = React.useState(true);
   const [headerName, setHeaderName] = React.useState();
@@ -120,19 +117,19 @@ export default function MiniDrawer(props) {
     setMenuCollapse(!menuCollapse);
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
 
   return (
     <Box sx={{ display: 'flex' }} className='page-layout'>
-      <AppBar position="fixed" open={open} className='layout-header'> {/* drawer */}
+      <AppBar position="fixed" open={open} className={`layout-header ${open ? '' : 'sider-docked'}`}> {/* drawer */}
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -143,17 +140,23 @@ export default function MiniDrawer(props) {
             }}
           >
             {open ? <img src={toAbsoluteUrl("/images/logo_full.svg")} alt="" /> : <img src={toAbsoluteUrl("/images/logo_icon.svg")} alt="" />}
-          </IconButton>
+          </IconButton> */}
           <Stack direction="row" justifyContent="space-between" alignItems="center" className='w-100 pad-0-20' spacing={2}>
             <h6 className='page-title'>{`Welcome ${headerName}`}</h6>
             <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>Log Out</Button>
           </Stack>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} className='layout-sider'>
+      <Drawer variant="permanent" open={open} className={`layout-sider ${open ? '' : 'sider-docked'}`}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {open ? <img src={toAbsoluteUrl("/images/logo_full.svg")} alt="" /> : <img src={toAbsoluteUrl("/images/logo_icon.svg")} style={{ opacity: 0 }} alt="" />}
+          <IconButton
+            onClick={handleDrawerClose}
+            sx={{
+              marginRight: 5,
+              ...(open && { padding: 0 }),
+            }}
+          >
+            {open ? <img src={toAbsoluteUrl("/images/logo_full.svg")} alt="" /> : <img src={toAbsoluteUrl("/images/logo_icon.svg")} alt="" />}
           </IconButton>
         </DrawerHeader>
         <List
@@ -164,30 +167,32 @@ export default function MiniDrawer(props) {
           {Sidermenu.map((menubar) => (
             <>
               <Link to={menubar.menupath} key={menubar.id}>
-                <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItem disablePadding sx={{ display: 'block' }} selected>
                   <ListItemButton onClick={handlesetMenuClick}>
                     <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
-                      <MailIcon sx={{ fill: '#ffffff' }} />
+                      {menubar.menuicon}
                     </ListItemIcon>
                     <ListItemText primary={menubar.menulist} />
                     {menubar.submenu === true ? <>{menuCollapse ? <ExpandLess sx={{ fill: '#ffffff' }} /> : <ExpandMore sx={{ fill: '#ffffff' }} />}</> : ''}
                   </ListItemButton>
                 </ListItem>
               </Link>
-              {menubar.submenu === true ? <Collapse in={menuCollapse} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <Link to="/campaigns">
-                    <ListItem disablePadding sx={{ display: 'block' }}>
-                      <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 4, }}>
-                        <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
-                          <InboxIcon sx={{ fill: '#ffffff' }} />
-                        </ListItemIcon>
-                        <ListItemText primary="Sub menu" sx={{ opacity: open ? 1 : 0 }} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>                
-                </List>
-              </Collapse> : ''}
+              {/* {menubar.submenu === true ? menubar.submenu.map((subMenubar) => (
+                <Collapse in={menuCollapse} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <Link to="/campaigns">
+                      <ListItem disablePadding sx={{ display: 'block' }}>
+                        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 4, }}>
+                          <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
+                            {subMenubar.icon}
+                          </ListItemIcon>
+                          <ListItemText primary="Sub menu 1" sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Collapse>
+              ))} */}
             </>
           ))}
         </List>

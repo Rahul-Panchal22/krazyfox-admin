@@ -8,20 +8,23 @@ import {
   TextField,
   MenuItem,
   Select,
+  FilledInput,
+  FormControl,
+  InputAdornment,
 } from "@mui/material";
-import Stack from "@mui/material/Stack";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { KycStatus } from "../../svg";
+import Stack from '@mui/material/Stack';
+import { ActionArrow, KycStatus, SearchIcon } from "../../svg";
 import { KycFilterListing, KycListing } from "../../actions/kyc";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 const Kyc = () => {
   const dispatch = useDispatch();
   const [kycList, setKycList] = useState([]);
-  const [AllkycList, setAllKycList] = useState([]);
-  const [filter, setFilter] = useState();
+  const [/* AllkycList, */ setAllKycList] = useState([]);
+  const [filter, /* setFilter */] = useState();
   const [search, setSearched] = useState("");
   const navigate = useNavigate()
 
@@ -46,13 +49,13 @@ const Kyc = () => {
     {
       field: "id",
       headerName: "Sr No.",
-      minWidth: 60,
+      flex: 0.4,
       renderCell: (params) => (params.id ? params.id : "-"),
     },
     {
       field: "creator_name",
       headerName: "Creator Name",
-      minWidth: 220,
+      flex: 1.6,
       sortable: false,
       filterable: false,
       renderCell: (params) => (params?.row?.name ? params?.row?.name : "-"),
@@ -60,40 +63,31 @@ const Kyc = () => {
     {
       field: "followers",
       headerName: "Followers",
-      minWidth: 120,
-      renderCell: (params) =>
-        params?.row?.campaign_followers_range
-          ? params?.row?.campaign_followers_range
-          : "-",
+      flex: 0.7,
+      renderCell: (params) => params?.row?.campaign_followers_range ? params?.row?.campaign_followers_range : "-",
     },
     {
       field: "state",
       headerName: "State",
-      minWidth: 180,
-      renderCell: (params) =>
-        params?.row?.address ? params?.row?.address : "-",
+      flex: 1,
+      renderCell: (params) => params?.row?.address ? params?.row?.address : "-",
     },
     {
       field: "contact",
       headerName: "Contact",
-      minWidth: 180,
+      flex: 1,
       renderCell: (params) =>
         params?.row?.phone_number ? params?.row?.phone_number : "-",
     },
     {
       field: "category",
       headerName: "Category",
-      minWidth: 110,
-      renderCell: (params) => {
-        // params?.row?.categoriesArrayList?.map((item, i) => {
-        //   return item?.name
-        // })
-      },
+      flex: 1.3,
     },
     {
       field: "kyc_status",
       headerName: "KYC",
-      minWidth: 120,
+      flex: 0.7,
       renderCell: (params) => {
         if (params.value === null || params.value === "0") {
           return (
@@ -113,27 +107,23 @@ const Kyc = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 110,
+      flex: 0.6,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-
           const api = params.api;
           const thisRow = {};
-
           api
             .getAllColumns()
             .filter((c) => c.field !== "__check__" && !!c)
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
           navigate(`/view-kyc/${thisRow.id}`);
         };
-
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <VisibilityIcon />
+            <ActionArrow />
           </IconButton>
         );
       },
@@ -178,7 +168,7 @@ const Kyc = () => {
           alignItems="center"
           spacing={2}
         >
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <Stack spacing={2} sx={{ width: 630 }}>
               <Autocomplete
                 id="free-solo-demo"
@@ -187,25 +177,54 @@ const Kyc = () => {
                 onChange={onMutate}
                 options={kycList.map((option) => option.name)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for creators" />
+                  <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for creators"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
                 )}
               />
             </Stack>
-            <Stack>
+            {/* <Stack>
               <Select
                 value={filter}
                 onChange={handleChangeFilter}
                 displayEmpty
                 size="small"
                 required
+                input={<FilledInput label="Tag" />}
               >
-                <MenuItem value={5}></MenuItem>
+                <MenuItem value={5}>View all creators</MenuItem>
                 <MenuItem value={1}>KYC completed</MenuItem>
-                <MenuItem value={2}>KYC NOt completed</MenuItem>
+                <MenuItem value={2}>KYC Not completed</MenuItem>
                 <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>
                 <MenuItem value={4}>Bank Completed</MenuItem>
               </Select>
-            </Stack>
+            </Stack> */}
+          </Grid>
+          <Grid item xs={4}>
+            <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
+              <Select
+                value={filter}
+                onChange={handleChangeFilter}
+                displayEmpty
+                size='small'
+                required
+              >
+                <MenuItem value={5}>View all creators</MenuItem>
+                <MenuItem value={1}>KYC completed</MenuItem>
+                <MenuItem value={2}>KYC Not completed</MenuItem>
+                <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>
+                <MenuItem value={4}>Bank Completed</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </div>

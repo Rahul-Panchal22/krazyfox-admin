@@ -4,7 +4,7 @@ import { toAbsoluteUrl } from '../../utils';
 import './Upload.scss'
 
 
-const UploadHere = ({setFileupload, uploadText, uploadLabel, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn }) => {
+const UploadHere = ({setFileupload, uploadText, uploadLabel, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
   
   const handleChange = (e) => {
     setFileupload(e.target.files[0]);
@@ -17,9 +17,9 @@ const UploadHere = ({setFileupload, uploadText, uploadLabel, imageUrl,  setImage
 
   return (
     <>
-			{uploadLabel ?<InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''}
+			{uploadLabel ? <InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''}
       {imageUrl ? 
-        <div className='uplaoded-ui' style={{width: uplaodWidth, height: uplaodHeight }}>
+        <div className={`uplaoded-ui ${sideButton ? 'side-button' : ''}`} style={{width: uplaodWidth, height: uplaodHeight }}>
           {imageUrl ? <img src={imageUrl} alt="" /> : ''}
 					<Button variant="contained" component="label" className='upload-video'>
 						<span className='upload-plus-btn'>{uploadBtn}</span>

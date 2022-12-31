@@ -1,16 +1,11 @@
 import React from "react";
-import { Box, Grid, Stack, Tab } from "@mui/material";
+import { Box, Stack, Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import OverviewCard from "./OverviewCard";
 import { Comments, Estimate, Heart, Rate } from "../../svg";
 import { Link } from "react-router-dom";
-import { toAbsoluteUrl } from "../../utils";
-import AgeRange from "./AgeRange";
-import TopStates from "./TopStates";
-import TopCities from "./TopCities";
-import GenderDiversity from "./GenderDiversity";
 
 
 const YouTubeOverview = () => {

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const SubmitWork = () => {
 
-  const [fileupload, setFileupload] = useState({});
+  const [/* fileupload, */ setFileupload] = useState({});
 
   return (
     <>

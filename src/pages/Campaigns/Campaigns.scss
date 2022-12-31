@@ -7,7 +7,9 @@
   &.MuiButtonGroup-root { background: #F2F2F2; border-radius: 12px; padding: 4px;
     + .MuiButtonBase-root { margin-left: 20px; }
   }
-  .MuiButtonBase-root { background: transparent; width: 48px; height: 28px; text-align: center; border: 0 !important; border-radius: 20px !important;
-    &.active { background: $white; }
+  .MuiButtonBase-root { background: transparent !important; width: 48px; height: 28px; text-align: center; border: 0 !important; border-radius: 20px !important; padding: 0 !important; min-width: unset;
+    + .MuiButtonBase-root { margin-left: 1px; }
+    svg { margin: 0; }
+    &.active { background: $white !important; }
   }
 }

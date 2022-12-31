@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Divider, Grid, InputLabel } from "@mui/material";
+import { Button, Divider, Grid, InputLabel } from "@mui/material";
 import { DeleteRed, WhitePen } from "../../svg";
 import { toAbsoluteUrl } from "../../utils";
-import { Stack } from "@mui/system";
-import "./Campaigns.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { deleteCampaign, fetchCampaign } from "../../actions/campaign";
+import "./Campaigns.scss";
+
 
 const ViewCampaign = () => {
+
   const [viewCampaign, setViewCampaign] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const ViewCampaign = () => {
 
   const handleRedirect = () => {
     navigate(`/edit-campaign/${params.campaignId}`);
+    console.log(`/edit-campaign/${params.campaignId}`);
   };
 
   return (
@@ -66,18 +68,8 @@ const ViewCampaign = () => {
         <Grid item xs={6}>
           <h3 className="page-title">
             <div className="brand-logo">
-              <img
-                src={
-                  viewCampaign.brand_logo_url
-                    ? viewCampaign.brand_logo_url
-                    : toAbsoluteUrl(
-                        "/images/brand_logo/nykaa-removebg-preview.png"
-                      )
-                }
-                alt={viewCampaign.brand_name ? viewCampaign.brand_name : ""}
-              />
+              <img src={ viewCampaign.brand_logo_url ? viewCampaign.brand_logo_url : toAbsoluteUrl("/images/brand_logo/nykaa-removebg-preview.png")} alt={viewCampaign.brand_name ? viewCampaign.brand_name : ""} />
             </div>
-
             {viewCampaign.campaign_title ? viewCampaign.campaign_title : "--"}
           </h3>
         </Grid>
@@ -168,9 +160,7 @@ const ViewCampaign = () => {
             <span className="extra-label w-100">Guidelines</span>
             <p className="description">
               campaign_guidelines
-              {viewCampaign.campaign_guidelines
-                ? viewCampaign.campaign_guidelines
-                : "--"}
+              {viewCampaign.campaign_guidelines ? viewCampaign.campaign_guidelines : "--"}
             </p>
           </Grid>
           <Grid item xs={6}>
