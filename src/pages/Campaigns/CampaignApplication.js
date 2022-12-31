@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
@@ -6,28 +6,33 @@ import {
   Button,
   Grid,
   IconButton,
+  InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
-import { SparkFill } from "../../svg";
-import { useNavigate, useParams } from "react-router-dom";
-// import { CampaignListing } from "../../actions/campaign";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { ActionArrow, SearchIcon, SparkFill } from "../../svg";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { toAbsoluteUrl } from "../../utils";
 import "./Campaigns.scss";
+// import { CampaignListing } from "../../actions/campaign";
+// import { toAbsoluteUrl } from "../../utils";
 // import { CampaignApplicationListing } from "../../actions/campaign";
+
 
 const CampaignApplication = () => {
   
-  const [campaignList, setCampaignList] = useState([]);
+  const [campaignList, /* setCampaignList */] = useState([]);
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { campaignId } = useParams();
 
   const columns = [
-    { field: "id", headerName: "Sr No.", width: 80 },
+    {
+      field: "id",
+      headerName: "Sr No.",
+      width: 80
+    },
     {
       field: "brand_logo_url",
       headerName: "Brand Logo",
@@ -60,34 +65,30 @@ const CampaignApplication = () => {
       field: "status",
       headerName: "Live/ Paused",
       width: 110,
-      renderCell: () => {
-        <SparkFill />;
-      },
+      align: 'center',
+      renderCell: () => {<SparkFill />},
     },
     {
       field: "action",
-      headerName: "Action",
-      width: 110,
+      headerName: "",
+      width: 40,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-
           const api = params.api;
           const thisRow = {};
-
           api
             .getAllColumns()
             .filter((c) => c.field !== "__check__" && !!c)
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
           navigate(`/view-campaign/${thisRow.id}`);
         };
 
         return (
           <IconButton aria-label="fingerprint" onClick={onClick}>
-            <VisibilityIcon />
+            <ActionArrow />
           </IconButton>
         );
       },
@@ -151,7 +152,18 @@ const CampaignApplication = () => {
                 options={campaignList.map((option) => option.campaign_title)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for campaign" />
+                  <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for campaign"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
                 )}
               />
             </Stack>

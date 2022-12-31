@@ -6,30 +6,33 @@ import {
   Button,
   Grid,
   IconButton,
+  InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
-import { RightStatus, SparkFill, SparkOutline } from "../../svg";
+import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { useNavigate } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useDispatch } from "react-redux";
-// import { toAbsoluteUrl } from "../../utils";
-import "./Campaigns.scss";
 import { toast } from "react-toastify";
+import "./Campaigns.scss";
 
-const Campaigns = () => {
+const Campaigns = (params) => {
   const [campaignList, setCampaignList] = useState([]);
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const columns = [
-    { field: "id", headerName: "Sr No.", width: 80 },
+    {
+      field: "id",
+      headerName: "Sr No.",
+      flex: 0.5,
+    },
     {
       field: "brand_logo_url",
       headerName: "Brand Logo",
-      width: 150,
+      flex: 1.5,
       renderCell: (params) => <img src={params.value} alt="" />,
       sortable: false,
       filterable: false,
@@ -37,68 +40,61 @@ const Campaigns = () => {
     {
       field: "brand_name",
       headerName: "Brand Name",
-      width: 150,
+      flex: 1.5,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
-      width: 180,
+      flex: 1.5,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
-      width: 160,
+      flex: 0.9,
     },
     {
       field: "campaign_description",
       headerName: "Campaign Description",
-      width: 110,
+      flex: 1.8,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
-      width: 110,
+      flex: 1,
+      align: 'center',
       renderCell: (params) =>
-        params.value === 1 ? (
-          <SparkFill />
-        ) : params.value === 3 ? (
-          <RightStatus />
-        ) : (
-          <SparkOutline />
-        ),
+        params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
     },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 110,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation();
+    // {
+    //   field: "action",
+    //   headerName: "",
+    //   flex: 0.4,
+    //   renderCell: (params) => {
+    //     const onClick = (e) => {
+    //       e.stopPropagation();
+    //       const api = params.api;
+    //       const thisRow = {};
+    //       api
+    //         .getAllColumns()
+    //         .filter((c) => c.field !== "__check__" && !!c)
+    //         .forEach(
+    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+    //         );
+    //       navigate(`/view-campaign/${thisRow.id}`);
+    //     };
 
-          const api = params.api;
-          const thisRow = {};
-
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== "__check__" && !!c)
-            .forEach(
-              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-            );
-
-          navigate(`/view-campaign/${thisRow.id}`);
-        };
-
-        return (
-          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <VisibilityIcon />
-          </IconButton>
-        );
-      },
-    },
+    //     return (
+    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+    //         <ActionArrow />
+    //       </IconButton>
+    //     );
+    //   },
+    // },
     {
       field: "viewApplication",
-      headerName: "View Application",
-      width: 110,
+      // headerName: "View Application",
+      headerName: "",
+      flex: 0.4,
       renderCell: (params, row) => {
         const onClick = (e) => {
           console.log('params, row: ', params, row);
@@ -119,7 +115,7 @@ const Campaigns = () => {
 
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <VisibilityIcon />
+            <ActionArrow />
           </IconButton>
         );
       },
@@ -161,6 +157,8 @@ const Campaigns = () => {
     }
   }, [search]);
 
+  // console.log(`/edit-campaign/${params.campaignId}`);
+
   return (
     <>
       <div className="search-row">
@@ -180,7 +178,18 @@ const Campaigns = () => {
                 options={campaignList.map((option) => option.campaign_title)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for campaign" />
+                  <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for campaign"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
                 )}
               />
             </Stack>

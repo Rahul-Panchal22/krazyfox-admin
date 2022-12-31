@@ -8,10 +8,10 @@ const Loading = ({ isSuspense, children }) => {
     return (
         <>
             {(isSuspense || isLoading) && <div className="spinner-wrap" >
-                <div className="spinner">
+                {/* <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
-                </div>
+                </div> */}
             </div>}
 
             {children}

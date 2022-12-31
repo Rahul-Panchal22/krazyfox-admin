@@ -42,10 +42,10 @@ const brands = (state = initialState, action) => {
     case DELETE_BRAND_F:
       return { ...state };
     case CATEGORY_S: {
-      return {... state, viewCategories: action.payload.data}
+      return {...state, viewCategories: action.payload.data}
     }
     case CATEGORY_F: {
-      return {... state, viewCategories: undefined}
+      return {...state, viewCategories: undefined}
     }
     default:
       return state;

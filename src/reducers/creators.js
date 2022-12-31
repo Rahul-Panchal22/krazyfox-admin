@@ -14,7 +14,6 @@ import {
   };
   
   const creators = (state = initialState, action) => {
-    console.log("action type ----->",action.type)
     switch (action.type) {
       case CREATORS_S:
         return { ...state, creators: action.payload.data };

@@ -5,14 +5,15 @@ import {
   Box,
   Button,
   Grid,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
-import { SparkFill } from "../../svg";
+import { SearchIcon, SparkFill } from "../../svg";
 
 const PaymentsStatus = () => {
 
-  const [paymentList, setPaymentList] = useState([]);  
+  const [paymentList, /* setPaymentList */] = useState([]);  
 
   const columns = [
     { field: "id", headerName: "Sr No.", width: 80 },
@@ -48,6 +49,7 @@ const PaymentsStatus = () => {
       field: "status",
       headerName: "Live/ Paused",
       width: 110,
+      align: 'center',
       renderCell: () => {
         <SparkFill />;
       },
@@ -71,7 +73,19 @@ const PaymentsStatus = () => {
                 freeSolo
                 size='small'
                 options={top100Films.map((option) => option.title)}
-                renderInput={(params) => <TextField {...params} label="Search for campaign" />}
+                renderInput={(params) => <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for campaign"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                }
               />
             </Stack>
           </Grid>

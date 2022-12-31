@@ -4,10 +4,11 @@ import {
   Autocomplete,
   Box,
   Grid,
+  InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
-import { SparkFill } from "../../svg";
+import { SearchIcon, SparkFill } from "../../svg";
 
 
 const Payments = () => {
@@ -19,12 +20,12 @@ const Payments = () => {
     {
       field: "id",
       headerName: "Sr No.",
-      width: 80
+      flex: 0.5,
     },
     {
       field: "brand_logo_url",
       headerName: "Brand Logo",
-      width: 150,
+      flex: 1.5,
       renderCell: (params) => <img src={params.value} alt="" />,
       sortable: false,
       filterable: false,
@@ -32,27 +33,28 @@ const Payments = () => {
     {
       field: "brand_name",
       headerName: "Brand Name",
-      width: 150,
+      flex: 1.5,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
-      width: 180,
+      flex: 1.8,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
-      width: 160,
+      flex: 1.6,
     },
     {
       field: "campaign_description",
       headerName: "Category",
-      width: 110,
+      flex: 1.1,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
-      width: 110,
+      flex: 1,
+      align: 'center',
       renderCell: () => {
         <SparkFill />;
       },
@@ -113,7 +115,18 @@ const Payments = () => {
                 options={campaignList.map((option) => option.campaign_title)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for campaign" />
+                  <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for campaign"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
                 )}
               />
             </Stack>

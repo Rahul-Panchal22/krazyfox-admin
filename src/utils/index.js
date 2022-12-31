@@ -1,5 +1,3 @@
-import { doLogout } from "../actions/auth";
-
 export const toAbsoluteUrl = pathname => (process.env.PUBLIC_URL + pathname)
 
 export const setupAxios = (axios, store) => {

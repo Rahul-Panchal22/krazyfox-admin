@@ -1,9 +1,11 @@
+import { ApplicationMenu, BrandMenu, BucketMenu, CampaignMenu, CreatorMenu, DashboardMenu, KycMenu, MasterMenu, PaymentsMenu } from "../svg";
+
 export const Sidermenu = [
   {
     id: 1,
     menuId: 1,
     menulist: 'Dashboard',
-    menuicon: 'MailIcon',
+    menuicon: <DashboardMenu />,
     menupath: '/dashboard',
     submenu: false,
   },
@@ -11,21 +13,18 @@ export const Sidermenu = [
     id: 2,
     menuId: 2,
     menulist: 'Campaigns',
-    menuicon: 'MailIcon',
+    menuicon: <CampaignMenu />,
     menupath: '/campaigns',
     submenu: false,
-    submenulist: [
-      { menuId: 3, name: 'Applications 1', icon: 'InboxIcon', submenupath: '', },
-      { menuId: 4, name: 'Applications 2', icon: 'InboxIcon', submenupath: '', },
-      { menuId: 5, name: 'Applications 3', icon: 'InboxIcon', submenupath: '', },
-      { menuId: 6, name: 'Applications 4', icon: 'InboxIcon', submenupath: '', },
-    ]
+    // submenulist: [
+    //   { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
+    // ]
   },
   {
     id: 3,
     menuId: 7,
     menulist: 'Brands',
-    menuicon: 'MailIcon',
+    menuicon: <BrandMenu />,
     menupath: '/brand',
     submenu: false,
   },
@@ -33,30 +32,28 @@ export const Sidermenu = [
     id: 4,
     menuId: 8,
     menulist: 'Creators',
-    menuicon: 'MailIcon',
+    menuicon: <CreatorMenu />,
     menupath: '/creator',
     submenu: false,
   },
   {
-    id: 4,
-    menuId: 8,
-    menulist: 'KYC',
-    menuicon: 'MailIcon',
+    id: 5,
+    menuId: 9,
+    menulist: 'KYCs',
+    menuicon: <KycMenu svgFill="#ffffff" />,
     menupath: '/kyc',
-    submenu: false,
+    submenu: false,    
   },
   // {
   //   id: 6,
   //   menuId: 10,
   //   menulist: 'Payments',
-  //   menuicon: 'MailIcon',
-  //   menupath: '',
+  //   menuicon: <PaymentsMenu />,
+  //   menupath: '/payments',
   //   submenu: true,
   //   submenulist: [
-  //     { menuId: 3, name: 'sub Dashboard 1', icon: 'InboxIcon', submenupath: '', },
-  //     { menuId: 4, name: 'sub Dashboard 2', icon: 'InboxIcon', submenupath: '', },
-  //     { menuId: 5, name: 'sub Dashboard 3', icon: 'InboxIcon', submenupath: '', },
-  //     { menuId: 6, name: 'sub Dashboard 4', icon: 'InboxIcon', submenupath: '', },
+  //     { menuId: 3, name: 'Master', icon: <MasterMenu />, submenupath: '', },
+  //     { menuId: 4, name: 'Bucket', icon: <BucketMenu />, submenupath: '', },
   //   ]
   // },
 ]

@@ -6,11 +6,11 @@ import {
   Chip,
   Grid,
   IconButton,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { KycStatus } from "../../svg";
+import { ActionArrow, KycStatus, SearchIcon } from "../../svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -29,7 +29,6 @@ const Creator = () => {
   const getAllCreatorsListing = () => {
     dispatch(CreatorsListing())
       .then((res) => {
-        console.log("response -----> ", res.data);
         if (res.code === 200) {
           toast.success("Creators Listing fetch successfully");
           setCreatorsList(res.data);
@@ -48,12 +47,12 @@ const Creator = () => {
     {
       field: "id",
       headerName: "Sr No.",
-      minWidth: 60,
+      flex: 0.5,
     },
     {
       field: "name",
       headerName: "Creator Name",
-      minWidth: 220,
+      flex: 1.5,
       sortable: false,
       filterable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
@@ -61,25 +60,25 @@ const Creator = () => {
     {
       field: "campaign_followers_range",
       headerName: "Followers",
-      minWidth: 120,
+      flex: 1,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "address",
       headerName: "State",
-      minWidth: 180,
+      flex: 1.2,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "phone_number",
       headerName: "Contact",
-      minWidth: 180,
+      flex: 1,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "categoriesArrayList",
       headerName: "Category",
-      minWidth: 110,
+      flex: 1,
       renderCell: (params) => {
         const value = params.value;
         return (
@@ -93,7 +92,7 @@ const Creator = () => {
     {
       field: "kyc_status",
       headerName: "KYC",
-      minWidth: 120,
+      flex: 0.5,
       renderCell: (params) => {
         if (params.value === null || params.value === "0") {
           return (
@@ -113,28 +112,24 @@ const Creator = () => {
     },
     {
       field: "action",
-      headerName: "Action",
-      width: 110,
+      headerName: "",
+      flex: 0.4,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-
           const api = params.api;
           const thisRow = {};
-
           api
             .getAllColumns()
             .filter((c) => c.field !== "__check__" && !!c)
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
           navigate(`/view-creator/${thisRow.id}`);
         };
-
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <VisibilityIcon />
+            <ActionArrow />
           </IconButton>
         );
       },
@@ -153,7 +148,6 @@ const Creator = () => {
     }
   }, [search]);
 
-  // console.log(campaignList);
   return (
     <>
       <div className="search-row">
@@ -173,7 +167,18 @@ const Creator = () => {
                 options={creatorsList.map((option) => option.name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for creators" />
+                  <TextField
+                    {...params}
+                    label=""
+                    placeholder="Search for creators"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
                 )}
               />
             </Stack>
@@ -186,7 +191,6 @@ const Creator = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
-          // checkboxSelection
         />
       </Box>
     </>

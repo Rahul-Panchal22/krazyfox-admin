@@ -3,24 +3,23 @@ import {
   Button,
   ButtonGroup,
   Divider,
+  FilledInput,
   FormControl,
   Grid,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { SparkFill, SparkOutline, RightStatus, DeleteRed } from "../../svg";
+import { EditPen, SparkFill, SparkOutline } from "../../svg";
 import UploadHere from "../../components/UploadFile";
-import "./Brand.scss";
 import { useDispatch } from "react-redux";
 import { AddBrand, EditBrandDetails, fetchBrand } from "../../actions/brands";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import MiniDrawer from "../Layout";
 import { CategoriesListing } from "../../actions/campaign";
+import "./Brand.scss";
 
 const defaultFormField = {
   brand_name: "",
@@ -55,7 +54,6 @@ const EditBrand = () => {
   const {
     brand_name,
     brand_description,
-    categories,
     poc_email,
     poc_name,
     poc_number,
@@ -168,14 +166,14 @@ const EditBrand = () => {
     formData.append("brand_name", brand_name);
     formData.append("brand_description", brand_description);
     formData.append("poc_phone", parseInt(poc_number));
-    
+
     formData.append("poc_email", poc_email);
     formData.append("poc_name", poc_name);
     formData.append("website_url", website);
     formData.append("categories", JSON.stringify(multiSelect));
     formData.append("status", status);
     fileupload && formData.append("brand_logo_url", fileupload);
-    
+
     if (params.brandId) {
       formData.append("brand_id", params.brandId);
       dispatch(EditBrandDetails(formData))
@@ -277,7 +275,7 @@ const EditBrand = () => {
         <Grid
           container
           direction="row"
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
           spacing={2}
           className="mar-bottom-40"
@@ -287,12 +285,13 @@ const EditBrand = () => {
             <UploadHere
               uploadLabel="Brand Logo"
               uploadText=""
-              uploadBtn="+"
+              uploadBtn={<EditPen />}
               uplaodWidth={164}
               uplaodHeight={48}
               setFileupload={setFileupload}
               setImageUrl={setImageUrl}
               imageUrl={imageUrl}
+              sideButton={true}
             />
             {imageError && (
                 <p style={{ color: "red", marginTop: "5px" }}>
@@ -309,10 +308,10 @@ const EditBrand = () => {
             >
               Brand Name
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 240 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="Brand Name"
+                label=""
                 variant="filled"
                 size="small"
                 name="brand_name"
@@ -328,7 +327,6 @@ const EditBrand = () => {
               )}
             </FormControl>
           </Grid>
-
           <Grid item xs={4}>
             <InputLabel
               id="demo-simple-select-label"
@@ -338,10 +336,10 @@ const EditBrand = () => {
             >
               Brand Description
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 240 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="Brand Description"
+                label=""
                 variant="filled"
                 size="small"
                 type="textarea"
@@ -365,10 +363,10 @@ const EditBrand = () => {
             >
               Website
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 240 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="Website"
+                label=""
                 variant="filled"
                 size="small"
                 type="text"
@@ -399,7 +397,7 @@ const EditBrand = () => {
                 displayEmpty
                 value={multiSelect}
                 onChange={handleSelect}
-                input={<OutlinedInput label="Tag" />}
+                input={<FilledInput label="Tag" />}
                 // renderValue={(value) =>
                 //   value.map((obj) => categoriesList[obj - 1].name).join(", ")
                 // }
@@ -435,10 +433,10 @@ const EditBrand = () => {
             >
               POC Name
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 240 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="POC Name"
+                // label=""
                 variant="filled"
                 size="small"
                 type="text"
@@ -462,10 +460,10 @@ const EditBrand = () => {
             >
               POC Email
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 240 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="POC Email"
+                label=""
                 variant="filled"
                 size="small"
                 type="email"
@@ -489,10 +487,10 @@ const EditBrand = () => {
             >
               POC Contact Number
             </InputLabel>
-            <FormControl variant="filled" sx={{ m: 1, maxWidth: 240 }}>
+            <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="POC Contact Number"
+                label=""
                 variant="filled"
                 size="small"
                 type="text"

@@ -8,6 +8,7 @@ import {
   FormControl,
   Grid,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -18,6 +19,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { CampaignApplicationListing } from "../../actions/campaign";
+import { SearchIcon } from "../../svg";
 
 const AddCreator = () => {
   
@@ -171,7 +173,15 @@ const AddCreator = () => {
                 options={campaignList.map((option) => option.name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search for creators" />
+                  <TextField {...params} label="Search for creators" 
+                  placeholder="Search for campaign"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    )
+                  }}/>
                 )}
                 />
             </Stack>
