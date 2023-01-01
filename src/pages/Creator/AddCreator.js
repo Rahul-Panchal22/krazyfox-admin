@@ -20,6 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { CampaignApplicationListing } from "../../actions/campaign";
 import { SearchIcon } from "../../svg";
+import { toast } from "react-toastify";
 
 const AddCreator = () => {
   
@@ -36,7 +37,7 @@ const AddCreator = () => {
 
   const columns = [
     {
-      field: "id",
+      field: "creator_id",
       headerName: "Sr No.",
       minWidth: 60,
     },
@@ -89,7 +90,7 @@ const AddCreator = () => {
         const value = params.value;
         return (
           <>
-            {value ? value : "Not Data"}
+            {value === 0 ? 'Applied' : value === 1 ? 'Approved' : value === 2 ? 'In-Process' : value === 3 ? 'Completed' : value === 4 ? 'Rejected' : '-'}
           </>
         );
       },
@@ -112,7 +113,7 @@ const AddCreator = () => {
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
 
-          navigate(`/application-status/${thisRow.id}`);
+          navigate(`/application-status/${thisRow.creator_id}`);
         };
 
         return (
@@ -125,13 +126,20 @@ const AddCreator = () => {
   ];
   
   const handleChangeStaus = (event) => {
-    setStatus(event.target.value);
+        dispatch(CampaignApplicationListing(`?applicationType=${event.target.value}&campaignId=${creatorId}`))
+          .then((res) => {
+            console.log('res------>: ', res);
+            setCampaignList(res.data);
+          })
+          .catch((err) => {
+            toast.error(err);
+          });
+      // }
   };
 
   const getAllCampaignListing = () => {
     dispatch(CampaignApplicationListing(`?campaignId=${creatorId}`))
       .then((res) => {
-        console.log('res: ', res.data);
         setCampaignList(res.data);
       })
       .catch((err) => {
@@ -198,10 +206,11 @@ const AddCreator = () => {
                 {/* <MenuItem value="">
                   <em>Status</em>
                 </MenuItem> */}
-                <MenuItem value={1}>Applied</MenuItem>
+                <MenuItem value={0}>Applied</MenuItem>
+                <MenuItem value={1}>Approved</MenuItem>
                 <MenuItem value={2}>In-Process</MenuItem>
                 <MenuItem value={3}>Completed</MenuItem>
-                <MenuItem value={3}>Rejected</MenuItem>
+                <MenuItem value={4}>Rejected</MenuItem>
               </Select>
             </FormControl>
           </Grid>

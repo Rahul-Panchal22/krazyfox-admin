@@ -4,6 +4,7 @@ import {
   API_CAMPAIGN_DELETE,
   API_CAMPAIGN_EDIT,
   API_CAMPAIGN_LIST,
+  API_CAMPAIGN_STEPPER,
   API_CAMPAIGN_VIEW,
   API_CATEGORIES_LISTING,
 } from "../constants/api";
@@ -13,6 +14,8 @@ import {
   API,
   CAMPAIGN_F,
   CAMPAIGN_S,
+  CAMPAIGN_STEPPER_APPLICATION_F,
+  CAMPAIGN_STEPPER_APPLICATION_S,
   CATEGORY_F,
   CATEGORY_S,
   DELETE_CAMPAIGN_F,
@@ -134,6 +137,23 @@ export const CampaignApplicationListing = (data) => ({
     }),
     error: (data) => ({
       type: VIEW_CAMPAIGN_APPLICATION_F,
+      payload: data,
+    }),
+  },
+});
+
+export const CampaignApplicationStepper = (data) => ({
+  type: API,
+  payload: {
+    url: API_CAMPAIGN_STEPPER,
+    method: "PATCH",
+    data: data,
+    success: (data) => ({
+      type: CAMPAIGN_STEPPER_APPLICATION_S,
+      payload: data,
+    }),
+    error: (data) => ({
+      type: CAMPAIGN_STEPPER_APPLICATION_F,
       payload: data,
     }),
   },

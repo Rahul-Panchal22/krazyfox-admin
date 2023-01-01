@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { fetchCreator } from "../../actions/creators";
 import { useDispatch } from "react-redux";
+import WorkingOnTask from "./WorkingOnTask";
 
 
 const steps = [
@@ -61,6 +62,45 @@ const ApplicationStatus = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [creatorDetail, setCreatorDetail] = React.useState();
 
+  const steps = [
+    {
+      label: 'Approve or Reject Harley’s Application',
+      description: <UserStatus id={params.creatorId}/>,
+    },
+    {
+      label: 'Price Finalization',
+      description: <PriceFinalization id={params.creatorId}/>,
+    },
+    {
+      label: 'Working on task',
+      description: <WorkingOnTask id={params.creatorId}/>,
+    },
+    {
+      label: 'Work Submission',
+      description: <SubmitWork id={params.creatorId}/>,
+    },
+    {
+      label: 'Approve or Reject Harley’s Work',
+      description: <ApproveWork id={params.creatorId}/>,
+    },
+    {
+      label: 'Completed',
+      description: <TaskCompleted id={params.creatorId}/>,
+    },
+    // {
+    //   label: 'You submitted Harley’s work.',
+    //   description: <SubmitWork />,
+    // },
+    // {
+    //   label: 'Approve or Reject Harley’s Work',
+    //   description: <ApproveWork />,
+    // },
+    // {
+    //   label: 'Is task completed?',
+    //   description: <TaskCompleted />,
+    // },
+  ];
+  
   const fetchCreatorDetailThroughId = () => {
     dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
       .then((res) => {
@@ -81,16 +121,13 @@ const ApplicationStatus = () => {
 
   }, []);
 
+  
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   return (
@@ -189,9 +226,6 @@ const ApplicationStatus = () => {
           {activeStep === steps.length && (
             <Paper square elevation={0} sx={{ p: 3 }}>
               <Typography>All steps completed - you&apos;re finished</Typography>
-              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                Reset
-              </Button>
             </Paper>
           )}
         </Box>
