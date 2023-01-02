@@ -69,3 +69,21 @@ export const VIEW_KYC_F = "View KYC list failed"
 
 export const DELETE_KYC_S = "KYC deleted successfully"
 export const DELETE_KYC_F = "KYC can't be deleted"
+
+export const PAYMENTS_S = "Payment successfully"
+export const PAYMENTS_F = "Payment deleted"
+
+export const PAYMENTS_UPDATE_S = "Payment update successfully"
+export const PAYMENTS_UPDATE_F = "Payment can't be update"
+
+export const PAYMENTS_CREATOR_PAYOUT_S = "Payment payout successfully"
+export const PAYMENTS_CREATOR_PAYOUT_F = "Payment can't be payout"
+
+export const PAYMENTS_CREATE_BUCKET_S = "Create payment bucket successfully"
+export const PAYMENTS_CREATE_BUCKET_F = "Create payment bucket Failed"
+
+export const PAYMENTS_FETCH_TRANSACTION_S = "payment fetch transaction successfully"
+export const PAYMENTS_FETCH_TRANSACTION_F = "payment fetch transaction Failed"
+
+export const PAYMENTS_FETCH_TRANSACTION_DETAILS_S = "payment fetch transaction details successfully"
+export const PAYMENTS_FETCH_TRANSACTION_DETAILS_F = "payment fetch transaction details Failed"

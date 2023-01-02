@@ -57,7 +57,7 @@ const Routing = () => {
           <Route path="/kyc" element={<PrivateRoute><Kyc /></PrivateRoute>} />
           <Route path="/view-kyc/:kycId" element={<PrivateRoute><ViewKyc /></PrivateRoute>} />
           <Route path="/payments" element={<PrivateRoute><Payments /></PrivateRoute>} />
-          <Route path="/payments-approved" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
+          <Route path="/payments-approved/:payment" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
           <Route path="/payments-rejection-reason" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />}></Route>

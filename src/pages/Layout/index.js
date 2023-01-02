@@ -96,7 +96,7 @@ export default function MiniDrawer(props) {
   const params = useParams();
 
   React.useEffect(() => {
-    if(params.campaignId || params.creatorId){
+    if(params.campaignId || params.creatorId || params?.payment){
       let pathname = location.pathname.split("/").filter((item) => item);
       const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
       const real = capatilize(pathname[0])
