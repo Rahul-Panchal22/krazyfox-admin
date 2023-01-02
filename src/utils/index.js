@@ -13,8 +13,8 @@ export const setupAxios = (axios, store) => {
         if (err.response) {
             if (err.response.code === 401) {
                 // store.dispatch(doLogout())
-                window.location.href ='/signin'
                 localStorage.clear()
+                window.location.href ='/signin'
                 return Promise.reject(err);
             } else return Promise.reject(err);
         } else if (err.request) {

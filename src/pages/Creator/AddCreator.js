@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useNavigate, useParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { CampaignApplicationListing } from "../../actions/campaign";
 import { SearchIcon } from "../../svg";
@@ -112,8 +112,14 @@ const AddCreator = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
-          navigate(`/application-status/${thisRow.creator_id}`);
+          navigate(`/application-status/${params.row.id}/${thisRow.creator_id}`);
+          // navigate({
+          //   pathname: "/application-status",
+          //   search: `?${createSearchParams({
+          //     id: params.row.id,
+          //     creatorId : thisRow.creator_id
+          //   })}`
+          // });
         };
 
         return (
@@ -126,7 +132,7 @@ const AddCreator = () => {
   ];
   
   const handleChangeStaus = (event) => {
-        dispatch(CampaignApplicationListing(`?applicationType=${event.target.value}&campaignId=${creatorId}`))
+        dispatch(CampaignApplicationListing(`?applicationType=${(event.target.value).toString()}&campaignId=${creatorId}`))
           .then((res) => {
             console.log('res------>: ', res);
             setCampaignList(res.data);

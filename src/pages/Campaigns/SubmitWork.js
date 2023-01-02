@@ -12,10 +12,10 @@ const defaultFormField = {
 
 const SubmitWork = ({ id }) => {
 
-  const [fileupload, setFileupload] = useState({});
-  const [imageUrl, setImageUrl] = useState();
-
   const dispatch = useDispatch();
+
+  const [fileupload, setFileupload] = useState([]);
+  // const [imageUrl, setImageUrl] = useState();
 
   const [formField, setFormField] = useState(defaultFormField);
 
@@ -34,12 +34,17 @@ const SubmitWork = ({ id }) => {
 
   const onFinish = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("id",id);
+    formData.append("submissionLink",link)
+    formData.append("submission_media_link",fileupload)
     const data = {
       id : id,
-      submissionLink : link
+      submissionLink : link ? link : '',
+      submission_media_link : fileupload ? fileupload : []
     }
     console.log('data: ', data);
-    dispatch(CampaignApplicationStepper(data))
+    dispatch(CampaignApplicationStepper(formData))
     .then((res) => {
       console.log('res------>: ', res);
       toast.success(res.status);
@@ -64,10 +69,11 @@ const SubmitWork = ({ id }) => {
       </Stack>
       {/* <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link> */}
       <Stack direction="row" spacing={1}>
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
-        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        {/* <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} /> */}
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} fileupload={fileupload} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} fileupload={fileupload} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} fileupload={fileupload} />
+        <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} fileupload={fileupload} />
       </Stack>
     </>
   );

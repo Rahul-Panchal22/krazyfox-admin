@@ -4,10 +4,11 @@ import { toAbsoluteUrl } from '../../utils';
 import './Upload.scss'
 
 
-const UploadHere = ({setFileupload, uploadText, uploadLabel, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
+const UploadHere = ({setFileupload, fileupload, uploadText, uploadLabel, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
+  console.log('fileupload: ', fileupload);
   
   const handleChange = (e) => {
-    setFileupload(e.target.files[0]);
+    setFileupload([...fileupload,e.target.files[0]]);
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       setImageUrl(reader.result);
@@ -31,7 +32,7 @@ const UploadHere = ({setFileupload, uploadText, uploadLabel, imageUrl,  setImage
           <Button variant="contained" component="label" className='upload-video '>
 						{uploadText}
 						<span className='upload-plus-btn'>{uploadBtn}</span>
-	          <input type='file' name="file" onChange={(e) => handleChange(e)} accept=".jpg, .jpeg, .png" multiple required/>
+	          <input type='file' name="file" onChange={(e) => handleChange(e)} accept=".mp4" multiple required/>
 					</Button>
 					<span className='uplaod-span'>
 						<img src={toAbsoluteUrl('/images/uplaod-icon.svg')} alt="" /><br />

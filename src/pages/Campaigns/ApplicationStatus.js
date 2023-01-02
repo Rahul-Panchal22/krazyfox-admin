@@ -8,7 +8,7 @@ import SubmitWork from "./SubmitWork";
 import ApproveWork from "./ApproveWork";
 import TaskCompleted from "./TaskCompleted";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { fetchCreator } from "../../actions/creators";
 import { useDispatch } from "react-redux";
 import WorkingOnTask from "./WorkingOnTask";
@@ -57,6 +57,10 @@ const steps = [
 const ApplicationStatus = () => {
 
   const dispatch = useDispatch();
+	// const history = useLocation();
+  // console.log('history: ', history);
+	// const params = new URLSearchParams(history.search);
+  // console.log('params: ', params);
   const params = useParams();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -65,27 +69,27 @@ const ApplicationStatus = () => {
   const steps = [
     {
       label: 'Approve or Reject Harley’s Application',
-      description: <UserStatus id={params.creatorId}/>,
+      description: <UserStatus id={params.id}/>,
     },
     {
       label: 'Price Finalization',
-      description: <PriceFinalization id={params.creatorId}/>,
+      description: <PriceFinalization id={params.id}/>,
     },
     {
       label: 'Working on task',
-      description: <WorkingOnTask id={params.creatorId}/>,
+      description: <WorkingOnTask id={params.id}/>,
     },
     {
       label: 'Work Submission',
-      description: <SubmitWork id={params.creatorId}/>,
+      description: <SubmitWork id={params.id}/>,
     },
     {
       label: 'Approve or Reject Harley’s Work',
-      description: <ApproveWork id={params.creatorId}/>,
+      description: <ApproveWork id={params.id}/>,
     },
     {
       label: 'Completed',
-      description: <TaskCompleted id={params.creatorId}/>,
+      description: <TaskCompleted id={params.id}/>,
     },
     // {
     //   label: 'You submitted Harley’s work.',
@@ -134,7 +138,7 @@ const ApplicationStatus = () => {
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <Avatar alt="Remy Sharp" src={creatorDetail?.profile_pic_url ? creatorDetail?.profile_pic_url : toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
           <h4 className="user-name">{creatorDetail ? creatorDetail.name : '-'}</h4>
         </div>
       </div>
