@@ -29,3 +29,11 @@ export const GET_KYC_LIST = `${API_BASE}kyc`
 
 // creators VerifyDocs 
 export const API_CREATOR_VERIFY = `${API_BASE}creators/verifyDocs`
+
+// payments 
+export const API_PAYMENTS = `${API_BASE}payments/fetchCreatorPayoutList`;
+export const API_PAYMENTS_update = `${API_BASE}payments/updatePayoutStatus`;
+export const API_PAYMENTS_creatorPayout = `${API_BASE}payments/fetchCreatorPayoutDetails`;
+export const API_PAYMENTS_createBucket = `${API_BASE}payments/createBucketList`;
+export const API_PAYMENTS_fetch_transaction = `${API_BASE}payments/fetchBucketTransactionList`;
+export const API_PAYMENTS_fetch_transaction_details = `${API_BASE}payments/fetchBucketTransactionDetail`;
