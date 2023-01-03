@@ -10,10 +10,10 @@ const TaskCompleted = ({ id }) => {
 
   const dispatch = useDispatch();
 
-  const handleClick = (status) => {
+  const handleClick = () => {
     const data = {
       id : id,
-      applicationStatus : status
+      applicationStatus : 3
     }
     dispatch(CampaignApplicationStepper(data))
     .then((res) => {
@@ -28,7 +28,7 @@ const TaskCompleted = ({ id }) => {
   return (
     <>
       <Stack direction="row" spacing={2} className="pending-btn-row">
-        <Button variant="contained" className="approved" onClick={() => handleClick(3)}><RightStatus svgFill="#B71C1C" />Mark as completed</Button>
+        <Button variant="contained" className="approved" onClick={() => handleClick()}><RightStatus svgFill="#B71C1C" />Mark as completed</Button>
         {/* <Button variant="outlined" className="rejected"><Cross svgFill="#B71C1C" />Stop working</Button>
         <Button variant="contained" className="approved"><Redo svgFill="#ffffff" />Redo</Button> */}
       </Stack>

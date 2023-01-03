@@ -11,7 +11,7 @@ export const setupAxios = (axios, store) => {
     }
     axios.interceptors.response.use(null, (err) => {
         if (err.response) {
-            if (err.response.code === 401) {
+            if (err.response.status === 401) {
                 // store.dispatch(doLogout())
                 localStorage.clear()
                 window.location.href ='/signin'

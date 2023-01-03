@@ -122,8 +122,8 @@ const ApplicationStatus = () => {
   };
   useEffect(() => {
     fetchCreatorDetailThroughId();
-
   }, []);
+  console.log("creatorDetail-------->",creatorDetail?.categoriesArrayList);
 
   
   const handleNext = () => {
@@ -159,7 +159,8 @@ const ApplicationStatus = () => {
           <ApplicationCard
             cardHeadign="Category"
             chipList
-            chipItem={['chip 1', 'chip 2', 'chip 3', 'chip 4']}
+            // chipItem={['chip 1', 'chip 2', 'chip 3', 'chip 4']}
+            chipItem={creatorDetail?.categoriesArrayList !== undefined  ? creatorDetail?.categoriesArrayList : []}
           />
           <ApplicationCard
             cardHeadign="Address"

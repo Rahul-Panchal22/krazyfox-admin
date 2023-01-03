@@ -146,7 +146,7 @@ export const CampaignApplicationStepper = (data) => ({
   type: API,
   payload: {
     url: API_CAMPAIGN_STEPPER,
-    method: "PATCH",
+    method: "POST",
     data: data,
     success: (data) => ({
       type: CAMPAIGN_STEPPER_APPLICATION_S,

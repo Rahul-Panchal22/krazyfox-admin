@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { CampaignApplicationListing } from "../../actions/campaign";
 import { SearchIcon } from "../../svg";
@@ -30,7 +30,7 @@ const AddCreator = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { creatorId } = useParams();
-
+  
   const onMutate = (e, value) => {
     setSearched(value);
   };

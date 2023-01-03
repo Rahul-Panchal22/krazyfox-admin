@@ -32,7 +32,8 @@ const PriceFinalization = ({ id }) => {
     e.preventDefault();
     const data = {
       id : id,
-      price : price
+      price : price,
+      applicationStatus : 1
     }
     dispatch(CampaignApplicationStepper(data))
     .then((res) => {

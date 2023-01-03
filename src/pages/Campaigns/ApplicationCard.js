@@ -13,12 +13,14 @@ const KycCard = ({ cardWidth, cardHeadign, cardContent, chipList, chipItem, Soci
         {cardContent ? <h6 className="content">{cardContent}</h6> : ''}
         {chipList === true ?
           <Stack direction="row" spacing={1} className='chip-row flex-wrap'>
-            {chipItem.map((item, i) => {
+            {chipItem !== undefined  && chipItem?.map((item, i) => {
+              console.log('item: ', item);
               return (
-                <Chip variant="outlined" label={item} key={i} />
+                <Chip variant="outlined" label={item?.name} key={i} />
               )
             })}
-          </Stack> : ''
+          </Stack> 
+          : ''
         }
         {SocialIcon === true ? <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1} className='flex-wrap'>
           {SocialIconList.map((icon, i) => {

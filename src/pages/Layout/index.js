@@ -94,19 +94,28 @@ export default function MiniDrawer(props) {
   const navigate = useNavigate()
   const location = useLocation();
   const params = useParams();
+  const history = useLocation();
+  const searchParams = new URLSearchParams(history.search);
+  const paramsName = searchParams.get("name");
 
   React.useEffect(() => {
     if(params.campaignId || params.creatorId || params?.payment){
-      let pathname = location.pathname.split("/").filter((item) => item);
+      if( params.creatorId && paramsName){
+        setHeaderName(paramsName)
+      }
+      else{
+        let pathname = location.pathname.split("/").filter((item) => item);
+        const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
+        const real = "Welcome "+capatilize(pathname[0])
+        setHeaderName(real)
+      }
+		}
+    else{
       const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
-      const real = capatilize(pathname[0])
-      setHeaderName(real)
-		}else{
-      const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
-      const real = capatilize(location.pathname.split("/").filter((item) => item).pop())
+      const real = "Welcome "+capatilize(location.pathname.split("/").filter((item) => item).pop())
       setHeaderName(real);
 		}
-  }, [location])
+  }, [location, paramsName])
 
   const handleLogout = () => {
     localStorage.clear();
@@ -142,7 +151,7 @@ export default function MiniDrawer(props) {
             {open ? <img src={toAbsoluteUrl("/images/logo_full.svg")} alt="" /> : <img src={toAbsoluteUrl("/images/logo_icon.svg")} alt="" />}
           </IconButton> */}
           <Stack direction="row" justifyContent="space-between" alignItems="center" className='w-100 pad-0-20' spacing={2}>
-            <h6 className='page-title'>{`Welcome ${headerName}`}</h6>
+            <h6 className='page-title'>{`${headerName}`}</h6>
             <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>Log Out</Button>
           </Stack>
         </Toolbar>

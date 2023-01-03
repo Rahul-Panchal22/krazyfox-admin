@@ -4,24 +4,32 @@ import { toAbsoluteUrl } from '../../utils';
 import './Upload.scss'
 
 
-const UploadHere = ({setFileupload, fileupload, uploadText, uploadLabel, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
+const UploadHere = ({setFileupload, fileupload, uploadText, uploadLabel, imageUrl0, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
+  console.log('imageUrl: ', imageUrl);
+  
   console.log('fileupload: ', fileupload);
   
   const handleChange = (e) => {
     setFileupload([...fileupload,e.target.files[0]]);
     const reader = new FileReader();
     reader.addEventListener("load", () => {
-      setImageUrl(reader.result);
+      setImageUrl([...imageUrl,reader.result]);
     });
     reader.readAsDataURL(e.target.files[0]);
   }
 
   return (
     <>
-			{uploadLabel ? <InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''}
-      {imageUrl ? 
+			{/* {uploadLabel ? <InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''} */}
+      {imageUrl?.length > 0 ? 
         <div className={`uplaoded-ui ${sideButton ? 'side-button' : ''}`} style={{width: uplaodWidth, height: uplaodHeight }}>
-          {imageUrl ? <img src={imageUrl} alt="" /> : ''}
+          {imageUrl?.length > 0 && imageUrl.map((item, index) => {
+            return(
+              <>
+             <video controls key={index}> <source src={imageUrl[index]} type="video/mp4" /></video> 
+              </>
+            )
+          }) }
 					<Button variant="contained" component="label" className='upload-video'>
 						<span className='upload-plus-btn'>{uploadBtn}</span>
           	<input type='file' name="file" onChange={(e) => handleChange(e)} required/>
