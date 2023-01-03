@@ -15,7 +15,7 @@ import {
 import Stack from '@mui/material/Stack';
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { PaymentListing } from "../../actions/Payment";
+import { PaymentListing, paymentUpdate } from "../../actions/Payment";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -44,6 +44,10 @@ const PaymentsStatus = () => {
   const [note, setNote] = useState();
 
   useEffect(() => {
+    getPaymentList();
+  }, [fiterNumber])
+
+  const getPaymentList = () => {
     dispatch(PaymentListing(`?campaignId=${params?.payment}&payoutFilter=${fiterNumber}`))
       .then((res) => {
         if (res.code === 200) {
@@ -56,8 +60,7 @@ const PaymentsStatus = () => {
       .catch((err) => {
         toast.error(err);
       });
-  }, [fiterNumber])
-
+  }
   // const columns = [
   //   { field: "id", headerName: "Sr No.", width: 80 },
   //   {
@@ -165,9 +168,35 @@ const PaymentsStatus = () => {
   }
 
   const handleCallSatatus = (item) => {
-    if (item === 2) {
       setOpen(true)
+  }
+
+  const updateStatus = (item) => {
+    let data;
+    if(item === 1){
+      data = {
+        paymentStatus: item,
+        id: selection[0]
+      }
+    }else{
+      data = {
+        paymentStatus: item,
+        id: selection[0],
+        note: note
+      }
     }
+    dispatch(paymentUpdate(data))
+      .then((res) => {
+        if (res.code === 200) {
+          toast.success(res.message);
+          getPaymentList();
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
   const handleClose = () => setOpen(false);
@@ -228,7 +257,7 @@ const PaymentsStatus = () => {
             {fiterNumber === 0 ?
               <>
                 <Button variant="contained" className="filter-btn" onClick={() => handleCallSatatus(2)}>Reject</Button>
-                <Button variant="contained" className="filter-btn active" onClick={() => handleCallSatatus(1)}>Approve</Button>
+                <Button variant="contained" className="filter-btn active" onClick={() => updateStatus(1)}>Approve</Button>
               </>
               : fiterNumber === 1 ?
                 <Button variant="contained" className="filter-btn active">Add to Bucket</Button>
@@ -260,6 +289,7 @@ const PaymentsStatus = () => {
       >
         <Box sx={style}>
           <TextareaAutosize minRows={4} placeholder="Note" onChange={(e) => setNote(e.target.value)} />
+          <Button onClick={() => updateStatus(2)}>Submit</Button>
         </Box>
       </Modal>
     </>
