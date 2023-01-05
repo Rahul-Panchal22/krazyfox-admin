@@ -56,4 +56,15 @@ export const Sidermenu = [
   //     { menuId: 4, name: 'Bucket', icon: <BucketMenu />, submenupath: '', },
   //   ]
   // },
+  {
+    id: 6,
+    menuId: 10,
+    menulist: 'Hyper Local',
+    menuicon: <CampaignMenu />,
+    menupath: '/hyperlocal',
+    submenu: false,
+    // submenulist: [
+    //   { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
+    // ]
+  },
 ]

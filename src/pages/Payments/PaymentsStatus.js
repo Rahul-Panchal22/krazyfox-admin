@@ -15,7 +15,7 @@ import {
 import Stack from '@mui/material/Stack';
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { PaymentListing, paymentUpdate } from "../../actions/Payment";
+import { PaymentListing, paymentUpdate, paymentCreateBucket } from "../../actions/Payment";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -178,12 +178,12 @@ const PaymentsStatus = () => {
     let data;
     if(item === 1){
       data = {
-        paymentStatus: item,
+        payoutStatus: item.toString(),
         id: selection[0]
       }
     }else{
       data = {
-        paymentStatus: item,
+        payoutStatus: item.toString(),
         id: selection[0],
         note: note
       }
@@ -192,7 +192,7 @@ const PaymentsStatus = () => {
       .then((res) => {
         if (res.code === 200) {
           toast.success(res.message);
-          getPaymentList();
+          // getPaymentList();
         } else {
           toast.error("error");
         }
@@ -200,6 +200,26 @@ const PaymentsStatus = () => {
       .catch((err) => {
         toast.error(err);
       });
+  }
+
+  const addBucket = () => {
+    const data = {
+      payoutIds: [selection[0].toString()],
+      campaignId: parseInt(params?.payment)
+    }
+    dispatch(paymentCreateBucket(data))
+    .then((res) => {
+      if (res.code === 200) {
+        toast.success(res.message);
+        getPaymentList();
+        navigate('/backet-list')
+      } else {
+        toast.error("error");
+      }
+    })
+    .catch((err) => {
+      toast.error(err);
+    });
   }
 
   const handleClose = () => setOpen(false);
@@ -263,7 +283,7 @@ const PaymentsStatus = () => {
                 <Button variant="contained" className="filter-btn active" onClick={() => updateStatus(1)}>Approve</Button>
               </>
               : fiterNumber === 1 ?
-                <Button variant="contained" className="filter-btn active">Add to Bucket</Button>
+                <Button variant="contained" className="filter-btn active" onClick={addBucket}>Add to Bucket</Button>
                 :
                 <Button variant="contained" className="filter-btn active">Export Excel</Button>
             }
