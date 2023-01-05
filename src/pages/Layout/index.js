@@ -181,6 +181,7 @@ export default function MiniDrawer(props) {
                     <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
                       {menubar.menuicon}
                     </ListItemIcon>
+                    {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} */}
                     <ListItemText primary={menubar.menulist} />
                     {menubar.submenu === true ? <>{menuCollapse ? <ExpandLess sx={{ fill: '#ffffff' }} /> : <ExpandMore sx={{ fill: '#ffffff' }} />}</> : ''}
                   </ListItemButton>
