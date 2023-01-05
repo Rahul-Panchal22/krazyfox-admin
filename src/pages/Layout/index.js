@@ -99,8 +99,8 @@ export default function MiniDrawer(props) {
   const paramsName = searchParams.get("name");
 
   React.useEffect(() => {
-    if(params.campaignId || params.creatorId || params?.payment){
-      if( params.creatorId && paramsName){
+    if(params.campaignId || params.creatorId || params?.payment || params.kycId || params.brandId || params.backetId){
+      if( (params.creatorId && paramsName) || (params.backetId && paramsName)){
         setHeaderName(paramsName)
       }
       else{

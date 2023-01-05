@@ -71,12 +71,11 @@ export const paymentCreateBucket = (data) => ({
     },
 })
 
-export const paymentTransactionBucket = (data) => ({
+export const paymentTransactionBucket = () => ({
   type: API,
     payload: {
       url: API_PAYMENTS_fetch_transaction,
-      method: "POST",
-      data: data,
+      method: "GET",
       success: (data) =>
       ({
         type: PAYMENTS_FETCH_TRANSACTION_S,

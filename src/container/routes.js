@@ -27,6 +27,8 @@ const ViewKyc = lazy(() => import("../pages/Kyc/ViewKyc"));
 const Payments = lazy(() => import("../pages/Payments"));
 const PaymentsStatus = lazy(() => import("../pages/Payments/PaymentsStatus"));
 const PaymentsRejectionReason = lazy(() => import("../pages/Payments/PaymentsRejectionReason"));
+const BacketList = lazy(() => import("../pages/Payments/BacketList"))
+const BacketDetails = lazy(() => import("../pages/Payments/BacketDetails"))
 
 const Routing = () => {
   return (
@@ -59,6 +61,8 @@ const Routing = () => {
           <Route path="/payments" element={<PrivateRoute><Payments /></PrivateRoute>} />
           <Route path="/payments-approved/:payment" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
           <Route path="/payments-rejection-reason" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
+          <Route path="/backet-list" element={<PrivateRoute><BacketList/></PrivateRoute>} />
+          <Route path="/backet-details/:backetId" element={<PrivateRoute><BacketDetails/></PrivateRoute>} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />}></Route>
       </Routes>

@@ -43,6 +43,9 @@ const PaymentsStatus = () => {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState();
 
+  const cellClickRef = React.useRef(null);
+  const [selectionModel, setSelectionModel] = React.useState([]);
+
   useEffect(() => {
     getPaymentList();
   }, [fiterNumber])
@@ -279,6 +282,29 @@ const PaymentsStatus = () => {
             console.log("newSelection", newSelection);
             setSelection(newSelection);
           }}
+        // selectionModel={selectionModel}
+        // onCellClick={() => (cellClickRef.current = true)}
+        // onSelectionModelChange={(selection, detail) => {
+        //   console.log('selection: ', selection);
+          
+        //   if (cellClickRef.current) {
+        //     if (selection.length > 1) {
+        //       const selectionSet = new Set(selectionModel);
+        //       console.log('selectionSet: ', selectionSet);
+        //       console.log('selectionModel: ', selectionModel);
+        //       const result = selection.filter((s) => !selectionSet.has(s));
+        //       console.log('selection: ', result);
+
+        //       setSelectionModel(result);
+        //     } else {
+        //       setSelectionModel(selection);
+        //     }
+        //   } 
+        //   // else {
+        //   //   setSelectionModel(selection);
+        //   // }
+        //   cellClickRef.current = null;
+        // }}
         />
       </Box>
       <Modal
