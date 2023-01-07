@@ -20,7 +20,7 @@ const UploadHere = ({setFileupload1 , setFileupload2, setFileupload3, setFileupl
     }
     const reader = new FileReader();
     reader.addEventListener("load", () => {
-      setImageUrl([...imageUrl,reader.result]);
+      setImageUrl(reader.result);
     });
     reader.readAsDataURL(e.target.files[0]);
   }
@@ -32,13 +32,7 @@ const UploadHere = ({setFileupload1 , setFileupload2, setFileupload3, setFileupl
 			{/* {uploadLabel ? <InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''} */}
       {/* {imageUrl?.length > 0 ? 
         <div className={`uplaoded-ui ${sideButton ? 'side-button' : ''}`} style={{width: uplaodWidth, height: uplaodHeight }}>
-          {imageUrl?.length > 0 && imageUrl.map((item, index) => {
-            return(
-              <>
-             <video controls key={index}> <source src={imageUrl[index]} type="video/mp4" /></video> 
-              </>
-            )
-          }) }
+          {imageUrl ? <img src={imageUrl} alt="" /> : ''}
 					<Button variant="contained" component="label" className='upload-video'>
 						<span className='upload-plus-btn'>{uploadBtn}</span>
           	<input type='file' name="file" onChange={(e) => handleChange(e)} required/>

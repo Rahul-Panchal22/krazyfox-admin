@@ -13,3 +13,29 @@
     &.active { background: $white !important; }
   }
 }
+
+.select-creators-by-sec {
+  .campaign-select-row {
+    &.MuiButtonGroup-root {
+      @include prefix(box-shadow, none);
+			.MuiButton-root.MuiButtonBase-root {
+				background: #F5F5F5;
+				border: 1px solid #BDBDBD;
+				border-radius: 12px;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 17px;
+				color: #616161;
+        &:hover {
+          @include prefix(box-shadow, none);    
+        }
+        &.active {
+          background: #121212;
+          border: 1px solid #BDBDBD;
+          border-radius: 12px;
+          color: #FFFFFF;
+        }
+			}
+    }
+  }
+}

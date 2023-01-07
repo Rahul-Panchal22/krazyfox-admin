@@ -90,7 +90,7 @@ const ViewBrand = () => {
           textAlign="right"
         >
           <Button variant="outlined" className="delete-outline" onClick={handleDelete}>
-            <DeleteRed />
+            <DeleteRed svgFill="#B71C1C" />
             &nbsp;&nbsp;Delete Brand
           </Button>
           <Button variant="contained" onClick={handleRedirect}>

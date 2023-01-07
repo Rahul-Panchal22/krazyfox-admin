@@ -11,10 +11,10 @@ export const setupAxios = (axios, store) => {
     }
     axios.interceptors.response.use(null, (err) => {
         if (err.response) {
-            if (err.response.status === 401) {
+            if (err.response.code === 401) {
                 // store.dispatch(doLogout())
-                localStorage.clear()
                 window.location.href ='/signin'
+                localStorage.clear()
                 return Promise.reject(err);
             } else return Promise.reject(err);
         } else if (err.request) {

@@ -35,44 +35,19 @@ const SubmitWork = ({ id }) => {
   };
 
 
-  const onFinish = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("id",id);
-    formData.append("submissionLink",link)
-    formData.append("submission_media_link",fileupload)
-    formData.append("applicationStatus",1)
-    const data = {
-      id : id,
-      submissionLink : link ? link : '',
-      submission_media_link : fileupload ? fileupload : [],
-      applicationStatus : 1
-    }
-    console.log('data: ', data);
-    dispatch(CampaignApplicationStepper(formData))
-    .then((res) => {
-      console.log('res------>: ', res);
-      toast.success(res.status);
-    })
-    .catch((err) => {
-      toast.error(err);
-    });
-  }
+const SubmitWork = () => {
 
+  const [/* fileupload, */ setFileupload] = useState({});
 
   return (
     <>
       <Stack direction="row" spacing={2} className="pending-btn-row">
         <FormControl variant="filled">
-          <TextField id="filled-multiline-static"
-           label="Type here..."
-            variant="filled"
-          name="link" 
-          onChange={onMutate}/>
+          <TextField id="filled-multiline-static" label="Type here..." variant="filled" />
         </FormControl>
-        <Button variant="contained" className="approved" onClick={onFinish}>Approved</Button>
+        <Button variant="contained" className="approved">Approved</Button>
       </Stack>
-      {/* <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link> */}
+      <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link>
       <Stack direction="row" spacing={1}>
         {/* <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} /> */}
         <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload1={setFileupload1} setFileupload2={setFileupload2} setFileupload3={setFileupload3} setFileupload4={setFileupload4} fileupload1={fileupload1} fileupload2={fileupload2} fileupload3={fileupload3} fileupload4={fileupload4} imageUrl={imageUrl}  setImageUrl={setImageUrl} imgselect={1} />

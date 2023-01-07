@@ -15,10 +15,10 @@ export const Sidermenu = [
     menulist: 'Campaigns',
     menuicon: <CampaignMenu />,
     menupath: '/campaigns',
-    submenu: false,
-    // submenulist: [
-    //   { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
-    // ]
+    submenu: true,
+    submenulist: [
+      { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
+    ]
   },
   {
     id: 3,
