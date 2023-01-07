@@ -65,7 +65,7 @@ const ApplicationStatus = () => {
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [creatorDetail, setCreatorDetail] = React.useState();
-
+  const [getActiveStep, setGetActiveStep] = React.useState(0);
   const steps = [
     {
       label: 'Approve or Reject Harley’s Application',
@@ -110,6 +110,8 @@ const ApplicationStatus = () => {
       .then((res) => {
         console.log(res)
         if (res.code === 200) {
+          setActiveStep(res.data.application_status);
+          setGetActiveStep(res.data.application_status)
           setCreatorDetail(res.data);
           toast.success(res.message);
         } else {
@@ -215,6 +217,7 @@ const ApplicationStatus = () => {
                       >
                         {index === steps.length - 1 ? 'Finish' : 'Continue'}
                       </Button>
+                      {getActiveStep !== index &&
                       <Button
                         disabled={index === 0}
                         onClick={handleBack}
@@ -222,6 +225,7 @@ const ApplicationStatus = () => {
                       >
                         Back
                       </Button>
+                      }
                     </div>
                   </Box>
                 </StepContent>
