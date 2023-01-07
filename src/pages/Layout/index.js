@@ -96,8 +96,18 @@ export default function MiniDrawer(props) {
   const params = useParams();
 
   React.useEffect(() => {
-    if(params.campaignId || params.creatorId){
-      let pathname = location.pathname.split("/").filter((item) => item);
+    if(params.campaignId || params.creatorId || params?.payment || params.kycId || params.brandId || params.backetId){
+      if( (params.creatorId && paramsName) || (params.backetId && paramsName)){
+        setHeaderName(paramsName)
+      }
+      else{
+        let pathname = location.pathname.split("/").filter((item) => item);
+        const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
+        const real = "Welcome "+capatilize(pathname[0])
+        setHeaderName(real)
+      }
+		}
+    else{
       const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
       const real = capatilize(pathname[0])
       setHeaderName(real)
@@ -172,6 +182,7 @@ export default function MiniDrawer(props) {
                     <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
                       {menubar.menuicon}
                     </ListItemIcon>
+                    {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} */}
                     <ListItemText primary={menubar.menulist} />
                     {menubar.submenu === true ? <>{menuCollapse ? <ExpandLess sx={{ fill: '#ffffff' }} /> : <ExpandMore sx={{ fill: '#ffffff' }} />}</> : ''}
                   </ListItemButton>

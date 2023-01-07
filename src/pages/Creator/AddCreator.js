@@ -69,7 +69,12 @@ const rows = [
 
 const AddCreator = () => {
   
-  const [age, setAge] = React.useState('');
+  // const [status, setStatus] = React.useState('');
+  const [campaignList, setCampaignList] = useState([]);
+  const [search, setSearched] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { creatorId } = useParams();
   
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -110,17 +115,21 @@ const AddCreator = () => {
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
               <Select
-                value={age}
-                onChange={handleChange}
+                // value={status}
+                onChange={handleChangeStaus}
                 displayEmpty
                 size='small'
-              >
-                <MenuItem value="">
-                  <em>Category</em>
-                </MenuItem>
-                <MenuItem value={1}>Fashion</MenuItem>
-                <MenuItem value={2}>Beauty</MenuItem>
-                <MenuItem value={3}>Acting</MenuItem>
+                // placeholder="Status"
+                required
+                >
+                {/* <MenuItem value="">
+                  <em>Status</em>
+                </MenuItem> */} 
+                <MenuItem value={0}>Applied</MenuItem>
+                <MenuItem value={1}>Approved</MenuItem>
+                <MenuItem value={2}>In-Process</MenuItem>
+                <MenuItem value={3}>Completed</MenuItem>
+                <MenuItem value={4}>Rejected</MenuItem>
               </Select>
             </FormControl>
           </Grid>

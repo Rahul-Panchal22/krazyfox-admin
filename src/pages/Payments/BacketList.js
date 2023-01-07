@@ -3,30 +3,31 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
   Box,
-  Button,
   Grid,
   IconButton,
   InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
-import { ActionArrow, Eye, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { createSearchParams, useNavigate } from "react-router-dom";
-import { CampaignListing } from "../../actions/campaign";
+import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { useDispatch } from "react-redux";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "./Campaigns.scss";
-import Visibility from "@mui/icons-material/Visibility";
+import { CampaignListing } from "../../actions/campaign";
+import { paymentTransactionBucket } from "../../actions/Payment";
+import moment from "moment/moment";
 
-const Campaigns = (params) => {
+const BacketList = () => {
+
   const [campaignList, setCampaignList] = useState([]);
+  console.log('campaignList: ', campaignList);
   const [search, setSearched] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const columns = [
     {
-      field: "id",
+      field: "campaign_id",
       headerName: "Sr No.",
       flex: 0.5,
     },
@@ -49,26 +50,19 @@ const Campaigns = (params) => {
       flex: 1.5,
     },
     {
-      field: "campaign_price_range",
-      headerName: "Price Range",
+      field: "export_date",
+      headerName: "Export  Date",
       flex: 0.9,
-    },
-    {
-      field: "campaign_description",
-      headerName: "Campaign Description",
-      flex: 1.8,
-    },
-    {
-      field: "status",
-      headerName: "Live/ Paused",
-      flex: 1,
-      align: 'center',
-      renderCell: (params) =>
-        params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
+      renderCell : (params) => {
+        const startT = new Date(params.value * 1000).toISOString();
+        const exportDate = moment(startT).format('DD/MM/YYYY')
+        return exportDate
+        }
     },
     {
       field: "viewApplication",
-      headerName: "View Application",
+      // headerName: "View Application",
+      headerName: "",
       flex: 0.4,
       renderCell: (params, row) => {
         const onClick = (e) => {
@@ -85,32 +79,13 @@ const Campaigns = (params) => {
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
 
-          navigate(`/campaign-application/${thisRow.id}`);
-        };
-
-        return (
-          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <Visibility />
-          </IconButton>
-        );
-      },
-    },
-    {
-      field: "action",
-      headerName: "",
-      flex: 0.4,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation();
-          const api = params.api;
-          const thisRow = {};
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== "__check__" && !!c)
-            .forEach(
-              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-            );
-          navigate(`/view-campaign/${thisRow.id}`);
+        //   navigate(`/backet-details/${params?.row?.bucket_id}`);
+          navigate({
+            pathname: `/backet-details/${params?.row?.bucket_id}`,
+            search: `?${createSearchParams({
+                name: params.row.brand_name+" "+ params.row.campaign_title
+              })}`
+          });
         };
 
         return (
@@ -120,14 +95,14 @@ const Campaigns = (params) => {
         );
       },
     },
-    
   ];
 
   const getAllCampaignListing = () => {
-    dispatch(CampaignListing())
+    dispatch(paymentTransactionBucket())
       .then((res) => {
-        toast.success(res.message);
+        console.log('res: ', res.data);
         setCampaignList(res.data);
+        toast.success(res.message);
       })
       .catch((err) => {});
   };
@@ -136,33 +111,31 @@ const Campaigns = (params) => {
     getAllCampaignListing();
   }, []);
 
-  const handleRedirection = (e) => {
-    navigate("/add-campaign");
-  };
+  // const handleRedirection = (e) => {
+  //   navigate("/edit-campaign");
+  // };
 
   const onMutate = (e, value) => {
     setSearched(value);
   };
 
-  useEffect(() => {
-    if (search !== null || search !== "" || search !== undefined) {
-      if (search === null) {
-        getAllCampaignListing();
-      } else {
-        setCampaignList(
-          campaignList.filter((column) =>
-            search.includes(column.campaign_title)
-          )
-        );
-      }
-    }
-  }, [search]);
-
-  // console.log(`/edit-campaign/${params.campaignId}`);
+  // useEffect(() => {
+  //   if (search !== null || search !== "" || search !== undefined) {
+  //     if (search === null) {
+  //       getAllCampaignListing();
+  //     } else {
+  //       setCampaignList(
+  //         campaignList.filter((column) =>
+  //           search.includes(column.campaign_title)
+  //         )
+  //       );
+  //     }
+  //   }
+  // }, [search]);
 
   return (
     <>
-      <div className="search-row">
+      {/* <div className="search-row">
         <Grid
           container
           direction="row"
@@ -195,23 +168,19 @@ const Campaigns = (params) => {
               />
             </Stack>
           </Grid>
-          <Grid item xs={3} textAlign="right">
-            <Button variant="contained" onClick={handleRedirection}>
-              + Create New Campaign
-            </Button>
-          </Grid>
         </Grid>
-      </div>
+      </div> */}
       <Box sx={{ height: 632, width: "100%" }}>
         <DataGrid
           rows={campaignList}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          getRowId={(row) => row?.bucket_id}
         />
       </Box>
     </>
   );
 };
 
-export default Campaigns;
+export default BacketList;

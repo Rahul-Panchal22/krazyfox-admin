@@ -52,7 +52,70 @@ const steps = [
 const ApplicationStatus = () => {
 
   const [activeStep, setActiveStep] = React.useState(0);
+  const [creatorDetail, setCreatorDetail] = React.useState();
+  const [getActiveStep, setGetActiveStep] = React.useState(0);
+  const steps = [
+    {
+      label: 'Approve or Reject Harley’s Application',
+      description: <UserStatus id={params.id}/>,
+    },
+    {
+      label: 'Price Finalization',
+      description: <PriceFinalization id={params.id}/>,
+    },
+    {
+      label: 'Working on task',
+      description: <WorkingOnTask id={params.id}/>,
+    },
+    {
+      label: 'Work Submission',
+      description: <SubmitWork id={params.id}/>,
+    },
+    {
+      label: 'Approve or Reject Harley’s Work',
+      description: <ApproveWork id={params.id}/>,
+    },
+    {
+      label: 'Completed',
+      description: <TaskCompleted id={params.id}/>,
+    },
+    // {
+    //   label: 'You submitted Harley’s work.',
+    //   description: <SubmitWork />,
+    // },
+    // {
+    //   label: 'Approve or Reject Harley’s Work',
+    //   description: <ApproveWork />,
+    // },
+    // {
+    //   label: 'Is task completed?',
+    //   description: <TaskCompleted />,
+    // },
+  ];
+  
+  const fetchCreatorDetailThroughId = () => {
+    dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
+      .then((res) => {
+        console.log(res)
+        if (res.code === 200) {
+          setActiveStep(res.data.application_status);
+          setGetActiveStep(res.data.application_status)
+          setCreatorDetail(res.data);
+          toast.success(res.message);
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+  useEffect(() => {
+    fetchCreatorDetailThroughId();
+  }, []);
+  console.log("creatorDetail-------->",creatorDetail?.categoriesArrayList);
 
+  
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -145,6 +208,7 @@ const ApplicationStatus = () => {
                       >
                         {index === steps.length - 1 ? 'Finish' : 'Continue'}
                       </Button>
+                      {getActiveStep !== index &&
                       <Button
                         disabled={index === 0}
                         onClick={handleBack}
@@ -152,6 +216,7 @@ const ApplicationStatus = () => {
                       >
                         Back
                       </Button>
+                      }
                     </div>
                   </Box>
                 </StepContent>

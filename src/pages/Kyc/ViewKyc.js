@@ -55,16 +55,16 @@ const ViewKyc = () => {
           />
           <KycCard
             cardHeadign="Email"
-            cardContent={creatorDetail ? creatorDetail.email : '-'}
+            cardContent={creatorDetail ? creatorDetail?.email : '-'}
           />
           <KycCard
             cardHeadign="Category"
             chipList
-            chipItem={creatorDetail ? creatorDetail.categoriesArrayList : []}
+            chipItem={creatorDetail.categoriesArrayList.length > 0 ? creatorDetail?.categoriesArrayList : []}
           />
           <KycCard
             cardHeadign="Address"
-            cardContent={creatorDetail ? creatorDetail.address : []}
+            cardContent={creatorDetail ? creatorDetail?.address : []}
           />
           <KycCard
             cardHeadign="City"
@@ -76,19 +76,19 @@ const ViewKyc = () => {
           />
           <KycCard
             cardHeadign="Gender"
-            cardContent={creatorDetail ? creatorDetail.gender : '-'}
+            cardContent={creatorDetail ? creatorDetail?.gender : '-'}
           />
           <KycCard
             cardHeadign="Language"
-            cardContent={creatorDetail ? creatorDetail.language : '-'}
+            cardContent={creatorDetail ? creatorDetail?.language : '-'}
           />
           <KycCard
             cardHeadign="Genre"
-            cardContent={creatorDetail ? creatorDetail.genre : '-'}
+            cardContent={creatorDetail ? creatorDetail?.genre : '-'}
           />
           <KycCard
             cardHeadign="Sub-Genre"
-            cardContent={creatorDetail ? creatorDetail.sub_genre : '-'}
+            cardContent={creatorDetail ? creatorDetail?.sub_genre : '-'}
           />
         </Grid>
         <Divider className='divide-mar-40--40' />
