@@ -94,28 +94,27 @@ export default function MiniDrawer(props) {
   const navigate = useNavigate()
   const location = useLocation();
   const params = useParams();
+  const history = useLocation();
+  const searchParams = new URLSearchParams(history.search);
+  const paramsName = searchParams.get("name");
 
   React.useEffect(() => {
-    if(params.campaignId || params.creatorId || params?.payment || params.kycId || params.brandId || params.backetId){
-      if( (params.creatorId && paramsName) || (params.backetId && paramsName)){
+    if (params.campaignId || params.creatorId || params?.payment || params.kycId || params.brandId || params.backetId) {
+      if ((params.creatorId && paramsName) || (params.backetId && paramsName)) {
         setHeaderName(paramsName)
       }
-      else{
+      else {
         let pathname = location.pathname.split("/").filter((item) => item);
         const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
-        const real = "Welcome "+capatilize(pathname[0])
+        const real = "Welcome " + capatilize(pathname[0])
         setHeaderName(real)
       }
-		}
-    else{
+    }
+    else {
       const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
-      const real = capatilize(pathname[0])
-      setHeaderName(real)
-		}else{
-      const capatilize = (s) => s.charAt(0).toUpperCase() + s?.slice(1)?.replace(/-/g, ' ');
-      const real = capatilize(location.pathname.split("/").filter((item) => item).pop())
+      const real = "Welcome " + capatilize(location.pathname.split("/").filter((item) => item).pop())
       setHeaderName(real);
-		}
+    }
   }, [location])
 
   const handleLogout = () => {

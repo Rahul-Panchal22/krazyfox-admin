@@ -82,7 +82,7 @@ export const paymentTransactionBucket = () => ({
         payload: data,
       }),
       error: (data) => ({
-        type: PAYMENTS_FETCH_TRANSACTION_F,
+        type: PAYMENTS_FETCH_TRANSACTION_DETAILS_F,
         payload: data,
       }),
     },

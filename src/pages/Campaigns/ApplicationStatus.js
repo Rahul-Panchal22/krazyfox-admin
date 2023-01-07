@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Avatar, Box, Button, Divider, Grid, Paper, Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
 import ApplicationCard from "./ApplicationCard";
 import { toAbsoluteUrl } from "../../utils";
@@ -7,7 +7,11 @@ import PriceFinalization from "./PriceFinalization";
 import SubmitWork from "./SubmitWork";
 import ApproveWork from "./ApproveWork";
 import TaskCompleted from "./TaskCompleted";
-
+import { useParams } from "react-router-dom";
+import WorkingOnTask from "./WorkingOnTask";
+import { useDispatch } from "react-redux";
+import { fetchCreator } from "../../actions/creators";
+import { toast } from "react-toastify";
 
 const steps = [
   {
@@ -51,6 +55,8 @@ const steps = [
 
 const ApplicationStatus = () => {
 
+  const dispatch = useDispatch();
+  const params = useParams();
   const [activeStep, setActiveStep] = React.useState(0);
   const [creatorDetail, setCreatorDetail] = React.useState();
   const [getActiveStep, setGetActiveStep] = React.useState(0);

@@ -10,9 +10,34 @@ const defaultFormField = {
   link : ""
 };
 
-const SubmitWork = ({ id }) => {
+// const SubmitWork = ({ id }) => {
 
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
+
+//   const [fileupload, setFileupload] = useState([]);
+//   const [imageUrl, setImageUrl] = useState([]);
+//   const [fileupload1, setFileupload1] = useState();
+//   const [fileupload2, setFileupload2] = useState();
+//   const [fileupload3, setFileupload3] = useState();
+//   const [fileupload4, setFileupload4] = useState();
+//   const [formField, setFormField] = useState(defaultFormField);
+
+//   const {
+//     link
+//   } = formField;
+
+//   const onMutate = (e) => {
+//     const { value, name } = e.target;
+//     setFormField((prevState) => ({
+//       ...prevState,
+//       [name]: value,
+//     }));
+//   };
+
+
+const SubmitWork = () => {
+
+    const dispatch = useDispatch();
 
   const [fileupload, setFileupload] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
@@ -21,23 +46,6 @@ const SubmitWork = ({ id }) => {
   const [fileupload3, setFileupload3] = useState();
   const [fileupload4, setFileupload4] = useState();
   const [formField, setFormField] = useState(defaultFormField);
-
-  const {
-    link
-  } = formField;
-
-  const onMutate = (e) => {
-    const { value, name } = e.target;
-    setFormField((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-
-const SubmitWork = () => {
-
-  const [/* fileupload, */ setFileupload] = useState({});
 
   return (
     <>
@@ -59,4 +67,4 @@ const SubmitWork = () => {
   );
 };
 
-export default SubmitWork;
+export default SubmitWork

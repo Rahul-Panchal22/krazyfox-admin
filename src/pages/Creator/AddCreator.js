@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { SearchIcon } from "../../svg";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const columns = [
   {
@@ -76,9 +78,9 @@ const AddCreator = () => {
   const dispatch = useDispatch();
   const { creatorId } = useParams();
   
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setAge(event.target.value);
+  // };
 
   return (
     <>
@@ -116,7 +118,7 @@ const AddCreator = () => {
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
               <Select
                 // value={status}
-                onChange={handleChangeStaus}
+                // onChange={handleChangeStaus}
                 displayEmpty
                 size='small'
                 // placeholder="Status"
