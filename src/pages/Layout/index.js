@@ -134,6 +134,27 @@ export default function MiniDrawer(props) {
     setOpen(!open);
   };
 
+  const submenuShow = (menu) => {
+    console.log("submenuShow", menu);
+    return (
+      menu?.submenulist?.map((menubar) => (
+        <Link to={menubar.menupath} key={menubar.id}>
+          <ListItem disablePadding sx={{ display: 'block' }} selected>
+            <ListItemButton onClick={handlesetMenuClick}>
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
+                {menubar.icon}
+              </ListItemIcon>
+              {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} */}
+              <ListItemText primary={menubar.name} />
+              {menubar.submenu === true ? <>{menuCollapse ? <ExpandLess sx={{ fill: '#ffffff' }} /> : <ExpandMore sx={{ fill: '#ffffff' }} />}</> : ''}
+              {submenuShow(menubar)}
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      ))
+    )
+  }
+
   return (
     <Box sx={{ display: 'flex' }} className='page-layout'>
       <AppBar position="fixed" open={open} className={`layout-header ${open ? '' : 'sider-docked'}`}> {/* drawer */}
@@ -184,6 +205,7 @@ export default function MiniDrawer(props) {
                     {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} */}
                     <ListItemText primary={menubar.menulist} />
                     {menubar.submenu === true ? <>{menuCollapse ? <ExpandLess sx={{ fill: '#ffffff' }} /> : <ExpandMore sx={{ fill: '#ffffff' }} />}</> : ''}
+                    {menuCollapse ? submenuShow(menubar) : ''}
                   </ListItemButton>
                 </ListItem>
               </Link>

@@ -15,10 +15,10 @@ export const Sidermenu = [
     menulist: 'Campaigns',
     menuicon: <CampaignMenu />,
     menupath: '/campaigns',
-    submenu: true,
-    submenulist: [
-      { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
-    ]
+    submenu: false,
+    // submenulist: [
+    //   { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
+    // ]
   },
   {
     id: 3,
@@ -44,18 +44,18 @@ export const Sidermenu = [
     menupath: '/kyc',
     submenu: false,    
   },
-  // {
-  //   id: 6,
-  //   menuId: 10,
-  //   menulist: 'Payments',
-  //   menuicon: <PaymentsMenu />,
-  //   menupath: '/payments',
-  //   submenu: true,
-  //   submenulist: [
-  //     { menuId: 3, name: 'Master', icon: <MasterMenu />, submenupath: '', },
-  //     { menuId: 4, name: 'Bucket', icon: <BucketMenu />, submenupath: '', },
-  //   ]
-  // },
+  {
+    id: 7,
+    menuId: 10,
+    menulist: 'Payments',
+    menuicon: <PaymentsMenu />,
+    menupath: '/payments',
+    submenu: true,
+    submenulist: [
+      { menuId: 3, name: 'Master', icon: <MasterMenu />, submenupath: '', },
+      { menuId: 4, name: 'Bucket', icon: <BucketMenu />, submenupath: '', },
+    ]
+  },
   {
     id: 6,
     menuId: 10,
