@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -110,13 +110,7 @@ const Campaigns = (params) => {
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
 
-          // navigate(`/campaign-applications/${thisRow.id}`);
-          navigate({
-            pathname: `/campaign-applications/${thisRow.id}`,
-            search: `?${createSearchParams({
-              name: params.row.brand_name+" "+ params.row.campaign_title
-            })}`
-          });
+          navigate(`/campaign-application/${thisRow.id}`);
         };
 
         return (

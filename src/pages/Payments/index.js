@@ -4,24 +4,17 @@ import {
   Autocomplete,
   Box,
   Grid,
-  IconButton,
   InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
-import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { CampaignListing } from "../../actions/campaign";
+import { SearchIcon, SparkFill } from "../../svg";
 
 
 const Payments = () => {
 
   const [campaignList, setCampaignList] = useState([]);
   const [search, setSearched] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const columns = [
     {
@@ -45,90 +38,36 @@ const Payments = () => {
     {
       field: "campaign_title",
       headerName: "Campaign Title",
-      flex: 1.5,
+      flex: 1.8,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
-      flex: 0.9,
+      flex: 1.6,
     },
     {
       field: "campaign_description",
-      headerName: "Campaign Description",
-      flex: 1.8,
+      headerName: "Category",
+      flex: 1.1,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
       flex: 1,
       align: 'center',
-      renderCell: (params) =>
-        params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
-    },
-    // {
-    //   field: "action",
-    //   headerName: "",
-    //   flex: 0.4,
-    //   renderCell: (params) => {
-    //     const onClick = (e) => {
-    //       e.stopPropagation();
-    //       const api = params.api;
-    //       const thisRow = {};
-    //       api
-    //         .getAllColumns()
-    //         .filter((c) => c.field !== "__check__" && !!c)
-    //         .forEach(
-    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-    //         );
-    //       navigate(`/view-campaign/${thisRow.id}`);
-    //     };
-
-    //     return (
-    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-    //         <ActionArrow />
-    //       </IconButton>
-    //     );
-    //   },
-    // },
-    {
-      field: "viewApplication",
-      // headerName: "View Application",
-      headerName: "",
-      flex: 0.4,
-      renderCell: (params, row) => {
-        const onClick = (e) => {
-          console.log('params, row: ', params, row);
-          e.stopPropagation();
-
-          const api = params.api;
-          const thisRow = {};
-
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== "__check__" && !!c)
-            .forEach(
-              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-            );
-
-          navigate(`/payments-approved/${thisRow.id}`);
-        };
-
-        return (
-          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <ActionArrow />
-          </IconButton>
-        );
+      renderCell: () => {
+        <SparkFill />;
       },
     },
   ];
 
   const getAllCampaignListing = () => {
-    dispatch(CampaignListing())
-      .then((res) => {
-        setCampaignList(res.data);
-        toast.success(res.message);
-      })
-      .catch((err) => {});
+    // dispatch(CampaignListing())
+    //   .then((res) => {
+    //     setCampaignList(res.data);
+    //   })
+    //   .catch((err) => {
+    //   });
   };
 
   useEffect(() => {
@@ -143,19 +82,19 @@ const Payments = () => {
     setSearched(value);
   };
 
-  // useEffect(() => {
-  //   if (search !== null || search !== "" || search !== undefined) {
-  //     if (search === null) {
-  //       getAllCampaignListing();
-  //     } else {
-  //       setCampaignList(
-  //         campaignList.filter((column) =>
-  //           search.includes(column.campaign_title)
-  //         )
-  //       );
-  //     }
-  //   }
-  // }, [search]);
+  useEffect(() => {
+    if (search !== null || search !== "" || search !== undefined) {
+      if (search === null) {
+        getAllCampaignListing();
+      } else {
+        setCampaignList(
+          campaignList.filter((column) =>
+            search.includes(column.campaign_title)
+          )
+        );
+      }
+    }
+  }, [search]);
 
   return (
     <>

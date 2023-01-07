@@ -1,33 +1,13 @@
 import React from "react";
-import { Button, Stack } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { CampaignApplicationStepper } from "../../actions/campaign";
-import { toast } from "react-toastify";
+import { Button, FormControl, Stack, TextField } from "@mui/material";
 
 
-const WorkingOnTask = ({ id }) => {
-
-  const dispatch = useDispatch();
-
-  const handleClick = (status) => {
-    const data = {
-      id : id,
-      applicationStatus : status
-    }
-    dispatch(CampaignApplicationStepper(data))
-    .then((res) => {
-      console.log('res------>: ', res);
-      toast.success(res.status);
-    })
-    .catch((err) => {
-      toast.error(err);
-    });
-  }
+const WorkingOnTask = () => {
 
   return (
     <>
       <Stack direction="row" spacing={2} className="pending-btn-row">
-        <Button variant="contained" className="approved" onClick={() => handleClick(3)}>Mark as completed</Button>
+        <Button variant="contained" className="approved">Mark as completed</Button>
       </Stack>
     </>
   );

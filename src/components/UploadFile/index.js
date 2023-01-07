@@ -4,32 +4,23 @@ import { toAbsoluteUrl } from '../../utils';
 import './Upload.scss'
 
 
-const UploadHere = ({setFileupload, fileupload, uploadText, uploadLabel, imageUrl0, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
-  console.log('imageUrl: ', imageUrl);
-  
-  console.log('fileupload: ', fileupload);
+const UploadHere = ({setFileupload, uploadText, uploadLabel, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton }) => {
   
   const handleChange = (e) => {
-    setFileupload([...fileupload,e.target.files[0]]);
+    setFileupload(e.target.files[0]);
     const reader = new FileReader();
     reader.addEventListener("load", () => {
-      setImageUrl([...imageUrl,reader.result]);
+      setImageUrl(reader.result);
     });
     reader.readAsDataURL(e.target.files[0]);
   }
 
   return (
     <>
-			{/* {uploadLabel ? <InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''} */}
-      {imageUrl?.length > 0 ? 
+			{uploadLabel ? <InputLabel id="demo-simple-select-label" className='extra-label upload-label'>{uploadLabel}</InputLabel> : ''}
+      {imageUrl ? 
         <div className={`uplaoded-ui ${sideButton ? 'side-button' : ''}`} style={{width: uplaodWidth, height: uplaodHeight }}>
-          {imageUrl?.length > 0 && imageUrl.map((item, index) => {
-            return(
-              <>
-             <video controls key={index}> <source src={imageUrl[index]} type="video/mp4" /></video> 
-              </>
-            )
-          }) }
+          {imageUrl ? <img src={imageUrl} alt="" /> : ''}
 					<Button variant="contained" component="label" className='upload-video'>
 						<span className='upload-plus-btn'>{uploadBtn}</span>
           	<input type='file' name="file" onChange={(e) => handleChange(e)} required/>
@@ -40,7 +31,7 @@ const UploadHere = ({setFileupload, fileupload, uploadText, uploadLabel, imageUr
           <Button variant="contained" component="label" className='upload-video '>
 						{uploadText}
 						<span className='upload-plus-btn'>{uploadBtn}</span>
-	          <input type='file' name="file" onChange={(e) => handleChange(e)} accept=".mp4" multiple required/>
+	          <input type='file' name="file" onChange={(e) => handleChange(e)} accept=".jpg, .jpeg, .png" multiple required/>
 					</Button>
 					<span className='uplaod-span'>
 						<img src={toAbsoluteUrl('/images/uplaod-icon.svg')} alt="" /><br />

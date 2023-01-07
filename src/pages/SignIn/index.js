@@ -106,7 +106,7 @@ const SignIn = () => {
                 <FormControl variant="Outlined">
                   <TextField
                     id="outlined-basic"
-                    label="Enter your username"
+                    placeholder="Enter your username"
                     variant="outlined"
                     value={username}
                     name="username"
@@ -133,7 +133,7 @@ const SignIn = () => {
                 <FormControl variant="Outlined">
                   <TextField
                     id="outlined-password-input"
-                    label="Password"
+                    placeholder="Password"
                     type="password"
                     autoComplete="no"
                     value={password}

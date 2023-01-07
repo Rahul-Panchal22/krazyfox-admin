@@ -9,7 +9,7 @@ let AuthGuard = ({ children }) => {
     const { isLoggedIn } = useSelector(state => state.auth);
 
     useEffect(() => {
-        if (!isLoggedIn) navigate('/signin', { replace: true });
+        if (!isLoggedIn) navigate('/', { replace: true });
     }, [isLoggedIn, navigate])
     
     return (

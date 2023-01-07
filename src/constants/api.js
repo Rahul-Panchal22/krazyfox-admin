@@ -16,7 +16,6 @@ export const API_CAMPAIGN_CREATE = `${API_BASE}campaigns/create`
 export const API_CAMPAIGN_EDIT = `${API_BASE}campaigns/edit-campaign`
 export const API_CAMPAIGN_DELETE = `${API_BASE}campaigns/delete/`
 export const API_CAMPAIGN_APPLICATION_LIST = `${API_BASE}campaigns/applicationListing`
-export const API_CAMPAIGN_STEPPER = `${API_BASE}campaigns/updateApplicationStatus`
 
 // Brand API call url's
 export const API_BRANDS_LIST = `${API_BASE}brands/all`
@@ -30,11 +29,3 @@ export const GET_KYC_LIST = `${API_BASE}kyc`
 
 // creators VerifyDocs 
 export const API_CREATOR_VERIFY = `${API_BASE}creators/verifyDocs`
-
-// payments 
-export const API_PAYMENTS = `${API_BASE}payments/fetchCreatorPayoutList`;
-export const API_PAYMENTS_update = `${API_BASE}payments/updatePayoutStatus`;
-export const API_PAYMENTS_creatorPayout = `${API_BASE}payments/fetchCreatorPayoutDetails`;
-export const API_PAYMENTS_createBucket = `${API_BASE}payments/createBucketList`;
-export const API_PAYMENTS_fetch_transaction = `${API_BASE}payments/fetchBucketTransactionList`;
-export const API_PAYMENTS_fetch_transaction_details = `${API_BASE}payments/fetchBucketTransactionDetail`;

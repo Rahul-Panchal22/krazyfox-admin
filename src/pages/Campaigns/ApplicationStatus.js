@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Avatar, Box, Button, Divider, Grid, Paper, Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
 import ApplicationCard from "./ApplicationCard";
 import { toAbsoluteUrl } from "../../utils";
@@ -7,11 +7,6 @@ import PriceFinalization from "./PriceFinalization";
 import SubmitWork from "./SubmitWork";
 import ApproveWork from "./ApproveWork";
 import TaskCompleted from "./TaskCompleted";
-import { toast } from "react-toastify";
-import { useLocation, useParams } from "react-router-dom";
-import { fetchCreator } from "../../actions/creators";
-import { useDispatch } from "react-redux";
-import WorkingOnTask from "./WorkingOnTask";
 
 
 const steps = [
@@ -39,93 +34,25 @@ const steps = [
     label: 'Completed',
     description: <TaskCompleted />,
   },
-  // {
-  //   label: 'You submitted Harley’s work.',
-  //   description: <SubmitWork />,
-  // },
-  // {
-  //   label: 'Approve or Reject Harley’s Work',
-  //   description: <ApproveWork />,
-  // },
-  // {
-  //   label: 'Is task completed?',
-  //   description: <TaskCompleted />,
-  // },
+  {
+    label: 'You submitted Harley’s work.',
+    description: <SubmitWork />,
+  },
+  {
+    label: 'Approve or Reject Harley’s Work',
+    description: <ApproveWork />,
+  },
+  {
+    label: 'Is task completed?',
+    description: <TaskCompleted />,
+  },
 ];
- 
+
 
 const ApplicationStatus = () => {
 
-  const dispatch = useDispatch();
-	// const history = useLocation();
-  // console.log('history: ', history);
-	// const params = new URLSearchParams(history.search);
-  // console.log('params: ', params);
-  const params = useParams();
-
   const [activeStep, setActiveStep] = React.useState(0);
-  const [creatorDetail, setCreatorDetail] = React.useState();
 
-  const steps = [
-    {
-      label: 'Approve or Reject Harley’s Application',
-      description: <UserStatus id={params.id}/>,
-    },
-    {
-      label: 'Price Finalization',
-      description: <PriceFinalization id={params.id}/>,
-    },
-    {
-      label: 'Working on task',
-      description: <WorkingOnTask id={params.id}/>,
-    },
-    {
-      label: 'Work Submission',
-      description: <SubmitWork id={params.id}/>,
-    },
-    {
-      label: 'Approve or Reject Harley’s Work',
-      description: <ApproveWork id={params.id}/>,
-    },
-    {
-      label: 'Completed',
-      description: <TaskCompleted id={params.id}/>,
-    },
-    // {
-    //   label: 'You submitted Harley’s work.',
-    //   description: <SubmitWork />,
-    // },
-    // {
-    //   label: 'Approve or Reject Harley’s Work',
-    //   description: <ApproveWork />,
-    // },
-    // {
-    //   label: 'Is task completed?',
-    //   description: <TaskCompleted />,
-    // },
-  ];
-  
-  const fetchCreatorDetailThroughId = () => {
-    dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
-      .then((res) => {
-        console.log(res)
-        if (res.code === 200) {
-          setCreatorDetail(res.data);
-          toast.success(res.message);
-        } else {
-          toast.error("error");
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
-  useEffect(() => {
-    fetchCreatorDetailThroughId();
-  }, []);
-  console.log("creatorDetail-------->",creatorDetail?.categoriesArrayList);
-
-  
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -134,37 +61,40 @@ const ApplicationStatus = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
   return (
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={creatorDetail?.profile_pic_url ? creatorDetail?.profile_pic_url : toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
-          <h4 className="user-name">{creatorDetail ? creatorDetail.name : '-'}</h4>
+          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <h4 className="user-name">Harley Quinn</h4>
         </div>
       </div>
       <div className='border-paper'>
         <Grid container direction="row" spacing={2} className='mar-bottom-40'>
           <ApplicationCard
             cardHeadign="Followers"
-            cardContent={creatorDetail ? creatorDetail.campaign_followers_range : '-'}
+            cardContent="900K"
           />
           <ApplicationCard
             cardHeadign="Contact Number"
-            cardContent={creatorDetail ? '+'.concat('', creatorDetail.phone_number) : '-'}
+            cardContent="+91 0000000000"
           />
           <ApplicationCard
             cardHeadign="Email"
-            cardContent={creatorDetail ? creatorDetail.email : '-'}
+            cardContent="harley@quinn.com"
           />
           <ApplicationCard
             cardHeadign="Category"
             chipList
-            // chipItem={['chip 1', 'chip 2', 'chip 3', 'chip 4']}
-            chipItem={creatorDetail?.categoriesArrayList !== undefined  ? creatorDetail?.categoriesArrayList : []}
+            chipItem={['chip 1', 'chip 2', 'chip 3', 'chip 4']}
           />
           <ApplicationCard
             cardHeadign="Address"
-            cardContent={creatorDetail ? creatorDetail.address : '-'}
+            cardContent="Boompanda HQ, near Balewadi High Street, 422004"
           />
           <ApplicationCard
             cardHeadign="City"
@@ -176,19 +106,19 @@ const ApplicationStatus = () => {
           />
           <ApplicationCard
             cardHeadign="Gender"
-            cardContent={creatorDetail ? creatorDetail.gender : '-'}
+            cardContent="Female"
           />
           <ApplicationCard
             cardHeadign="Language"
-            cardContent={creatorDetail ? creatorDetail.language : '-'}
+            cardContent="Hindi"
           />
           <ApplicationCard
             cardHeadign="Genre"
-            cardContent={creatorDetail ? creatorDetail.genre : '-'}
+            cardContent="Fashion"
           />
           <ApplicationCard
             cardHeadign="Sub-Genre"
-            cardContent={creatorDetail ? creatorDetail.sub_genre : '-'}
+            cardContent="Beauty"
           />
           <ApplicationCard
             cardHeadign="Social Links"
@@ -231,6 +161,9 @@ const ApplicationStatus = () => {
           {activeStep === steps.length && (
             <Paper square elevation={0} sx={{ p: 3 }}>
               <Typography>All steps completed - you&apos;re finished</Typography>
+              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                Reset
+              </Button>
             </Paper>
           )}
         </Box>
