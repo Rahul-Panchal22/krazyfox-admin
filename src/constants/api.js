@@ -8,6 +8,7 @@ export const API_CATEGORIES_LISTING = `${API_BASE}categories`
 // Creators
 export const API_CREATORS_LISTING = `${API_BASE}dashboard`
 export const API_CREATORS_VIEW = `${API_BASE}creators`
+export const API_CREATORS_LIST = `${API_BASE}creators/all`
 
 // Campaign API call url's
 export const API_CAMPAIGN_LIST = `${API_BASE}campaigns/all`

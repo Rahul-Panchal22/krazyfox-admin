@@ -7,20 +7,25 @@ export const LOGIN_S = 'LOGIN_SUCCESS'
 export const LOGIN_F = 'LOGIN_FAIL'
 export const LOGOUT = 'LOGOUT'
 
-export const CAMPAIGN_S = "Campaign listed successfully"
-export const CAMPAIGN_F = "Campaign listing failed"
-
+// creators
 export const CATEGORY_S = "Categories listed successfully"
 export const CATEGORY_F = "Categories listing failed"
 
-export const CREATORS_S = "Categories listed successfully"
-export const CREATORS_F = "Categories listing failed"
+export const LIST_CREATORS_S = "Creator listed successfully"
+export const LIST_CREATORS_F = "Creator listing failed"
+
+export const CREATORS_S = "Creator listed successfully"
+export const CREATORS_F = "Creator listing failed"
 
 export const CREATORS_VIEW_S = "Creator profile fetched successfully"
 export const CREATORS_VIEW_F = "Creator profile couldn't fetch successfully."
 
 export const CREATORS_VERIFY_DOCS_S = "Creator docs verifyed successfully"
 export const CREATORS_VERIFY_DOCS_F = "Creator docs couldn't verifyed successfully"
+
+// campaign
+export const CAMPAIGN_S = "Campaign listed successfully"
+export const CAMPAIGN_F = "Campaign listing failed"
 
 export const VIEW_CAMPAIGN_S = "View campaign listed successfully"
 export const VIEW_CAMPAIGN_F = "View campaign list failed"
@@ -37,6 +42,7 @@ export const DELETE_CAMPAIGN_F = "Campaign can't be deleted"
 export const VIEW_CAMPAIGN_APPLICATION_S = "View campaign application listed successfully"
 export const VIEW_CAMPAIGN_APPLICATION_F = "View campaign application list failed"
 
+// brand
 export const BRANDS_S = "Brands listed successfully"
 export const BRANDS_F = "Brands listing failed"
 
@@ -52,6 +58,7 @@ export const VIEW_BRAND_F = "View campaign list failed"
 export const DELETE_BRAND_S = "Brand deleted successfully"
 export const DELETE_BRAND_F = "Brand can't be deleted"
 
+// kyc
 export const GET_LIST_KYC_S = "KYC listed successfully"
 export const GET_LIST_KYC_F = "KYC listing failed"
 
@@ -67,6 +74,7 @@ export const VIEW_KYC_F = "View KYC list failed"
 export const DELETE_KYC_S = "KYC deleted successfully"
 export const DELETE_KYC_F = "KYC can't be deleted"
 
+// payment 
 export const PAYMENTS_S = "Payment successfully"
 export const PAYMENTS_F = "Payment deleted"
 

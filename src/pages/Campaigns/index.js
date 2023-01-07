@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { ActionArrow, Eye, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -23,6 +23,9 @@ const Campaigns = (params) => {
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const history = useLocation();
+  console.log('history: ', history);
+  const pathname = history.pathname ;
 
   const columns = [
     {
@@ -84,9 +87,23 @@ const Campaigns = (params) => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
-          navigate(`/campaign-application/${thisRow.id}`);
-        };
+            if(pathname === "/hyperlocal"){
+              navigate({
+                pathname: `/hyper-applications/${thisRow.id}`,
+                search: `?${createSearchParams({
+                  name: params.row.brand_name+" "+ params.row.campaign_title
+                })}`
+              });
+            }
+            else{
+              navigate({
+                pathname: `/campaign-applications/${thisRow.id}`,
+                search: `?${createSearchParams({
+                  name: params.row.brand_name+" "+ params.row.campaign_title
+                })}`
+              });
+            }
+            }
 
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
@@ -110,7 +127,12 @@ const Campaigns = (params) => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-          navigate(`/view-campaign/${thisRow.id}`);
+            if(pathname === "/hyperlocal"){
+              navigate(`/view-hyper/${thisRow.id}`);
+            }
+            else{
+              navigate(`/view-campaign/${thisRow.id}`);
+            }
         };
 
         return (

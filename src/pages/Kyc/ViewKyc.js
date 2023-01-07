@@ -3,14 +3,17 @@ import { Divider, Grid, Chip, Avatar } from "@mui/material";
 import KycCard from "./KycCard";
 import { KycStatus } from "../../svg";
 import { toAbsoluteUrl } from "../../utils";
-import { fetchCreator } from "../../actions/creators";
+import { creatorsVerify, fetchCreator } from "../../actions/creators";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
 const ViewKyc = () => {
-  const [creatorDetail, setCreatorDetail] = useState()
+  const [creatorDetail, setCreatorDetail] = useState();
+  const [panCardflag, setPanCardFlag] = useState();
+  const [adharCardflag, setAdharCardFlag] = useState();
+  const [pashbookflag, setPashbookFlag] = useState();
   const dispatch = useDispatch();
   const params = useParams()
 
@@ -33,6 +36,55 @@ const ViewKyc = () => {
     
   }, []);
 
+  
+  const handleClick = (item, name) => {
+    if (item !== 1) {
+      let data;
+      if(name === "pan_card_verification"){
+        data = {
+            creator_id: parseInt(params.kycId),
+            pan_card_verification: "1",
+          }
+      }
+      if(name === "adhar_verification"){
+        data = {
+            creator_id: parseInt(params.kycId),
+            adhar_verification: "1"
+          }
+      }
+      if(name === "passbook_verification"){
+        data = {
+            creator_id: parseInt(params.kycId),
+            passbook_verification: "1"
+          }
+      }
+
+      dispatch(creatorsVerify(data))
+        .then((res) => {
+          console.log(res)
+          if (res.code === 200) {
+            console.log("res000", res)
+            if(name === "pan_card_verification"){
+              setPanCardFlag(1);
+            }
+            if(name === "adhar_verification"){
+              setAdharCardFlag(1);
+            }
+            if(name === "passbook_verification"){
+              setPashbookFlag(1);
+            }
+            setCreatorDetail(res.data);
+            toast.success(res.message);
+          } else {
+            toast.error("error");
+          }
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+    }
+  }
+
   console.log('--------------------------------', creatorDetail)
 
   return (
@@ -51,7 +103,7 @@ const ViewKyc = () => {
           />
           <KycCard
             cardHeadign="Contact Number"
-            cardContent={creatorDetail ? '+'.concat('',creatorDetail.phone_number) : '-'}
+            cardContent={creatorDetail ? '+'.concat('',creatorDetail?.phone_number) : '-'}
           />
           <KycCard
             cardHeadign="Email"
@@ -60,7 +112,7 @@ const ViewKyc = () => {
           <KycCard
             cardHeadign="Category"
             chipList
-            chipItem={creatorDetail.categoriesArrayList.length > 0 ? creatorDetail?.categoriesArrayList : []}
+            chipItem={creatorDetail?.categoriesArrayList?.length > 0 ? creatorDetail?.categoriesArrayList : []}
           />
           <KycCard
             cardHeadign="Address"
@@ -121,21 +173,21 @@ const ViewKyc = () => {
               <img src={creatorDetail ? creatorDetail?.adhar_front_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
               <img src={creatorDetail ? creatorDetail?.adhar_back_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
             </figure>
-            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${creatorDetail?.is_adhar_verified == 1 ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_adhar_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} />
+            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_adhar_verified == 1) || (adharCardflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_adhar_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_adhar_verified, "adhar_verification")}/>
           </Grid>
           <Grid item xs={6} className="veiw-card">
             <p className="label">PAN Card</p>
             <figure className='view-doc d-flex-start-start'>
               <img src={creatorDetail ? creatorDetail?.pan_card_url : ("/images/view-doc.png")} alt="" />
             </figure>
-            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${creatorDetail?.is_pan_card_verified == 1 ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_pan_card_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} />
+            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_pan_card_verified == 1) || (panCardflag == 1)  ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_pan_card_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_pan_card_verified, "pan_card_verification")}/>
           </Grid>
           <Grid item xs={6} className="veiw-card">
             <p className="label">Passbook</p>
             <figure className='view-doc d-flex-start-start'>
               <img src={creatorDetail ? creatorDetail?.passbook_url: toAbsoluteUrl("/images/view-doc.png")} alt="" />
             </figure>
-            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${creatorDetail?.is_passbook_verified == 1 ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_passbook_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} />
+            <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_passbook_verified == 1) || (pashbookflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_passbook_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_passbook_verified, "passbook_verification")}/>
           </Grid>
         </Grid>
         <Divider className='divide-mar-40--40' />

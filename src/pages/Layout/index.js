@@ -172,7 +172,7 @@ export default function MiniDrawer(props) {
             {open ? <img src={toAbsoluteUrl("/images/logo_full.svg")} alt="" /> : <img src={toAbsoluteUrl("/images/logo_icon.svg")} alt="" />}
           </IconButton> */}
           <Stack direction="row" justifyContent="space-between" alignItems="center" className='w-100 pad-0-20' spacing={2}>
-            <h6 className='page-title'>{`Welcome ${headerName}`}</h6>
+            <h6 className='page-title'>{`${headerName}`}</h6>
             <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>Log Out</Button>
           </Stack>
         </Toolbar>

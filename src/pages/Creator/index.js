@@ -14,7 +14,7 @@ import { ActionArrow, KycStatus, SearchIcon } from "../../svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { CreatorsListing } from "../../actions/creators";
+import { CreatorsAllListing, CreatorsListing } from "../../actions/creators";
 
 const Creator = () => {
   const [creatorsList, setCreatorsList] = useState([]);
@@ -27,7 +27,7 @@ const Creator = () => {
   };
 
   const getAllCreatorsListing = () => {
-    dispatch(CreatorsListing())
+    dispatch(CreatorsAllListing())
       .then((res) => {
         if (res.code === 200) {
           toast.success("Creators Listing fetch successfully");
@@ -45,7 +45,7 @@ const Creator = () => {
 
   const columns = [
     {
-      field: "id",
+      field: "creator_id",
       headerName: "Sr No.",
       flex: 0.5,
     },
@@ -125,7 +125,7 @@ const Creator = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-          navigate(`/view-creator/${thisRow.id}`);
+          navigate(`/view-creator/${thisRow.creator_id}`);
         };
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
@@ -191,6 +191,7 @@ const Creator = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          getRowId={(row) => row.creator_id}
         />
       </Box>
     </>

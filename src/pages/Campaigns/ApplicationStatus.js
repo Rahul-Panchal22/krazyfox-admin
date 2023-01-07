@@ -13,46 +13,6 @@ import { useDispatch } from "react-redux";
 import { fetchCreator } from "../../actions/creators";
 import { toast } from "react-toastify";
 
-const steps = [
-  {
-    label: 'Approve or Reject Harley’s Application',
-    description: <UserStatus />,
-  },
-  {
-    label: 'Price Finalization',
-    description: <PriceFinalization />,
-  },
-  {
-    label: 'Working on task',
-    description: <PriceFinalization />,
-  },
-  {
-    label: 'Work Submission',
-    description: <SubmitWork />,
-  },
-  {
-    label: 'Approve or Reject Harley’s Work',
-    description: <ApproveWork />,
-  },
-  {
-    label: 'Completed',
-    description: <TaskCompleted />,
-  },
-  {
-    label: 'You submitted Harley’s work.',
-    description: <SubmitWork />,
-  },
-  {
-    label: 'Approve or Reject Harley’s Work',
-    description: <ApproveWork />,
-  },
-  {
-    label: 'Is task completed?',
-    description: <TaskCompleted />,
-  },
-];
-
-
 const ApplicationStatus = () => {
 
   const dispatch = useDispatch();
@@ -119,8 +79,6 @@ const ApplicationStatus = () => {
   useEffect(() => {
     fetchCreatorDetailThroughId();
   }, []);
-  console.log("creatorDetail-------->",creatorDetail?.categoriesArrayList);
-
   
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -138,32 +96,33 @@ const ApplicationStatus = () => {
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
-          <h4 className="user-name">Harley Quinn</h4>
+          <Avatar alt="Remy Sharp" src={creatorDetail?.profile_pic_url ? creatorDetail?.profile_pic_url : toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <h4 className="user-name">{creatorDetail ? creatorDetail.name : '-'}</h4>
         </div>
       </div>
       <div className='border-paper'>
         <Grid container direction="row" spacing={2} className='mar-bottom-40'>
           <ApplicationCard
             cardHeadign="Followers"
-            cardContent="900K"
+            cardContent={creatorDetail ? creatorDetail.campaign_followers_range : '-'}
           />
           <ApplicationCard
             cardHeadign="Contact Number"
-            cardContent="+91 0000000000"
+            cardContent={creatorDetail ? '+'.concat('', creatorDetail.phone_number) : '-'}
           />
           <ApplicationCard
             cardHeadign="Email"
-            cardContent="harley@quinn.com"
+            cardContent={creatorDetail ? creatorDetail.email : '-'}
           />
           <ApplicationCard
             cardHeadign="Category"
             chipList
-            chipItem={['chip 1', 'chip 2', 'chip 3', 'chip 4']}
+            // chipItem={['chip 1', 'chip 2', 'chip 3', 'chip 4']}
+            chipItem={creatorDetail?.categoriesArrayList !== undefined  ? creatorDetail?.categoriesArrayList : []}
           />
           <ApplicationCard
             cardHeadign="Address"
-            cardContent="Boompanda HQ, near Balewadi High Street, 422004"
+            cardContent={creatorDetail ? creatorDetail.address : '-'}
           />
           <ApplicationCard
             cardHeadign="City"
@@ -175,19 +134,19 @@ const ApplicationStatus = () => {
           />
           <ApplicationCard
             cardHeadign="Gender"
-            cardContent="Female"
+            cardContent={creatorDetail ? creatorDetail.gender : '-'}
           />
           <ApplicationCard
             cardHeadign="Language"
-            cardContent="Hindi"
+            cardContent={creatorDetail ? creatorDetail.language : '-'}
           />
           <ApplicationCard
             cardHeadign="Genre"
-            cardContent="Fashion"
+            cardContent={creatorDetail ? creatorDetail.genre : '-'}
           />
           <ApplicationCard
             cardHeadign="Sub-Genre"
-            cardContent="Beauty"
+            cardContent={creatorDetail ? creatorDetail.sub_genre : '-'}
           />
           <ApplicationCard
             cardHeadign="Social Links"

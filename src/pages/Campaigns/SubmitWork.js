@@ -55,7 +55,7 @@ const SubmitWork = () => {
         </FormControl>
         <Button variant="contained" className="approved">Approved</Button>
       </Stack>
-      <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link>
+      {/* <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link> */}
       <Stack direction="row" spacing={1}>
         {/* <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} /> */}
         <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload1={setFileupload1} setFileupload2={setFileupload2} setFileupload3={setFileupload3} setFileupload4={setFileupload4} fileupload1={fileupload1} fileupload2={fileupload2} fileupload3={fileupload3} fileupload4={fileupload4} imageUrl={imageUrl}  setImageUrl={setImageUrl} imgselect={1} />
