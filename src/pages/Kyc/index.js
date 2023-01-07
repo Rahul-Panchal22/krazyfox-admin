@@ -24,7 +24,7 @@ const Kyc = () => {
   const dispatch = useDispatch();
   const [kycList, setKycList] = useState([]);
   const [/* AllkycList, */ setAllKycList] = useState([]);
-  const [filter, /* setFilter */] = useState();
+  // const [filter, /* setFilter */] = useState();
   const [search, setSearched] = useState("");
   const navigate = useNavigate()
 
@@ -212,7 +212,7 @@ const Kyc = () => {
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
               <Select
-                value={filter}
+                // value={filter}
                 onChange={handleChangeFilter}
                 displayEmpty
                 size='small'

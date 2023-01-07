@@ -64,6 +64,7 @@ const Routing = () => {
           <Route path="/backet-list" element={<PrivateRoute><BacketList/></PrivateRoute>} />
           <Route path="/backet-details/:backetId" element={<PrivateRoute><BacketDetails/></PrivateRoute>} />
           <Route path="/hyperlocal" element={<PrivateRoute><Campaigns /></PrivateRoute>} />
+          <Route path="/view-hyper/:campaignId" element={<PrivateRoute><ViewCampaign/></PrivateRoute>}/>
         </Route>
         <Route path="*" element={<Navigate replace to="/" />}></Route>
       </Routes>

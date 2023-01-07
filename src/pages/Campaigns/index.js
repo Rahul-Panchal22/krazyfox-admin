@@ -10,12 +10,13 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
+import { ActionArrow, Eye, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "./Campaigns.scss";
+import Visibility from "@mui/icons-material/Visibility";
 
 const Campaigns = (params) => {
   const [campaignList, setCampaignList] = useState([]);
@@ -65,35 +66,9 @@ const Campaigns = (params) => {
       renderCell: (params) =>
         params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
     },
-    // {
-    //   field: "action",
-    //   headerName: "",
-    //   flex: 0.4,
-    //   renderCell: (params) => {
-    //     const onClick = (e) => {
-    //       e.stopPropagation();
-    //       const api = params.api;
-    //       const thisRow = {};
-    //       api
-    //         .getAllColumns()
-    //         .filter((c) => c.field !== "__check__" && !!c)
-    //         .forEach(
-    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-    //         );
-    //       navigate(`/view-campaign/${thisRow.id}`);
-    //     };
-
-    //     return (
-    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-    //         <ActionArrow />
-    //       </IconButton>
-    //     );
-    //   },
-    // },
     {
       field: "viewApplication",
-      // headerName: "View Application",
-      headerName: "",
+      headerName: "View Application",
       flex: 0.4,
       renderCell: (params, row) => {
         const onClick = (e) => {
@@ -121,11 +96,37 @@ const Campaigns = (params) => {
 
         return (
           <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+            <Visibility />
+          </IconButton>
+        );
+      },
+    },
+    {
+      field: "action",
+      headerName: "",
+      flex: 0.4,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation();
+          const api = params.api;
+          const thisRow = {};
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== "__check__" && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+          navigate(`/view-campaign/${thisRow.id}`);
+        };
+
+        return (
+          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
             <ActionArrow />
           </IconButton>
         );
       },
     },
+    
   ];
 
   const getAllCampaignListing = () => {

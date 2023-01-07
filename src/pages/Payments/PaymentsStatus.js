@@ -181,12 +181,14 @@ const PaymentsStatus = () => {
         payoutStatus: item.toString(),
         id: selection[0]
       }
+      setFilterNumber(1);
     }else{
       data = {
         payoutStatus: item.toString(),
         id: selection[0],
         note: note
       }
+      setFilterNumber(2);
     }
     dispatch(paymentUpdate(data))
       .then((res) => {

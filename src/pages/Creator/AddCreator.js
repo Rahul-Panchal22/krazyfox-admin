@@ -24,7 +24,7 @@ import { toast } from "react-toastify";
 
 const AddCreator = () => {
   
-  const [status, setStatus] = React.useState('');
+  // const [status, setStatus] = React.useState('');
   const [campaignList, setCampaignList] = useState([]);
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
@@ -203,15 +203,16 @@ const AddCreator = () => {
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
               <Select
-                value={status}
+                // value={status}
                 onChange={handleChangeStaus}
                 displayEmpty
                 size='small'
-                placeholder="Status"
+                // placeholder="Status"
+                required
                 >
                 {/* <MenuItem value="">
                   <em>Status</em>
-                </MenuItem> */}
+                </MenuItem> */} 
                 <MenuItem value={0}>Applied</MenuItem>
                 <MenuItem value={1}>Approved</MenuItem>
                 <MenuItem value={2}>In-Process</MenuItem>
