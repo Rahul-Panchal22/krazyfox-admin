@@ -29,23 +29,23 @@ const ApplicationStatus = () => {
   const steps = [
     {
       label: 'Approve or Reject Harley’s Application',
-      description: <UserStatus id={params.id} setStoreStatus={setStoreStatus} step={0} setDisableBtn={setDisableBtn}/>,
+      description: <UserStatus id={params.id} setStoreStatus={setStoreStatus} step={0} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Price Finalization',
-      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={1} setDisableBtn={setDisableBtn}/>,
+      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={1} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Working on task',
-      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={2} setDisableBtn={setDisableBtn}/>,
+      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={2} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Work Submission',
-      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={3} setDisableBtn={setDisableBtn}/>,
+      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={3} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Approve or Reject Harley’s Work',
-      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={4} setDisableBtn={setDisableBtn}/>,
+      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={4} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Completed',
@@ -70,10 +70,14 @@ const ApplicationStatus = () => {
       .then((res) => {
         console.log("--------------------------------->",res)
         if (res.code === 200) {
-          // setCreatorDetail(res.data);
-          setActiveStep(res.data.application_status);
+          if(res.data.application_status === 1){
+            setActiveStep(res.data.application_status - 1);
+            setGetActiveStep(res.data.application_status - 1)
+          }else{
+            setActiveStep(res.data.application_status);
+            setGetActiveStep(res.data.application_status)
+          }
           setDisableBtn(res.data.application_status);
-          // setGetActiveStep(res.data.application_status - 1)
           toast.success(res.message);
         } else {
           toast.error("error");
@@ -87,11 +91,8 @@ const ApplicationStatus = () => {
   const fetchCreatorDetailThroughId = () => {
     dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
       .then((res) => {
-        console.log(res)
         if (res.code === 200) {
           setCreatorDetail(res.data);
-          setActiveStep(res.data.application_status - 1);
-          setGetActiveStep(res.data.application_status - 1)
           toast.success(res.message);
         } else {
           toast.error("error");
