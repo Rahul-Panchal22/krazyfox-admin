@@ -159,7 +159,13 @@ const Campaigns = (params) => {
   }, []);
 
   const handleRedirection = (e) => {
+    if(pathname === '/hyperlocal'){
+    navigate("/hyper-local-campaign");
+    }
+    else{
     navigate("/add-campaign");
+
+    }
   };
 
   const onMutate = (e, value) => {

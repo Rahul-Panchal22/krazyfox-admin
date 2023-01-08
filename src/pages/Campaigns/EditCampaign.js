@@ -23,6 +23,7 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Campaigns.scss";
 import FileUploader from "../../components/UploadFile/FileUploader";
+import { toAbsoluteUrl } from "../../utils";
 
 const defaultFormField = {
   campaign_name: "",
@@ -115,6 +116,17 @@ const EditCampaign = () => {
     setSelectedBrandValue(event.target.value.toString());
   };
 
+  console.log('fileupload: ', fileupload);
+    
+    const handleChangeImage = (e) => {
+        setFileupload(e.target.files[0]);
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+          setImageUrl(reader.result);
+        });
+        reader.readAsDataURL(e.target.files[0]);
+      }
+
   const onFinish = (e) => {
     e.preventDefault();
     setCampaignNameError(false);
@@ -154,9 +166,9 @@ const EditCampaign = () => {
       return setBrandNameError(true)
     }
 
-    // if(fileupload === undefined && imageUrl === ''){
-    //   return setImageError(true)
-    // }
+    if(fileupload === undefined && imageUrl === ''){
+      return setImageError(true)
+    }
 
     const formData = new FormData();
 
@@ -172,7 +184,7 @@ const EditCampaign = () => {
     formData.append("campaign_guidelines", campaign_guidelines);
     formData.append("campaign_followers_range", campaign_followers_range);
     formData.append("status", status);
-    pathname !== '/add-campaign' ? formData.append("hyper_local", 1) : formData.append("hyper_local", 0)
+    pathname !== '/add-campaign' ? formData.append("hyperLocal",'1') : formData.append("hyperLocal", '0')
     if (params.campaignId) {
       formData.append("campaign_id", params.campaignId);
       dispatch(EditCampaignDetails(formData))
@@ -526,22 +538,33 @@ const EditCampaign = () => {
           spacing={2}
         >
           <Grid item xs={6}>
-            <FileUploader
+            {/* <FileUploader
               uploadLabel="Sample Submission"
               uploadText=""
               uploadBtn="+"
               setFileupload={setFileupload}
+              fileupload={fileupload}
               setImageUrl={setImageUrl}
               imageUrl={imageUrl}
-            />
+            /> */}
+            <div className='uplaod-ui' style={{ width: 290, height: 250 }}>
+            <Button variant="contained" component="label" className='upload-video '>
+                {/* {uploadText} */}
+                <span className='upload-plus-btn'>+</span>
+                <input type='file' name="file" onChange={(e) => handleChangeImage(e)} accept=".mp4" multiple required />
+            </Button>
+            <span className='uplaod-span'>
+                <img src={toAbsoluteUrl('/images/uplaod-icon.svg')} alt="" /><br />
+            </span>
+        </div>
           </Grid>
           
         </Grid>
-        {/* {imageError && (
+        {imageError && (
               <p style={{ color: "red", marginTop: "5px" }}>
                 Campaign image is required
               </p>
-            )} */}
+            )}
       </div>
       <div className="btn-row reverse mar-top-20">
         <Button

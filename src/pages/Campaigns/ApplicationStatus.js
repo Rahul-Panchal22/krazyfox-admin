@@ -24,31 +24,32 @@ const ApplicationStatus = () => {
   const [creatorDetail, setCreatorDetail] = React.useState();
   const [getActiveStep, setGetActiveStep] = React.useState(0);
   const [storeStatus, setStoreStatus] = React.useState(0);
+  const [disableBtn, setDisableBtn] = React.useState(0);
 
   const steps = [
     {
       label: 'Approve or Reject Harley’s Application',
-      description: <UserStatus id={params.id} setStoreStatus={setStoreStatus} step={0}/>,
+      description: <UserStatus id={params.id} setStoreStatus={setStoreStatus} step={0} setDisableBtn={setDisableBtn}/>,
     },
     {
       label: 'Price Finalization',
-      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={1}/>,
+      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={1} setDisableBtn={setDisableBtn}/>,
     },
     {
       label: 'Working on task',
-      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={2}/>,
+      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={2} setDisableBtn={setDisableBtn}/>,
     },
     {
       label: 'Work Submission',
-      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={3}/>,
+      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={3} setDisableBtn={setDisableBtn}/>,
     },
     {
       label: 'Approve or Reject Harley’s Work',
-      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={4}/>,
+      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={4} setDisableBtn={setDisableBtn}/>,
     },
     {
       label: 'Completed',
-      description: <TaskCompleted id={params.id} setStoreStatus={setStoreStatus} step={5}/>,
+      description: <TaskCompleted id={params.id} setStoreStatus={setStoreStatus} step={5} setDisableBtn={setDisableBtn}/>,
     },
     // {
     //   label: 'You submitted Harley’s work.',
@@ -67,10 +68,11 @@ const ApplicationStatus = () => {
   useEffect(() => {
     dispatch(applicationStatusFetch(`?id=${params.id}`))
       .then((res) => {
-        console.log(res)
+        console.log("--------------------------------->",res)
         if (res.code === 200) {
           // setCreatorDetail(res.data);
-          // setActiveStep(res.data.application_status - 1);
+          setActiveStep(res.data.application_status);
+          setDisableBtn(res.data.application_status);
           // setGetActiveStep(res.data.application_status - 1)
           toast.success(res.message);
         } else {
@@ -80,7 +82,7 @@ const ApplicationStatus = () => {
       .catch((err) => {
         toast.error(err);
       });
-  }, [])
+  }, [storeStatus])
   
   const fetchCreatorDetailThroughId = () => {
     dispatch(fetchCreator(`?creator_id=${params.creatorId}`))

@@ -5,7 +5,7 @@ import { CampaignApplicationStepper } from "../../actions/campaign";
 import { toast } from "react-toastify";
 
 
-const WorkingOnTask = ({ id }) => {
+const WorkingOnTask = ({ id, setStoreStatus, step }) => {
 
   const dispatch = useDispatch();
 
@@ -18,6 +18,7 @@ const WorkingOnTask = ({ id }) => {
     .then((res) => {
       console.log('res------>: ', res);
       toast.success(res.status);
+      setStoreStatus(3);
     })
     .catch((err) => {
       toast.error(err);

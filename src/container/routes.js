@@ -71,6 +71,7 @@ const Routing = () => {
           <Route path="/hyper-applications/:creatorId" element={<PrivateRoute><AddCreator/></PrivateRoute>}/>
           <Route path="/campaign-applications/:creatorId" element={<PrivateRoute><AddCreator /></PrivateRoute>} />
           <Route path="/application-status/:id/:creatorId" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
+          <Route path="/hyper-local-campaign" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
 
           <Route path="/sidebar" element={<PrivateRoute><Sidebar/></PrivateRoute>}/>
         </Route>
