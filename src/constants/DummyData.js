@@ -50,11 +50,11 @@ export const Sidermenu = [
     menulist: 'Payments',
     menuicon: <PaymentsMenu />,
     menupath: '/payments',
-    submenu: true,
-    submenulist: [
-      { menuId: 3, name: 'Master', icon: <MasterMenu />, submenupath: '', },
-      { menuId: 4, name: 'Bucket', icon: <BucketMenu />, submenupath: '', },
-    ]
+    submenu: false,
+    // submenulist: [
+    //   { menuId: 3, name: 'Master', icon: <MasterMenu />, submenupath: '', },
+    //   { menuId: 4, name: 'Bucket', icon: <BucketMenu />, submenupath: '', },
+    // ]
   },
   {
     id: 6,

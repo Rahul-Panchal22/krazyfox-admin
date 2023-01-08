@@ -15,7 +15,7 @@ const KycCard = ({ cardWidth, cardHeadign, cardContent, chipList, chipItem, Soci
           <Stack direction="row" spacing={1} className='chip-row flex-wrap'>
             {chipItem.map((item, i) => {
               return (
-                <Chip variant="outlined" label={item} key={i} />
+                <Chip variant="outlined" label={item.name} key={i} />
               )
             })}
           </Stack> : ''

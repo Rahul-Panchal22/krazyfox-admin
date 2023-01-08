@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, Divider, FormControl, Grid, InputLabel, TextField } from "@mui/material";
 import PaymentCard from "./PaymentCard";
 import { toAbsoluteUrl } from "../../utils";
+import { paymentPayout } from "../../actions/Payment";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const PaymentsRejectionReason = () => {
+
+  const dispatch = useDispatch();
+  const {rejectId} = useParams();
+
+  const [rejectData, setRejectData] = useState([]);
+
+  useEffect(() => {
+    getPaymentList();
+  }, [])
+
+  const getPaymentList = () => {
+    dispatch(paymentPayout(`?id=${rejectId}`))
+      .then((res) => {
+        if (res.code === 200) {
+          console.log("res", res);
+          setRejectData(res.data)
+          toast.success(res.message);
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  }
 
   return (
     <>
@@ -18,27 +47,27 @@ const PaymentsRejectionReason = () => {
         <Grid container direction="row" spacing={2} className='mar-bottom-40'>
           <PaymentCard
             cardHeadign="Brand"
-            cardContent="900K"
+            cardContent={rejectData?.brand_name}
           />
           <PaymentCard
             cardHeadign="Contact Number"
-            cardContent="+91 0000000000"
+            cardContent={rejectData?.phone_number}
           />
           <PaymentCard
             cardHeadign="Email"
-            cardContent="harley@quinn.com"
+            cardContent={rejectData?.email}
           />
           <PaymentCard
             cardHeadign="Price"
-            cardContent="₹5000"
+            cardContent={rejectData?.amount}
           />
           <PaymentCard
             cardHeadign="Campaign Title"
-            cardContent="Promotional video for Netflix"
+            cardContent={rejectData?.campaign_title}
           />
           <PaymentCard
             cardHeadign="Submitted On"
-            cardContent="11-10-2022"
+            cardContent={rejectData?.submission_date}
           />
         </Grid>
         <Divider className='divide-mar-40--40' />
@@ -46,11 +75,11 @@ const PaymentsRejectionReason = () => {
           <Grid item xs={6}>
             <InputLabel id="demo-simple-select-label" className='extra-label'>Enter reason for rejection</InputLabel>
             <FormControl variant="filled">
-              <TextField id="filled-multiline-static" label="Type here..." multiline rows={4} variant="filled" />
+              <TextField disabled={true} value={rejectData?.note} id="filled-multiline-static" label="Type here..." multiline rows={4} variant="filled" />
             </FormControl>
-            <div className='btn-row mar-top-20'>
+            {/* <div className='btn-row mar-top-20'>
               <Button variant="contained" className='min-width-180-img'>Save</Button>
-            </div>
+            </div> */}
           </Grid>
         </Grid>
       </div>

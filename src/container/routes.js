@@ -29,6 +29,7 @@ const PaymentsStatus = lazy(() => import("../pages/Payments/PaymentsStatus"));
 const PaymentsRejectionReason = lazy(() => import("../pages/Payments/PaymentsRejectionReason"));
 const BacketList = lazy(() => import("../pages/Payments/BacketList"))
 const BacketDetails = lazy(() => import("../pages/Payments/BacketDetails"))
+const Sidebar = lazy(() => import("../components/layout/Sidebar"));
 
 const Routing = () => {
   return (
@@ -48,7 +49,7 @@ const Routing = () => {
           {/* <Route path="/view-campaign" element={<ViewCampaign />} /> */}
           <Route path="/edit-campaign/:campaignId" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
           <Route path="/campaign-application/:campaignId" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
-          <Route path="/application-status" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
+          <Route path="/application-status/:id/:creatorId" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
           <Route path="/brand" element={<PrivateRoute><Brand /></PrivateRoute>} />
           {/* <Route path="/select-creators-by" element={<PrivateRoute><SelectCreatorsBy /></PrivateRoute>} />
           <Route path="/select-creators-location" element={<PrivateRoute><SelectCreatorsLocation /></PrivateRoute>} /> */}
@@ -61,12 +62,13 @@ const Routing = () => {
           <Route path="/kyc" element={<PrivateRoute><Kyc /></PrivateRoute>} />
           <Route path="/view-kyc/:kycId" element={<PrivateRoute><ViewKyc /></PrivateRoute>} />
           <Route path="/payments" element={<PrivateRoute><Payments /></PrivateRoute>} />
-          <Route path="/payments-approved" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
-          <Route path="/payments-rejection-reason" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
+          <Route path="/payments-approved/:payment" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
+          <Route path="/payments-rejection-reason/:rejectId" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
           <Route path="/backet-list" element={<PrivateRoute><BacketList/></PrivateRoute>} />
           <Route path="/backet-details/:backetId" element={<PrivateRoute><BacketDetails/></PrivateRoute>} />
           <Route path="/hyperlocal" element={<PrivateRoute><Campaigns /></PrivateRoute>} />
           <Route path="/view-hyper/:campaignId" element={<PrivateRoute><ViewCampaign/></PrivateRoute>}/>
+          <Route path="/sidebar" element={<PrivateRoute><Sidebar/></PrivateRoute>}/>
         </Route>
         <Route path="*" element={<Navigate replace to="/" />}></Route>
       </Routes>
