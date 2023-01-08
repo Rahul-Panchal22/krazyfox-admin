@@ -43,17 +43,17 @@ const Dashboard = () => {
 			minWidth: 180,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
-		{
-			field: "categoriesArrayList",
-			headerName: "Category",
-			minWidth: 110,
-			// categoriesArrayList,
-			renderCell: (params) => {
-				const value = params.value
-				// console.log("value", value.length > 0 ? value[0].name : 'Not Data')
-				return <Chip label={`${value.length > 0 ? value[0].name : 'Not Data'}`} variant="outlined" />
-			}
-		},
+		// {
+		// 	field: "categoriesArrayList",
+		// 	headerName: "Category",
+		// 	minWidth: 110,
+		// 	// categoriesArrayList,
+		// 	renderCell: (params) => {
+		// 		const value = params.value
+		// 		// console.log("value", value.length > 0 ? value[0].name : 'Not Data')
+		// 		return <Chip label={`${value.length > 0 ? value[0].name : 'Not Data'}`} variant="outlined" />
+		// 	}
+		// },
 	];
 
 	const getAllCreatorsListing = () => {
