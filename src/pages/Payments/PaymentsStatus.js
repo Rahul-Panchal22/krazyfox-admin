@@ -189,12 +189,13 @@ const PaymentsStatus = () => {
         note: note
       }
       setFilterNumber(2);
+      setOpen(false)
     }
     dispatch(paymentUpdate(data))
-      .then((res) => {
-        if (res.code === 200) {
-          toast.success(res.message);
-          // getPaymentList();
+    .then((res) => {
+      if (res.code === 200) {
+        toast.success(res.message);
+        // getPaymentList();
         } else {
           toast.error("error");
         }

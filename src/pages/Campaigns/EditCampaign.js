@@ -20,8 +20,9 @@ import {
   EditCampaignDetails,
   fetchCampaign,
 } from "../../actions/campaign";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Campaigns.scss";
+import FileUploader from "../../components/UploadFile/FileUploader";
 
 const defaultFormField = {
   campaign_name: "",
@@ -43,6 +44,8 @@ const EditCampaign = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
+  const history = useLocation();
+  const pathname = history.pathname;
   const {
     campaign_name,
     campaign_description,
@@ -151,9 +154,9 @@ const EditCampaign = () => {
       return setBrandNameError(true)
     }
 
-    if(fileupload === undefined && imageUrl === ''){
-      return setImageError(true)
-    }
+    // if(fileupload === undefined && imageUrl === ''){
+    //   return setImageError(true)
+    // }
 
     const formData = new FormData();
 
@@ -169,7 +172,7 @@ const EditCampaign = () => {
     formData.append("campaign_guidelines", campaign_guidelines);
     formData.append("campaign_followers_range", campaign_followers_range);
     formData.append("status", status);
-
+    pathname !== '/add-campaign' ? formData.append("hyper_local", 1) : formData.append("hyper_local", 0)
     if (params.campaignId) {
       formData.append("campaign_id", params.campaignId);
       dispatch(EditCampaignDetails(formData))
@@ -523,7 +526,7 @@ const EditCampaign = () => {
           spacing={2}
         >
           <Grid item xs={6}>
-            <UploadHere
+            <FileUploader
               uploadLabel="Sample Submission"
               uploadText=""
               uploadBtn="+"
@@ -534,11 +537,11 @@ const EditCampaign = () => {
           </Grid>
           
         </Grid>
-        {imageError && (
+        {/* {imageError && (
               <p style={{ color: "red", marginTop: "5px" }}>
                 Campaign image is required
               </p>
-            )}
+            )} */}
       </div>
       <div className="btn-row reverse mar-top-20">
         <Button
