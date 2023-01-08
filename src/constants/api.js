@@ -18,6 +18,7 @@ export const API_CAMPAIGN_EDIT = `${API_BASE}campaigns/edit-campaign`
 export const API_CAMPAIGN_DELETE = `${API_BASE}campaigns/delete/`
 export const API_CAMPAIGN_APPLICATION_LIST = `${API_BASE}campaigns/applicationListing`
 export const API_CAMPAIGN_STEPPER = `${API_BASE}campaigns/updateApplicationStatus`
+export const API_CAMPAIGN_APPLICATION_STATUS = `${API_BASE}campaigns/fetchApplicationStatus`
 
 // Brand API call url's
 export const API_BRANDS_LIST = `${API_BASE}brands/all`

@@ -3,11 +3,14 @@ import {
   CAMPAIGN_F,
   VIEW_CAMPAIGN_S,
   VIEW_CAMPAIGN_F,
+  CAMPAIGN_APPLICATION_STATUS_S,
+  CAMPAIGN_APPLICATION_STATUS_F,
 } from "../constants/types";
 
 const initialState = {
   campaigns: [],
   viewCampaign: {},
+  applicationStatus: []
 };
 
 const campaign = (state = initialState, action) => {
@@ -22,6 +25,10 @@ const campaign = (state = initialState, action) => {
 
     case VIEW_CAMPAIGN_F:
       return { ...state, viewCampaign: undefined };
+    case CAMPAIGN_APPLICATION_STATUS_S:
+      return {...state, applicationStatus: action.payload.data}
+    case CAMPAIGN_APPLICATION_STATUS_F:
+      return {...state, applicationStatus: undefined}
     default:
       return state;
   }
