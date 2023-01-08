@@ -1,5 +1,6 @@
 import {
   API_CAMPAIGN_APPLICATION_LIST,
+  API_CAMPAIGN_APPLICATION_STATUS,
   API_CAMPAIGN_CREATE,
   API_CAMPAIGN_DELETE,
   API_CAMPAIGN_EDIT,
@@ -12,6 +13,8 @@ import {
   ADD_CAMPAIGN_F,
   ADD_CAMPAIGN_S,
   API,
+  CAMPAIGN_APPLICATION_STATUS_F,
+  CAMPAIGN_APPLICATION_STATUS_S,
   CAMPAIGN_F,
   CAMPAIGN_S,
   CAMPAIGN_STEPPER_APPLICATION_F,
@@ -158,3 +161,19 @@ export const CampaignApplicationStepper = (data) => ({
     }),
   },
 });
+
+export const applicationStatusFetch = (data) => ({
+  type: API,
+  payload: {
+    url: API_CAMPAIGN_APPLICATION_STATUS + data,
+    method: "GET",
+    success: (data) => ({
+      type: CAMPAIGN_APPLICATION_STATUS_S,
+      payload: data,
+    }),
+    error: (data) => ({
+      type: CAMPAIGN_APPLICATION_STATUS_F,
+      payload: data,
+    }),
+  },
+})
