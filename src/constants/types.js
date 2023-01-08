@@ -40,6 +40,9 @@ export const VIEW_CAMPAIGN_APPLICATION_F = "View campaign application list faile
 export const CAMPAIGN_STEPPER_APPLICATION_S = "Campaign stepper application listed successfully"
 export const CAMPAIGN_STEPPER_APPLICATION_F = "Campaign stepper application list failed"
 
+export const CAMPAIGN_APPLICATION_STATUS_S = "Campaign application status listed successfully"
+export const CAMPAIGN_APPLICATION_STATUS_F = "Campaign application status list failed"
+
 export const BRANDS_S = "Brands listed successfully"
 export const BRANDS_F = "Brands listing failed"
 

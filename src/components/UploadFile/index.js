@@ -10,13 +10,33 @@ const UploadHere = ({setFileupload1 , setFileupload2, setFileupload3, setFileupl
   const handleChange = (e) => {
     // setFileupload([...fileupload,e.target.files[0]]);
     if(!fileupload1 ){
-      setFileupload1(e.target.files[0])
+      const reader = new FileReader();
+      const selectedFile = e.target.files[0];
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (readerEvent) => {
+        setFileupload1(readerEvent.target.result)
+      }
     }else if(!fileupload2){
-      setFileupload2(e.target.files[0])
+      const reader = new FileReader();
+      const selectedFile = e.target.files[0];
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (readerEvent) => {
+        setFileupload2(readerEvent.target.result)
+      }
     }else if(!fileupload3){
-      setFileupload3(e.target.files[0])
+      const reader = new FileReader();
+      const selectedFile = e.target.files[0];
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (readerEvent) => {
+        setFileupload3(readerEvent.target.result)
+      }
     }else{
-      setFileupload4(e.target.files[0])
+      const reader = new FileReader();
+      const selectedFile = e.target.files[0];
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (readerEvent) => {
+        setFileupload4(readerEvent.target.result)
+      }
     }
     const reader = new FileReader();
     reader.addEventListener("load", () => {

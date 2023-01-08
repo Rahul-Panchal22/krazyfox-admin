@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Box, Button, Divider, Grid, Paper, Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
 import ApplicationCard from "./ApplicationCard";
 import { toAbsoluteUrl } from "../../utils";
@@ -12,6 +12,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { fetchCreator } from "../../actions/creators";
 import { useDispatch } from "react-redux";
 import WorkingOnTask from "./WorkingOnTask";
+import { applicationStatusFetch } from "../../actions/campaign";
 
 
 const steps = [
@@ -57,40 +58,37 @@ const steps = [
 const ApplicationStatus = () => {
 
   const dispatch = useDispatch();
-	// const history = useLocation();
-  // console.log('history: ', history);
-	// const params = new URLSearchParams(history.search);
-  // console.log('params: ', params);
   const params = useParams();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [creatorDetail, setCreatorDetail] = React.useState();
   const [getActiveStep, setGetActiveStep] = React.useState(0);
+  const [storeStatus, setStoreStatus] = React.useState(0);
 
   const steps = [
     {
       label: 'Approve or Reject Harley’s Application',
-      description: <UserStatus id={params.id}/>,
+      description: <UserStatus id={params.id} setStoreStatus={setStoreStatus} step={0}/>,
     },
     {
       label: 'Price Finalization',
-      description: <PriceFinalization id={params.id}/>,
+      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={1}/>,
     },
     {
       label: 'Working on task',
-      description: <WorkingOnTask id={params.id}/>,
+      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={2}/>,
     },
     {
       label: 'Work Submission',
-      description: <SubmitWork id={params.id}/>,
+      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={3}/>,
     },
     {
       label: 'Approve or Reject Harley’s Work',
-      description: <ApproveWork id={params.id}/>,
+      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={4}/>,
     },
     {
       label: 'Completed',
-      description: <TaskCompleted id={params.id}/>,
+      description: <TaskCompleted id={params.id} setStoreStatus={setStoreStatus} step={5}/>,
     },
     // {
     //   label: 'You submitted Harley’s work.',
@@ -105,6 +103,24 @@ const ApplicationStatus = () => {
     //   description: <TaskCompleted />,
     // },
   ];
+
+  useEffect(() => {
+    dispatch(applicationStatusFetch(`?id=${params.id}`))
+      .then((res) => {
+        console.log(res)
+        if (res.code === 200) {
+          // setCreatorDetail(res.data);
+          // setActiveStep(res.data.application_status - 1);
+          // setGetActiveStep(res.data.application_status - 1)
+          toast.success(res.message);
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  }, [])
   
   const fetchCreatorDetailThroughId = () => {
     dispatch(fetchCreator(`?creator_id=${params.creatorId}`))
@@ -112,8 +128,8 @@ const ApplicationStatus = () => {
         console.log(res)
         if (res.code === 200) {
           setCreatorDetail(res.data);
-          setActiveStep(res.data.application_status);
-          setGetActiveStep(res.data.application_status)
+          setActiveStep(res.data.application_status - 1);
+          setGetActiveStep(res.data.application_status - 1)
           toast.success(res.message);
         } else {
           toast.error("error");

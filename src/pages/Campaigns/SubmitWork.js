@@ -16,10 +16,10 @@ const SubmitWork = ({ id }) => {
 
   const [fileupload, setFileupload] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
-  const [fileupload1, setFileupload1] = useState([]);
-  const [fileupload2, setFileupload2] = useState([]);
-  const [fileupload3, setFileupload3] = useState([]);
-  const [fileupload4, setFileupload4] = useState([]);
+  const [fileupload1, setFileupload1] = useState();
+  const [fileupload2, setFileupload2] = useState();
+  const [fileupload3, setFileupload3] = useState();
+  const [fileupload4, setFileupload4] = useState();
 
   const [formField, setFormField] = useState(defaultFormField);
 
