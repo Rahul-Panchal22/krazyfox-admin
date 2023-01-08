@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Avatar, Box, Button, Divider, Grid, Paper, Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
 import ApplicationCard from "./ApplicationCard";
 import { toAbsoluteUrl } from "../../utils";
@@ -7,19 +7,26 @@ import PriceFinalization from "./PriceFinalization";
 import SubmitWork from "./SubmitWork";
 import ApproveWork from "./ApproveWork";
 import TaskCompleted from "./TaskCompleted";
-import { useParams } from "react-router-dom";
-import WorkingOnTask from "./WorkingOnTask";
-import { useDispatch } from "react-redux";
-import { fetchCreator } from "../../actions/creators";
 import { toast } from "react-toastify";
+import { useLocation, useParams } from "react-router-dom";
+import { fetchCreator } from "../../actions/creators";
+import { useDispatch } from "react-redux";
+import WorkingOnTask from "./WorkingOnTask";
+
 
 const ApplicationStatus = () => {
 
   const dispatch = useDispatch();
+	// const history = useLocation();
+  // console.log('history: ', history);
+	// const params = new URLSearchParams(history.search);
+  // console.log('params: ', params);
   const params = useParams();
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [creatorDetail, setCreatorDetail] = React.useState();
   const [getActiveStep, setGetActiveStep] = React.useState(0);
+
   const steps = [
     {
       label: 'Approve or Reject Harley’s Application',
@@ -64,9 +71,9 @@ const ApplicationStatus = () => {
       .then((res) => {
         console.log(res)
         if (res.code === 200) {
+          setCreatorDetail(res.data);
           setActiveStep(res.data.application_status);
           setGetActiveStep(res.data.application_status)
-          setCreatorDetail(res.data);
           toast.success(res.message);
         } else {
           toast.error("error");
@@ -86,10 +93,6 @@ const ApplicationStatus = () => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   return (
@@ -191,9 +194,6 @@ const ApplicationStatus = () => {
           {activeStep === steps.length && (
             <Paper square elevation={0} sx={{ p: 3 }}>
               <Typography>All steps completed - you&apos;re finished</Typography>
-              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                Reset
-              </Button>
             </Paper>
           )}
         </Box>

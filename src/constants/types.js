@@ -42,7 +42,11 @@ export const DELETE_CAMPAIGN_F = "Campaign can't be deleted"
 export const VIEW_CAMPAIGN_APPLICATION_S = "View campaign application listed successfully"
 export const VIEW_CAMPAIGN_APPLICATION_F = "View campaign application list failed"
 
+export const CAMPAIGN_STEPPER_APPLICATION_S = "Campaign stepper application listed successfully"
+export const CAMPAIGN_STEPPER_APPLICATION_F = "Campaign stepper application list failed"
+
 // brand
+
 export const BRANDS_S = "Brands listed successfully"
 export const BRANDS_F = "Brands listing failed"
 

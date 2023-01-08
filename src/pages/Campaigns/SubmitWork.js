@@ -10,50 +10,66 @@ const defaultFormField = {
   link : ""
 };
 
-// const SubmitWork = ({ id }) => {
+const SubmitWork = ({ id }) => {
 
-//   const dispatch = useDispatch();
-
-//   const [fileupload, setFileupload] = useState([]);
-//   const [imageUrl, setImageUrl] = useState([]);
-//   const [fileupload1, setFileupload1] = useState();
-//   const [fileupload2, setFileupload2] = useState();
-//   const [fileupload3, setFileupload3] = useState();
-//   const [fileupload4, setFileupload4] = useState();
-//   const [formField, setFormField] = useState(defaultFormField);
-
-//   const {
-//     link
-//   } = formField;
-
-//   const onMutate = (e) => {
-//     const { value, name } = e.target;
-//     setFormField((prevState) => ({
-//       ...prevState,
-//       [name]: value,
-//     }));
-//   };
-
-
-const SubmitWork = () => {
-
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [fileupload, setFileupload] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
-  const [fileupload1, setFileupload1] = useState();
-  const [fileupload2, setFileupload2] = useState();
-  const [fileupload3, setFileupload3] = useState();
-  const [fileupload4, setFileupload4] = useState();
+  const [fileupload1, setFileupload1] = useState([]);
+  const [fileupload2, setFileupload2] = useState([]);
+  const [fileupload3, setFileupload3] = useState([]);
+  const [fileupload4, setFileupload4] = useState([]);
+
   const [formField, setFormField] = useState(defaultFormField);
 
+  const {
+    link
+  } = formField;
+
+  const onMutate = (e) => {
+    const { value, name } = e.target;
+    setFormField((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+
+  const onFinish = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("id",id);
+    formData.append("submissionLink",link)
+    formData.append("submission_media_link",fileupload)
+    formData.append("applicationStatus",1)
+    const data = {
+      id : id,
+      submissionLink : link ? link : '',
+      submission_media_link : fileupload ? fileupload : [],
+      applicationStatus : 1
+    }
+    console.log('data: ', data);
+    dispatch(CampaignApplicationStepper(formData))
+    .then((res) => {
+      console.log('res------>: ', res);
+      toast.success(res.status);
+    })
+    .catch((err) => {
+      toast.error(err);
+    });
+  }
   return (
     <>
       <Stack direction="row" spacing={2} className="pending-btn-row">
         <FormControl variant="filled">
-          <TextField id="filled-multiline-static" label="Type here..." variant="filled" />
+          <TextField id="filled-multiline-static"
+           label="Type here..."
+            variant="filled"
+          name="link" 
+          onChange={onMutate}/>
         </FormControl>
-        <Button variant="contained" className="approved">Approved</Button>
+        <Button variant="contained" className="approved" onClick={onFinish}>Approved</Button>
       </Stack>
       {/* <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link> */}
       <Stack direction="row" spacing={1}>

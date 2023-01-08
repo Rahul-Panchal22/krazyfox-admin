@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Autocomplete,
   Box,
   Button,
   Grid,
+  IconButton,
   InputAdornment,
   TextField,
+  Modal,
+  Typography,
+  TextareaAutosize
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
@@ -102,11 +106,15 @@ const PaymentsStatus = () => {
   // ];
 
   const columns = [
-    { field: "id", headerName: "Sr No.", width: 80 },
+    {
+      field: "payout_request_id",
+      headerName: "Sr No.",
+      flex: 0.5,
+    },
     {
       field: "brand_logo_url",
       headerName: "Brand Logo",
-      width: 150,
+      flex: 1.5,
       renderCell: (params) => <img src={params.value} alt="" />,
       sortable: false,
       filterable: false,
@@ -114,30 +122,46 @@ const PaymentsStatus = () => {
     {
       field: "brand_name",
       headerName: "Brand Name",
-      width: 150,
+      flex: 1.5,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
-      width: 180,
+      flex: 1.5,
     },
     {
-      field: "campaign_price_range",
+      field: "amount",
       headerName: "Price Range",
-      width: 160,
+      flex: 0.9,
     },
     {
-      field: "campaign_description",
-      headerName: "Category",
-      width: 110,
-    },
-    {
-      field: "status",
-      headerName: "Live/ Paused",
-      width: 110,
-      align: 'center',
-      renderCell: () => {
-        <SparkFill />;
+      field: "viewApplication",
+      // headerName: "View Application",
+      headerName: "",
+      flex: 0.4,
+      renderCell: (params, row) => {
+        const onClick = (e) => {
+          console.log('params, row: ', params, row);
+          e.stopPropagation();
+
+          const api = params.api;
+          const thisRow = {};
+
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== "__check__" && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+
+          navigate(`/payments-rejection-reason/${params.row.payout_request_id}`);
+        };
+
+        return (
+          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+            <ActionArrow />
+          </IconButton>
+        );
       },
     },
   ];
@@ -222,17 +246,17 @@ const PaymentsStatus = () => {
                 size='small'
                 options={top100Films.map((option) => option.title)}
                 renderInput={(params) => <TextField
-                    {...params}
-                    label=""
-                    placeholder="Search for campaign"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon />
-                        </InputAdornment>
-                      )
-                    }}
-                  />
+                  {...params}
+                  label=""
+                  placeholder="Search for campaign"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                />
                 }
               />
             </Stack>
@@ -248,9 +272,9 @@ const PaymentsStatus = () => {
       >
         <Grid item xs={7}>
           <Stack direction="row" spacing={2} className="pending-btn-row">
-            <Button variant="contained" className="filter-btn pending">Pending</Button>
-            <Button variant="contained" className="filter-btn approved">Approved</Button>
-            <Button variant="contained" className="filter-btn rejected">Rejected</Button>
+            <Button variant="contained" className="filter-btn pending" onClick={() => handleCheckFilter(0)}>Pending</Button>
+            <Button variant="contained" className="filter-btn approved" onClick={() => handleCheckFilter(1)} >Approved</Button>
+            <Button variant="contained" className="filter-btn rejected" onClick={() => handleCheckFilter(2)}>Rejected</Button>
           </Stack>
         </Grid>
         <Grid item xs={5}>
@@ -272,6 +296,7 @@ const PaymentsStatus = () => {
         <DataGrid
           rows={paymentList}
           columns={columns}
+          getRowId={(row) => row?.payout_request_id}
           pageSize={10}
           rowsPerPageOptions={[5]}
           checkboxSelection
@@ -304,6 +329,17 @@ const PaymentsStatus = () => {
         // }}
         />
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <TextareaAutosize minRows={4} placeholder="Note" onChange={(e) => setNote(e.target.value)} />
+          <Button onClick={() => updateStatus(2)}>Submit</Button>
+        </Box>
+      </Modal>
     </>
   );
 };
