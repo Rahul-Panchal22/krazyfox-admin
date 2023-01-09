@@ -169,14 +169,17 @@ const Creator = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label=""
-                    placeholder="Search for creators"
+                    label="Search for creators"
+                    placeholder=""
                     InputProps={{
+                      ...params.InputProps,
                       startAdornment: (
                         <InputAdornment position="start">
+                          {" "}
                           <SearchIcon />
                         </InputAdornment>
-                      )
+                      ),
+                      disableUnderline: true,
                     }}
                   />
                 )}

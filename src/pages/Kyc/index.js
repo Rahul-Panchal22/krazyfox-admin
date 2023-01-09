@@ -179,35 +179,22 @@ const Kyc = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label=""
-                    placeholder="Search for creators"
+                    label="Search for creators"
+                    placeholder=""
                     InputProps={{
+                      ...params.InputProps,
                       startAdornment: (
                         <InputAdornment position="start">
+                          {" "}
                           <SearchIcon />
                         </InputAdornment>
-                      )
+                      ),
+                      disableUnderline: true,
                     }}
                   />
                 )}
               />
             </Stack>
-            {/* <Stack>
-              <Select
-                value={filter}
-                onChange={handleChangeFilter}
-                displayEmpty
-                size="small"
-                required
-                input={<FilledInput label="Tag" />}
-              >
-                <MenuItem value={5}>View all creators</MenuItem>
-                <MenuItem value={1}>KYC completed</MenuItem>
-                <MenuItem value={2}>KYC Not completed</MenuItem>
-                <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>
-                <MenuItem value={4}>Bank Completed</MenuItem>
-              </Select>
-            </Stack> */}
           </Grid>
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>

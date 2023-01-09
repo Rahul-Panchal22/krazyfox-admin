@@ -640,7 +640,7 @@ const EditCampaign = () => {
             Campaign image or video is required
           </p>
         )}
-      </div>
+        </div>
       <div className="btn-row reverse mar-top-20">
         <Button
           variant="contained"

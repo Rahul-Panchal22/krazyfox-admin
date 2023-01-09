@@ -27,6 +27,7 @@ const Campaigns = (params) => {
   console.log('history: ', history);
   const pathname = history.pathname ;
 
+  console.log(campaignList);
   const columns = [
     {
       field: "id",
@@ -209,14 +210,17 @@ const Campaigns = (params) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label=""
-                    placeholder="Search for campaign"
+                    label="Search for campaign"
+                    placeholder=""
                     InputProps={{
+                      ...params.InputProps,
                       startAdornment: (
                         <InputAdornment position="start">
+                          {" "}
                           <SearchIcon />
                         </InputAdornment>
-                      )
+                      ),
+                      disableUnderline: true,
                     }}
                   />
                 )}
