@@ -280,10 +280,10 @@ const EditCampaign = () => {
               <RightStatus svgFill="#1B5E20" />
             </Button>
           </ButtonGroup>
-          <Button variant="outlined" className="delete-outline mar-left-20">
+          {/* <Button variant="outlined" className="delete-outline mar-left-20">
             <DeleteRed />
             &nbsp;&nbsp;Edit Campaign
-          </Button>
+          </Button> */}
         </Grid>
       </Grid>
       <div className="border-paper">
