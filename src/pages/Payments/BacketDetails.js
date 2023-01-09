@@ -15,10 +15,11 @@ import {
 import Stack from '@mui/material/Stack';
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { PaymentListing, paymentTransactionDetails, paymentUpdate } from "../../actions/Payment";
+import { PaymentListing, paymentTransactionDetails, paymentUpdate, uploadFile } from "../../actions/Payment";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import moment from "moment";
+import { CSVLink } from "react-csv";
 
 const style = {
   position: 'absolute',
@@ -36,10 +37,11 @@ const BacketDetails = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { backetId } = useParams();
+  const { backetId, campaignId } = useParams();
 
   const [paymentList, setPaymentList] = useState([]);
   const [search, setSearched] = useState("");
+  const [fileupload, setFileupload] = useState();
 
   useEffect(() => {
     getPaymentList();
@@ -74,6 +76,25 @@ const BacketDetails = () => {
     }
   }, [search]);
 
+  const handleChangeFile = (e) => {
+    // setFileupload(e.target.files[0]);
+    // const reader = new FileReader();
+    // reader.addEventListener("load", () => {
+    // });
+    // reader.readAsDataURL(e.target.files[0]);
+
+    const formData = new FormData();
+    formData.append("campaignId", campaignId);
+    formData.append("file", e.target.files[0])
+    dispatch(uploadFile(formData))
+    .then((res) => {
+          console.log('res------>: ', res);
+          toast.success(res.status);
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+  }
 
   const columns = [
     {
@@ -100,15 +121,15 @@ const BacketDetails = () => {
       flex: 1.5,
     },
     {
-        field: "submission_date",
-        headerName: "Submitted On",
-        flex: 1.5,
-        renderCell : (params) => {
-            const startT = new Date(params.value * 1000).toISOString();
-            const exportDate = moment(startT).format('DD/MM/YYYY')
-            return exportDate
-            }
-      },
+      field: "submission_date",
+      headerName: "Submitted On",
+      flex: 1.5,
+      renderCell: (params) => {
+        const startT = new Date(params.value * 1000).toISOString();
+        const exportDate = moment(startT).format('DD/MM/YYYY')
+        return exportDate
+      }
+    },
     {
       field: "amount",
       headerName: "Price Range",
@@ -151,11 +172,25 @@ const BacketDetails = () => {
             </Stack>
           </Grid>
           <Stack direction="row" justifyContent="flex-end" spacing={2} className="filter-row">
-          
-          <Button variant="contained" className="filter-btn" >Export Excel</Button>
-          <Button variant="contained" className="filter-btn active" >Upload Excel</Button>
-       
-    </Stack>
+
+            <Button variant="contained" className="filter-btn" >
+              <CSVLink
+                filename={"Bucket_data.xls"}
+                data={paymentList}>
+                Export Excel
+              </CSVLink>
+            </Button>
+            <Button variant="contained" className="filter-btn active" component="label">
+              Upload Excel
+              <input
+                type="file"
+                hidden
+                accept=".csv,.xlsx,.xls"
+                onChange={handleChangeFile}
+              />
+            </Button>
+
+          </Stack>
         </Grid>
       </div>
       <Box sx={{ height: 632, width: "auto" }}>

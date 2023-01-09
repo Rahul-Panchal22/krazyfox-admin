@@ -40,3 +40,6 @@ export const API_PAYMENTS_creatorPayout = `${API_BASE}payments/fetchCreatorPayou
 export const API_PAYMENTS_createBucket = `${API_BASE}payments/createBucketList`;
 export const API_PAYMENTS_fetch_transaction = `${API_BASE}payments/fetchBucketTransactionList`;
 export const API_PAYMENTS_fetch_transaction_details = `${API_BASE}payments/fetchBucketTransactionDetail`;
+
+// upload excel file
+export const UPLOAD_FILE = `${API_BASE}payments/uploadExcel`

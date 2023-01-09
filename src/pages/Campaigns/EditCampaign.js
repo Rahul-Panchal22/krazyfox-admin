@@ -130,14 +130,14 @@ const EditCampaign = () => {
     setSelectedBrandValue(event.target.value.toString());
   };
 
-  const handleChangeImage = (e) => {
-    setFileupload(e.target.files[0]);
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      setImageUrl(reader.result);
-    });
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  // const handleChangeImage = (e) => {
+  //   setFileupload(e.target.files[0]);
+  //   const reader = new FileReader();
+  //   reader.addEventListener("load", () => {
+  //     setImageUrl(reader.result);
+  //   });
+  //   reader.readAsDataURL(e.target.files[0]);
+  // };
 
   const UploadVideo = (e) => {
     console.log('e.target.files[0].type', e.target.files[0].type)
@@ -145,7 +145,7 @@ const EditCampaign = () => {
       ...prevState,
       mediaType: e.target.files[0].type,
     }));
-    if (e.target.files[0].type == "image/jpeg") {
+    if (e.target.files[0].type !== "video/mp4") {
       setFileupload(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
@@ -620,6 +620,7 @@ const EditCampaign = () => {
                       id="video"
                       onChange={(e) => {
                         UploadVideo(e);
+                        // handleChangeImage(e)
                       }}
                       accept="*"
                       multiple

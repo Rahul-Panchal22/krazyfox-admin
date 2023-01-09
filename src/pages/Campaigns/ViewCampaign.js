@@ -16,6 +16,9 @@ const ViewCampaign = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  const chackMediaType = viewCampaign?.campaign_submission?.split('.');
+  const mediaType = chackMediaType?.at(-1)
+
   const fetchCampaignDetailThroughId = () => {
     dispatch(fetchCampaign(`?campaign_id=${params.campaignId}`))
       .then((res) => {
@@ -168,7 +171,13 @@ const ViewCampaign = () => {
               Sample Submission
             </InputLabel>
             <div className="uploaded-content">
-              <img src={toAbsoluteUrl("/images/joshua-rondeau.png")} alt="" />
+             { mediaType !== 'mp4' ?
+              <img src={viewCampaign?.campaign_submission} alt="" />
+              :
+              <video controls width={166} height={248}>
+                 <source src={viewCampaign?.campaign_submission} type="video/mp4" />
+              </video>
+             }
             </div>
           </Grid>
         </Grid>

@@ -81,7 +81,7 @@ const BacketList = () => {
 
         //   navigate(`/backet-details/${params?.row?.bucket_id}`);
           navigate({
-            pathname: `/backet-details/${params?.row?.bucket_id}`,
+            pathname: `/backet-details/${params?.row?.bucket_id}/${params?.row?.campaign_id}`,
             search: `?${createSearchParams({
                 name: params.row.brand_name+" "+ params.row.campaign_title
               })}`

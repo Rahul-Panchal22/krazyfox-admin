@@ -65,7 +65,7 @@ const Routing = () => {
           <Route path="/payments-approved/:payment" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
           <Route path="/payments-rejection-reason/:rejectId" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
           <Route path="/backet-list" element={<PrivateRoute><BacketList/></PrivateRoute>} />
-          <Route path="/backet-details/:backetId" element={<PrivateRoute><BacketDetails/></PrivateRoute>} />
+          <Route path="/backet-details/:backetId/:campaignId" element={<PrivateRoute><BacketDetails/></PrivateRoute>} />
           <Route path="/hyperlocal" element={<PrivateRoute><Campaigns /></PrivateRoute>} />
           <Route path="/view-hyper/:campaignId" element={<PrivateRoute><ViewCampaign/></PrivateRoute>}/>
           <Route path="/hyper-applications/:creatorId" element={<PrivateRoute><AddCreator/></PrivateRoute>}/>

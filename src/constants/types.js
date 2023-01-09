@@ -99,3 +99,7 @@ export const PAYMENTS_FETCH_TRANSACTION_F = "payment fetch transaction Failed"
 
 export const PAYMENTS_FETCH_TRANSACTION_DETAILS_S = "payment fetch transaction details successfully"
 export const PAYMENTS_FETCH_TRANSACTION_DETAILS_F = "payment fetch transaction details Failed"
+
+// upload file
+export const UPLOAD_FILE_S = "Upload file successfully"
+export const UPLOAD_FILE_F = "Upload file deleted"
