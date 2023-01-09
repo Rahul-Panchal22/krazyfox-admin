@@ -59,22 +59,22 @@ const UploadHere = ({setFileupload1 , setFileupload2, setFileupload3, setFileupl
 					</Button>
         </div> */}
         {fileupload1 ?
-        <video controls autoplay> <source src={fileupload1} type="video/mp4" /></video>
+        <video controls autoplay width={166} height={248}> <source src={fileupload1} type="video/mp4" /></video>
         :
         <FileUploader handleChange={handleChange} uplaodWidth={uplaodWidth} uplaodHeight={uplaodHeight} uploadText={uploadText} uploadBtn={uploadBtn} />
       }
       {fileupload2 ?
-        <video controls> <source src={fileupload2} type="video/mp4" /></video>
+        <video controls width={166} height={248}> <source src={fileupload2} type="video/mp4" /></video>
         :
         <FileUploader handleChange={handleChange} uplaodWidth={uplaodWidth} uplaodHeight={uplaodHeight} uploadText={uploadText} uploadBtn={uploadBtn} />
       }
       {fileupload3 ?
-        <video controls> <source src={fileupload3} type="video/mp4" /></video>
+        <video controls width={166} height={248}> <source src={fileupload3} type="video/mp4" /></video>
         :
         <FileUploader handleChange={handleChange} uplaodWidth={uplaodWidth} uplaodHeight={uplaodHeight} uploadText={uploadText} uploadBtn={uploadBtn} />
       }
       {fileupload4 ?
-        <video controls> <source src={fileupload4} type="video/mp4" /></video>
+        <video controls width={166} height={248}> <source src={fileupload4} type="video/mp4" /></video>
         :
         <FileUploader handleChange={handleChange} uplaodWidth={uplaodWidth} uplaodHeight={uplaodHeight} uploadText={uploadText} uploadBtn={uploadBtn} />
       }

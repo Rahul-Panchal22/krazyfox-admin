@@ -10,7 +10,7 @@ const defaultFormField = {
   link : ""
 };
 
-const SubmitWork = ({ id }) => {
+const SubmitWork = ({ id, setStoreStatus }) => {
 
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const SubmitWork = ({ id }) => {
   const [fileupload2, setFileupload2] = useState();
   const [fileupload3, setFileupload3] = useState();
   const [fileupload4, setFileupload4] = useState();
-
+  const [linkError, setLinkError] = useState(false);
   const [formField, setFormField] = useState(defaultFormField);
 
   const {
@@ -38,11 +38,15 @@ const SubmitWork = ({ id }) => {
 
   const onFinish = (e) => {
     e.preventDefault();
+    setLinkError(false);
+    if(link === "" || !fileupload){
+     return setLinkError(true);
+    }
     const formData = new FormData();
     formData.append("id",id);
     formData.append("submissionLink",link)
     formData.append("submission_media_link",fileupload)
-    formData.append("applicationStatus",1)
+    formData.append("applicationStatus",4)
     const data = {
       id : id,
       submissionLink : link ? link : '',
@@ -54,6 +58,7 @@ const SubmitWork = ({ id }) => {
     .then((res) => {
       console.log('res------>: ', res);
       toast.success(res.status);
+      setStoreStatus(5);
     })
     .catch((err) => {
       toast.error(err);
@@ -71,6 +76,11 @@ const SubmitWork = ({ id }) => {
         </FormControl>
         <Button variant="contained" className="approved" onClick={onFinish}>Approved</Button>
       </Stack>
+      {linkError && (
+          <p style={{ color: "red", marginTop: "5px" }}>
+            Media file or Link is required
+          </p>
+        )}
       {/* <Link to="/">https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwiGl-zUvtr6AhUuxTgGHWxBAxUQPAgI</Link> */}
       <Stack direction="row" spacing={1}>
         {/* <UploadHere uploadLabel="" uploadText="" uploadBtn="+" uplaodWidth={166} uplaodHeight={248} setFileupload={setFileupload} imageUrl={imageUrl} setImageUrl={setImageUrl} /> */}

@@ -90,7 +90,7 @@ const AddCreator = () => {
         const value = params.value;
         return (
           <>
-            {value === 0 ? 'Applied' : value === 1 ? 'Approved' : value === 2 ? 'In-Process' : value === 3 ? 'Completed' : value === 4 ? 'Rejected' : '-'}
+            {value === 0 ? 'Applied' : value === 1 ? 'Approved' : value === 2 ? 'Price final' : value === 3 ? 'In process' : value === 4 ? 'Work submitted' : value === 5 ? 'Rejected' : value === 6 ? 'Completed' : '-'}
           </>
         );
       },
@@ -215,9 +215,11 @@ const AddCreator = () => {
                 </MenuItem> */} 
                 <MenuItem value={0}>Applied</MenuItem>
                 <MenuItem value={1}>Approved</MenuItem>
-                <MenuItem value={2}>In-Process</MenuItem>
-                <MenuItem value={3}>Completed</MenuItem>
-                <MenuItem value={4}>Rejected</MenuItem>
+                <MenuItem value={2}>Price final</MenuItem>
+                <MenuItem value={3}>In-Process</MenuItem>
+                <MenuItem value={4}>Work submitted</MenuItem>
+                <MenuItem value={5}>Rejected</MenuItem>
+                <MenuItem value={6}>Completed</MenuItem>
               </Select>
             </FormControl>
           </Grid>

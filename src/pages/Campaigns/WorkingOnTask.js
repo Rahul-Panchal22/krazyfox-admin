@@ -18,7 +18,7 @@ const WorkingOnTask = ({ id, setStoreStatus, step }) => {
     .then((res) => {
       console.log('res------>: ', res);
       toast.success(res.status);
-      setStoreStatus(3);
+      setStoreStatus(4);
     })
     .catch((err) => {
       toast.error(err);
@@ -28,7 +28,7 @@ const WorkingOnTask = ({ id, setStoreStatus, step }) => {
   return (
     <>
       <Stack direction="row" spacing={2} className="pending-btn-row">
-        <Button variant="contained" className="approved" onClick={() => handleClick(3)}>Mark as completed</Button>
+        <Button variant="contained" className="approved" onClick={() => handleClick(3)}>Work in process</Button>
       </Stack>
     </>
   );

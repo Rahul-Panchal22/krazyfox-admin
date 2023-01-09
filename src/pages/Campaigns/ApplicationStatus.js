@@ -33,23 +33,23 @@ const ApplicationStatus = () => {
     },
     {
       label: 'Price Finalization',
-      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={1} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
+      description: <PriceFinalization id={params.id} setStoreStatus={setStoreStatus} step={2} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Working on task',
-      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={2} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
+      description: <WorkingOnTask id={params.id} setStoreStatus={setStoreStatus} step={3} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Work Submission',
-      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={3} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
+      description: <SubmitWork id={params.id} setStoreStatus={setStoreStatus} step={4} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Approve or Reject Harley’s Work',
-      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={4} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
+      description: <ApproveWork id={params.id} setStoreStatus={setStoreStatus} step={5} setDisableBtn={setDisableBtn} disableBtn={disableBtn}/>,
     },
     {
       label: 'Completed',
-      description: <TaskCompleted id={params.id} setStoreStatus={setStoreStatus} step={5} setDisableBtn={setDisableBtn}/>,
+      description: <TaskCompleted id={params.id} setStoreStatus={setStoreStatus} step={6} setDisableBtn={setDisableBtn}/>,
     },
     // {
     //   label: 'You submitted Harley’s work.',
@@ -68,12 +68,16 @@ const ApplicationStatus = () => {
   useEffect(() => {
     dispatch(applicationStatusFetch(`?id=${params.id}`))
       .then((res) => {
-        console.log("--------------------------------->",res)
         if (res.code === 200) {
-          if(res.data.application_status === 1){
+          if(res.data.application_status === 1 || res.data.application_status === 0 ){
             setActiveStep(res.data.application_status - 1);
-            setGetActiveStep(res.data.application_status - 1)
-          }else{
+            setGetActiveStep(1) 
+          }
+          else if(res.data.application_status === 0 ){
+            setActiveStep(res.data.application_status - 1);
+            setGetActiveStep(0) 
+          }
+          else{
             setActiveStep(res.data.application_status);
             setGetActiveStep(res.data.application_status)
           }
@@ -178,7 +182,7 @@ const ApplicationStatus = () => {
         </Grid>
         <Divider className='divide-mar-40--40' />
         <Box sx={{ maxWidth: 700 }}>
-          <Stepper activeStep={activeStep} orientation="vertical" className="application-steps">
+          <Stepper activeStep={getActiveStep} orientation="vertical" className="application-steps">
             {steps.map((step, index) => (
               <Step key={step.label}>
                 <StepLabel>
@@ -188,7 +192,7 @@ const ApplicationStatus = () => {
                   <Typography>{step.description}</Typography>
                   <Box sx={{ mb: 2 }}>
                     <div>
-                      <Button
+                      {/* <Button
                         variant="contained"
                         onClick={handleNext}
                         sx={{ mt: 1, mr: 1 }}
@@ -203,7 +207,7 @@ const ApplicationStatus = () => {
                       >
                         Back
                       </Button>
-                      }
+                      } */}
                     </div>
                   </Box>
                 </StepContent>

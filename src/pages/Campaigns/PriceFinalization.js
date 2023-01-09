@@ -9,11 +9,13 @@ const defaultFormField = {
 };
 
 
-const PriceFinalization = ({ id }) => {
+const PriceFinalization = ({ id, setStoreStatus }) => {
 
   const dispatch = useDispatch();
 
   const [formField, setFormField] = useState(defaultFormField);
+  const [priceError, setPriceError] = useState(false);
+
 
   const {
     price
@@ -30,15 +32,22 @@ const PriceFinalization = ({ id }) => {
 
   const onFinish = (e) => {
     e.preventDefault();
+    setPriceError(false)
+
+    if (price === '') {
+      return setPriceError(true);
+    }
+
     const data = {
       id : id,
       price : price,
-      applicationStatus : 1
+      applicationStatus : 2
     }
     dispatch(CampaignApplicationStepper(data))
     .then((res) => {
       console.log('res------>: ', res);
       toast.success(res.status);
+      setStoreStatus(3);
     })
     .catch((err) => {
       toast.error(err);
@@ -58,6 +67,11 @@ const PriceFinalization = ({ id }) => {
         </FormControl>
         <Button variant="contained" className="approved" onClick={onFinish}>Approved</Button>
       </Stack>
+        {priceError && (
+          <p style={{ color: "red", marginTop: "5px" }}>
+            Price is required
+          </p>
+        )}
     </>
   );
 };
