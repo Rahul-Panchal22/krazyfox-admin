@@ -42,40 +42,46 @@ const Brand = () => {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
-      renderCell: (params) => params.value ? params.value : '-'
+      renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "poc_name",
       headerName: "POC Name",
       flex: 1.5,
-      renderCell: (params) => params.value ? params.value : '-'
+      renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "poc_phone",
       headerName: "POC Contact",
       flex: 1,
-      renderCell: (params) => params.value ? params.value : '-'
+      renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "categoriesArrayList",
       headerName: "Category",
       flex: 1,
       renderCell: (params) => {
-        const value = params.value
-        return <Chip label={`${value.length > 0 ? value[0].name : 'Not Data'}`} variant="outlined" />
-      }
+        const value = params.value;
+        return (
+          <Chip
+            label={`${value.length > 0 ? value[0].name : "Not Data"}`}
+            variant="outlined"
+          />
+        );
+      },
     },
     {
       field: "status",
       headerName: "Live/ Paused",
       flex: 0.8,
-      align: 'center',
-      renderCell: (params) => params.value === 1 ? <SparkFill /> : <SparkOutline />,
+      align: "center",
+      renderCell: (params) =>
+        params.value === 1 ? <SparkFill /> : <SparkOutline />,
     },
     {
       field: "action",
       headerName: "",
-      align: 'right',
+      align: "right",
       flex: 0.4,
       renderCell: (params) => {
         const onClick = (e) => {
@@ -156,14 +162,17 @@ const Brand = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label=""
-                    placeholder="Search for brand"
+                    label="Search for brand"
+                    placeholder=""
                     InputProps={{
+                      ...params.InputProps,
                       startAdornment: (
                         <InputAdornment position="start">
+                          {" "}
                           <SearchIcon />
                         </InputAdornment>
-                      )
+                      ),
+                      disableUnderline: true,
                     }}
                   />
                 )}
