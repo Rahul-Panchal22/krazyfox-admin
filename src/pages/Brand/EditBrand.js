@@ -94,10 +94,12 @@ const EditBrand = () => {
             poc_email: res.data.poc_email,
             poc_number: res.data.poc_phone,
             website: res.data.website_url,
-            status: res.data.status
+            status: res.data.status,
           }));
           setImageUrl(res.data.brand_logo_url);
-          setMultiSelect(res.data.categories ? JSON.parse(res.data.categories) : [])
+          setMultiSelect(
+            res.data.categories ? JSON.parse(res.data.categories) : []
+          );
         } else {
           toast.error("error");
         }
@@ -156,11 +158,11 @@ const EditBrand = () => {
       return setCategoriesError(true);
     }
 
-    if(fileupload === undefined && imageUrl === ''){
+    if (fileupload === undefined && imageUrl === "") {
       return setImageError(true);
     }
 
-    console.log("multiSelect", multiSelect)
+    console.log("multiSelect", multiSelect);
     const formData = new FormData();
 
     formData.append("brand_name", brand_name);
@@ -211,6 +213,15 @@ const EditBrand = () => {
     }));
   };
 
+  const UploadVideo = (e) => {
+    setFileupload(e.target.files[0]);
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImageUrl(reader.result);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   return (
     <>
       <Grid item xs={6} style={{ marginTop: "20px" }}>
@@ -248,13 +259,13 @@ const EditBrand = () => {
             aria-label="outlined primary button group"
           >
             <Button
-              className={`${status == 1 ? 'active' : ''}`}
+              className={`${status == 1 ? "active" : ""}`}
               onClick={(e) => handleStatus(e, 1)}
             >
               <SparkFill />
             </Button>
             <Button
-              className={`${status == 2 ? 'active' : ''}`}
+              className={`${status == 2 ? "active" : ""}`}
               onClick={(e) => handleStatus(e, 2)}
             >
               <SparkOutline />
@@ -280,9 +291,8 @@ const EditBrand = () => {
           spacing={2}
           className="mar-bottom-40"
         >
-          
           <Grid item xs={4}>
-            <UploadHere
+            {/* <UploadHere
               uploadLabel="Brand Logo"
               uploadText=""
               uploadBtn={<EditPen />}
@@ -292,12 +302,38 @@ const EditBrand = () => {
               setImageUrl={setImageUrl}
               imageUrl={imageUrl}
               sideButton={true}
-            />
+            /> */}
+            <div className="uplaod-ui" style={{ width: 290, height: 250 }}>
+              <Button
+                variant="contained"
+                component="label"
+                className="upload-video "
+              >
+                {(imageUrl || fileupload) ? (
+                  <img src={imageUrl} alt="" />
+                ) : (
+                  <>
+                    <span className="upload-plus-btn">+</span>
+                    <input
+                      type="file"
+                      name="video"
+                      id="video"
+                      onChange={(e) => {
+                        UploadVideo(e);
+                      }}
+                      accept="*"
+                      multiple
+                      required
+                    />
+                  </>
+                )}
+              </Button>
+            </div>
             {imageError && (
-                <p style={{ color: "red", marginTop: "5px" }}>
-                  Brand Image is required
-                </p>
-              )}
+              <p style={{ color: "red", marginTop: "5px" }}>
+                Brand Image is required
+              </p>
+            )}
           </Grid>
           <Grid item xs={4}>
             <InputLabel

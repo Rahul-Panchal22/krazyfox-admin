@@ -24,6 +24,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Campaigns.scss";
 import FileUploader from "../../components/UploadFile/FileUploader";
 import { toAbsoluteUrl } from "../../utils";
+import ReactPlayer from "react-player";
 
 const defaultFormField = {
   campaign_name: "",
@@ -34,6 +35,10 @@ const defaultFormField = {
   campaign_guidelines: "",
   campaign_followers_range: "",
   status: 1,
+  video_name: "",
+  buffervideo: "",
+  videoUrl: "",
+  mediaType: "",
 };
 
 const EditCampaign = () => {
@@ -56,16 +61,23 @@ const EditCampaign = () => {
     campaign_guidelines,
     campaign_followers_range,
     status,
+    video_name,
+    buffervideo,
+    videoUrl,
+    mediaType
   } = formField;
 
   const [brandNameError, setBrandNameError] = useState(false);
   const [campaignNameError, setCampaignNameError] = useState(false);
-  const [campaignDescriptionError, setCampaignDescriptionError] = useState(false);
-  const [campaignRequirementError, setCampaignRequirementError] = useState(false);
+  const [campaignDescriptionError, setCampaignDescriptionError] =
+    useState(false);
+  const [campaignRequirementError, setCampaignRequirementError] =
+    useState(false);
   const [campaignStepsError, setCampaignStepsError] = useState(false);
   const [campaignPriceRangeError, setCampaignPriceRangeError] = useState(false);
   const [campaignGuideLinesError, setCampaignGuideLinesError] = useState(false);
-  const [campaignFollowersRangeError, setCampaignFollowersRangeError] = useState(false);
+  const [campaignFollowersRangeError, setCampaignFollowersRangeError] =
+    useState(false);
   const [imageError, setImageError] = useState(false);
 
   const fetchCampaignDetailThroughId = () => {
@@ -82,8 +94,10 @@ const EditCampaign = () => {
             campaign_steps: res.data.campaign_steps,
             campaign_guidelines: res.data.campaign_guidelines,
             status: res.data.status,
+            videoUrl: res.data.media_type == "video/mp4" ? res.data.campaign_submission : '',
+            mediaType: res.data.media_type.toString(),
           }));
-          setImageUrl(res.data.campaign_submission);
+          (res.data.media_type !== "video/mp4" && videoUrl == '') && setImageUrl(res.data.campaign_submission);
         } else {
           toast.error("error");
         }
@@ -116,16 +130,40 @@ const EditCampaign = () => {
     setSelectedBrandValue(event.target.value.toString());
   };
 
-  console.log('fileupload: ', fileupload);
-    
-    const handleChangeImage = (e) => {
-        setFileupload(e.target.files[0]);
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {
-          setImageUrl(reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
-      }
+  const handleChangeImage = (e) => {
+    setFileupload(e.target.files[0]);
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImageUrl(reader.result);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const UploadVideo = (e) => {
+    console.log('e.target.files[0].type', e.target.files[0].type)
+    setFormField((prevState) => ({
+      ...prevState,
+      mediaType: e.target.files[0].type,
+    }));
+    if (e.target.files[0].type == "image/jpeg") {
+      setFileupload(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImageUrl(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      let videosrc = window.URL.createObjectURL(e.target.files[0]);
+
+      console.log(videosrc);
+      setFormField((prevState) => ({
+        ...prevState,
+        videoUrl: videosrc,
+        buffervideo: e.target.files[0],
+        video_name: e.target.files[0].name,
+      }));
+    }
+  };
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -161,30 +199,33 @@ const EditCampaign = () => {
       return setCampaignGuideLinesError(true);
     }
 
-    if(selectedBrandValue === ""){
-      console.log("Helllo")
-      return setBrandNameError(true)
+    if (selectedBrandValue === "") {
+      console.log("Helllo");
+      return setBrandNameError(true);
     }
 
-    if(fileupload === undefined && imageUrl === ''){
-      return setImageError(true)
+    if (mediaType == '') {
+      return setImageError(true);
     }
 
     const formData = new FormData();
 
-    console.log(" selectedBrandValue", fileupload)
+    console.log(" selectedBrandValue", fileupload);
 
     formData.append("brand_id", selectedBrandValue);
     formData.append("campaign_title", campaign_name);
     formData.append("campaign_description", campaign_description);
     formData.append("campaign_requirements", campaign_requirements);
     formData.append("campaign_steps", campaign_steps);
-    fileupload && formData.append("campaign_submission", fileupload);
+    (fileupload || buffervideo) && formData.append("campaign_submission", mediaType == "image/jpeg" ? fileupload : buffervideo);
     formData.append("campaign_price_range", campaign_price_range);
     formData.append("campaign_guidelines", campaign_guidelines);
     formData.append("campaign_followers_range", campaign_followers_range);
     formData.append("status", status);
-    pathname !== '/add-campaign' ? formData.append("hyperLocal",'1') : formData.append("hyperLocal", '0')
+    formData.append("mediaType", mediaType)
+    pathname !== "/add-campaign"
+      ? formData.append("hyperLocal", "1")
+      : formData.append("hyperLocal", "0");
     if (params.campaignId) {
       formData.append("campaign_id", params.campaignId);
       dispatch(EditCampaignDetails(formData))
@@ -254,7 +295,15 @@ const EditCampaign = () => {
           xs={12}
           textAlign="right"
         >
-          <InputLabel id="demo-simple-select-label" className="extra-label" required error={brandNameError} style={{ margin: '4px 10px 0 0' }}>Campaign Status</InputLabel>
+          <InputLabel
+            id="demo-simple-select-label"
+            className="extra-label"
+            required
+            error={brandNameError}
+            style={{ margin: "4px 10px 0 0" }}
+          >
+            Campaign Status
+          </InputLabel>
           <ButtonGroup
             className="campaign-status"
             variant="contained"
@@ -547,24 +596,50 @@ const EditCampaign = () => {
               setImageUrl={setImageUrl}
               imageUrl={imageUrl}
             /> */}
-            <div className='uplaod-ui' style={{ width: 290, height: 250 }}>
-            <Button variant="contained" component="label" className='upload-video '>
-                {/* {uploadText} */}
-                <span className='upload-plus-btn'>+</span>
-                <input type='file' name="file" onChange={(e) => handleChangeImage(e)} accept=".mp4" multiple required />
-            </Button>
-            <span className='uplaod-span'>
-                <img src={toAbsoluteUrl('/images/uplaod-icon.svg')} alt="" /><br />
-            </span>
-        </div>
+            <div className="uplaod-ui" style={{ width: 290, height: 250 }}>
+              <Button
+                variant="contained"
+                component="label"
+                className="upload-video "
+              >
+                {videoUrl && fileupload == undefined ? (
+                  <ReactPlayer
+                    url={videoUrl}
+                    controls
+                    width={"480px"}
+                    height={"240px"}
+                  />
+                ) : imageUrl ? (
+                  <img src={imageUrl} alt="" />
+                ) : (
+                  <>
+                    <span className="upload-plus-btn">+</span>
+                    <input
+                      type="file"
+                      name="video"
+                      id="video"
+                      onChange={(e) => {
+                        UploadVideo(e);
+                      }}
+                      accept="*"
+                      multiple
+                      required
+                    />
+                  </>
+                )}
+              </Button>
+              <span className="uplaod-span">
+                <img src={toAbsoluteUrl("/images/uplaod-icon.svg")} alt="" />
+                <br />
+              </span>
+            </div>
           </Grid>
-          
         </Grid>
         {imageError && (
-              <p style={{ color: "red", marginTop: "5px" }}>
-                Campaign image is required
-              </p>
-            )}
+          <p style={{ color: "red", marginTop: "5px" }}>
+            Campaign image or video is required
+          </p>
+        )}
       </div>
       <div className="btn-row reverse mar-top-20">
         <Button

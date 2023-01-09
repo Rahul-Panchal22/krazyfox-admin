@@ -5,7 +5,7 @@ import FileUploader from './FileUploader';
 import './Upload.scss'
 
 
-const UploadHere = ({setFileupload1 , setFileupload2, setFileupload3, setFileupload4, fileupload1, fileupload2, fileupload3, fileupload4, uploadText, uploadLabel, imageUrl0, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton, imgselect }) => {
+const UploadHere = ({setFileupload1 , setFileupload2, setFileupload3, setFileupload4,  fileupload1, fileupload2, fileupload3, fileupload4, uploadText, uploadLabel, imageUrl0, imageUrl,  setImageUrl, uplaodWidth, uplaodHeight, uploadBtn, sideButton, imgselect }) => {
   
   const handleChange = (e) => {
     // setFileupload([...fileupload,e.target.files[0]]);
