@@ -3,6 +3,11 @@ import { Autocomplete, Box, Button, ButtonGroup, Chip, FilledInput, FormControl,
 import { SearchIcon } from '../../svg';
 import { DataGrid } from '@mui/x-data-grid';
 import './Campaigns.scss'
+import Unfiltered from './Unfiltered';
+import LocationTab from './LocationTab';
+import FollowerRangeTab from './FollowerRangeTab';
+import ExclusiveCreatorsTab from './ExclusiveCreatorsTab';
+import HyperLocal from './HyperLocal';
 // import Dropzone from 'react-dropzone';
 
 const categoriesList = [ 'Surat', 'Maharashtra' ]
@@ -13,7 +18,7 @@ const SelectCreatorsBy = () => {
   const [multiSelect, setMultiSelect] = useState([])
   const [search, setSearched] = useState("")
   const [filter, /* setFilter */] = useState()
-
+  const [tab, setTab] = useState(1);
   const handleSelect = (e) => {
     const {
       target: { value },
@@ -94,18 +99,58 @@ const SelectCreatorsBy = () => {
     { id: 14, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
   ];
 
+  const handleCheckTab = (item) => {
+    if(item === 1){
+      setTab(1)
+      // return(
+      //   <Unfiltered />
+      // )
+    }
+
+    if(item === 2){
+      setTab(2)
+      // return(
+      //   <LocationTab />
+      // )
+    }
+
+    if(item === 3){
+      setTab(3)
+      // return(
+      //   <FollowerRangeTab />
+      // )
+    }
+
+    if(item === 4){
+      setTab(4)
+      // return(
+      //   <ExclusiveCreatorsTab />
+      // )
+    }
+
+    if(item === 5){
+      setTab(5)
+      // return(
+      //   <HyperLocal />
+      // )
+    }
+  }
+
 	return (
 		<>
       <div className="select-creators-by-sec">
         <ButtonGroup className='campaign-select-row' variant="contained" aria-label="outlined primary button group">
-          <Button className='active'>Unfiltered</Button>
-          <Button>Location</Button>
-          <Button>Follower Range</Button>
-          <Button>Exclusive Creators</Button>
-          <Button>Hyper Local</Button>
+          <Button className='active' onClick={() => handleCheckTab(1)}>Unfiltered</Button>
+          <Button onClick={() => handleCheckTab(2)}>Location</Button>
+          <Button onClick={() => handleCheckTab(3)}>Follower Range</Button>
+          <Button onClick={() => handleCheckTab(4)}>Exclusive Creators</Button>
+          <Button onClick={() => handleCheckTab(5)}>Hyper Local</Button>
         </ButtonGroup>
       </div>
-      <div className="mar-top-30">
+      {
+        tab === 1 ? <Unfiltered /> : tab === 2 ? <LocationTab /> : tab === 3 ? <FollowerRangeTab /> : tab === 4 ? <ExclusiveCreatorsTab /> : tab === 5 ?  <HyperLocal /> : ''  
+      }
+      {/* <div className="mar-top-30">
         <Grid item xs={12}>
           <Stack spacing={2} sx={{ width: 630 }}>
             <Autocomplete
@@ -130,8 +175,8 @@ const SelectCreatorsBy = () => {
             />
           </Stack>
         </Grid>
-      </div>
-      <div className="search-row">
+      </div> */}
+      {/* <div className="search-row">
         <Grid
           container
           direction="row"
@@ -240,7 +285,7 @@ const SelectCreatorsBy = () => {
             <Button variant="contained">Select</Button>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
 		</>
 	);
 }

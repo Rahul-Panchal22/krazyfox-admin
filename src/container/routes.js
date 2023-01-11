@@ -30,6 +30,8 @@ const PaymentsRejectionReason = lazy(() => import("../pages/Payments/PaymentsRej
 const BacketList = lazy(() => import("../pages/Payments/BacketList"))
 const BacketDetails = lazy(() => import("../pages/Payments/BacketDetails"))
 const Sidebar = lazy(() => import("../components/layout/Sidebar"));
+const SelectCreatorsBy = lazy(() => import("../pages/Campaigns/SelectCreatorsBy"));
+const SelectCreatorsLocation = lazy(() => import("../pages/Campaigns/SelectCreatorsLocation"));
 
 const Routing = () => {
   return (
@@ -51,8 +53,8 @@ const Routing = () => {
           <Route path="/campaign-application/:campaignId" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
           <Route path="/application-status/:id/:creatorId" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
           <Route path="/brand" element={<PrivateRoute><Brand /></PrivateRoute>} />
-          {/* <Route path="/select-creators-by" element={<PrivateRoute><SelectCreatorsBy /></PrivateRoute>} />
-          <Route path="/select-creators-location" element={<PrivateRoute><SelectCreatorsLocation /></PrivateRoute>} /> */}
+          <Route path="/select-creators-by" element={<PrivateRoute><SelectCreatorsBy /></PrivateRoute>} />
+          <Route path="/select-creators-location" element={<PrivateRoute><SelectCreatorsLocation /></PrivateRoute>} />
           <Route path="/view-brand/:brandId" element={<PrivateRoute><ViewBrand /></PrivateRoute>} />
           <Route path="/add-brand" element={<PrivateRoute><EditBrand /></PrivateRoute>} />
           <Route path="/edit-brand/:brandId" element={<PrivateRoute><EditBrand /></PrivateRoute>} />
