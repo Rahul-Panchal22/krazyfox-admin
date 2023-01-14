@@ -45,6 +45,7 @@ const PaymentsStatus = () => {
 
   const cellClickRef = React.useRef(null);
   const [selectionModel, setSelectionModel] = React.useState([]);
+  console.log('selectionModel: ', selectionModel);
 
   useEffect(() => {
     getPaymentList();
@@ -303,7 +304,6 @@ const PaymentsStatus = () => {
           checkboxSelection
           // onSelectionModelChange={(newSelection) => {
           //   console.log("newSelection", newSelection);
-          //   setSelection(newSelection);
           // }}
           selectionModel={selectionModel}
           onCellClick={() => (cellClickRef.current = true)}
@@ -312,8 +312,9 @@ const PaymentsStatus = () => {
               if (selection.length > 1) {
                 const selectionSet = new Set(selectionModel);
                 const result = selection.filter((s) => !selectionSet.has(s));
-  
+                
                 setSelectionModel(result);
+                  setSelection(result);
               } else {
                 setSelectionModel(selection);
               }
