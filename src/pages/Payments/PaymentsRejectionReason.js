@@ -38,7 +38,7 @@ const PaymentsRejectionReason = () => {
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/profile_place.jpg')} sx={{ width: 78, height: 78 }} />
           <h4 className="user-name">{rejectData?.name}</h4>
         </div>
         <h4 className="avtar-info rejection">Payment Status: Rejected</h4>

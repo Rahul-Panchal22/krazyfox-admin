@@ -122,7 +122,7 @@ const ApplicationStatus = () => {
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={creatorDetail?.profile_pic_url ? creatorDetail?.profile_pic_url : toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <Avatar alt="Remy Sharp" src={creatorDetail?.profile_pic_url ? creatorDetail?.profile_pic_url : toAbsoluteUrl('/images/profile_place.jpg')} sx={{ width: 78, height: 78 }} />
           <h4 className="user-name">{creatorDetail ? creatorDetail.name : '-'}</h4>
         </div>
       </div>

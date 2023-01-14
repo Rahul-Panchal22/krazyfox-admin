@@ -94,7 +94,7 @@ const Creator = () => {
       headerName: "KYC",
       flex: 0.5,
       renderCell: (params) => {
-        if (params.value === null || params.value === "0") {
+        if (params.value === null || params.value === "0" || params.value === 0) {
           return (
             <Stack direction="row" spacing={2}>
               <KycStatus svgFill="red" />

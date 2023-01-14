@@ -52,6 +52,7 @@ const EditCampaign = () => {
   const dispatch = useDispatch();
   const history = useLocation();
   const pathname = history.pathname;
+  console.log('pathname: ', pathname);
   const {
     campaign_name,
     campaign_description,
@@ -232,7 +233,12 @@ const EditCampaign = () => {
         .then((res) => {
           if (res.code === 200) {
             toast.success(res.message);
-            navigate("/campaigns");
+            if(pathname === '/hyper-local-campaign'){
+              navigate("/select-creators-location")              
+            }
+            else{
+              navigate("/campaigns");
+            }
           } else {
             toast.error(res.message);
           }
@@ -245,7 +251,12 @@ const EditCampaign = () => {
         .then((res) => {
           if (res.code === 201) {
             toast.success(res.message);
-            navigate("/campaigns");
+            if(pathname === '/hyper-local-campaign'){
+              navigate("/select-creators-location")              
+            }
+            else{
+              navigate("/campaigns");
+            }
           } else {
             toast.error(res.message);
           }

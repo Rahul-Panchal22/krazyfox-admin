@@ -91,7 +91,7 @@ const ViewCreator = () => {
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <Avatar alt="Remy Sharp" src={ creatorDetail ? creatorDetail : toAbsoluteUrl('/images/profile_place.jpg')} sx={{ width: 78, height: 78 }} />
           <h4 className="user-name">{creatorDetail ? creatorDetail.name : '-'}</h4>
         </div>
       </div>
@@ -145,9 +145,23 @@ const ViewCreator = () => {
         </Grid>
         <Divider className='divide-mar-40--40' />
         <Grid container direction="row" spacing={2} className='mar-bottom-40'>
-          {['It’s Harley', '@iam.harley', '@iam.harley'].map((text, i) => (
+        {[
+            {
+              name: 'Aadhar Card',
+              value: creatorDetail?.is_adhar_verified
+            }, 
+            {
+              name: 'Bank Detials',
+              value: creatorDetail?.is_bank_detail_verified}, 
+            {
+              name: 'Pan Card',
+              value: creatorDetail?.is_pan_card_verified}, 
+            {
+              name: 'Passbook Verified',
+              value: creatorDetail?.is_passbook_verified
+            }].map((text, i) => (
             <Grid item xs={6} key={i}>
-              <KycStatus /> &nbsp;&nbsp;&nbsp;{text}
+              <KycStatus svgFill={text.value === '1' || text.value === 1 ? 'green' : 'red'} /> &nbsp;&nbsp;&nbsp;{text.name}
             </Grid>
           ))}
         </Grid>
@@ -156,22 +170,22 @@ const ViewCreator = () => {
           <Grid item xs={6} className="veiw-card">
             <p className="label">Aadhar Card</p>
             <figure className='view-doc d-flex-start-start'>
-              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
-              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+            <img src={creatorDetail ? creatorDetail?.adhar_front_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
+              <img src={creatorDetail ? creatorDetail?.adhar_back_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
             </figure>
             <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_adhar_verified == 1) || (adharCardflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className={`${creatorDetail?.is_adhar_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_adhar_verified, "adhar_verification")} />
           </Grid>
           <Grid item xs={6} className="veiw-card">
             <p className="label">PAN Card</p>
             <figure className='view-doc d-flex-start-start'>
-              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+            <img src={creatorDetail ? creatorDetail?.pan_card_url : ("/images/view-doc.png")} alt="" />
             </figure>
             <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_pan_card_verified == 1) || (panCardflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className={`${(creatorDetail?.is_pan_card_verified == 1) || (panCardflag == 1) ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_pan_card_verified, "pan_card_verification")} />
           </Grid>
           <Grid item xs={6} className="veiw-card">
             <p className="label">Passbook</p>
             <figure className='view-doc d-flex-start-start'>
-              <img src={toAbsoluteUrl("/images/view-doc.png")} alt="" />
+            <img src={creatorDetail ? creatorDetail?.passbook_url: toAbsoluteUrl("/images/view-doc.png")} alt="" />
             </figure>
             <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_passbook_verified == 1) || (pashbookflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className={`${creatorDetail?.is_passbook_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_passbook_verified, "passbook_verification")} />
           </Grid>
@@ -181,7 +195,7 @@ const ViewCreator = () => {
           <VeiwCard
             cardWidth={4}
             cardHeadign="Bank Account Number"
-            cardContent={creatorDetail ? creatorDetail.bank_ac_holder_name : '-'}
+            cardContent={creatorDetail ? creatorDetail.bank_ac_number : '-'}
           />
           <VeiwCard
             cardHeadign="IFSC"

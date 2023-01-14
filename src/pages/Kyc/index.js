@@ -89,7 +89,7 @@ const Kyc = () => {
       headerName: "KYC",
       flex: 0.7,
       renderCell: (params) => {
-        if (params.value === null || params.value === "0") {
+        if (params.value === null || params.value === "0" || params.value === 0 ) {
           return (
             <Stack direction="row" spacing={2}>
               <KycStatus svgFill="red" />
@@ -205,7 +205,6 @@ const Kyc = () => {
                 size='small'
                 required
               >
-                <MenuItem value={5}>View all creators</MenuItem>
                 <MenuItem value={1}>KYC completed</MenuItem>
                 <MenuItem value={2}>KYC Not completed</MenuItem>
                 <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>

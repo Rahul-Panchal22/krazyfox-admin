@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Autocomplete, Box, Button, ButtonGroup, Chip, FilledInput, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
+import {  Box, Button, ButtonGroup, Chip, FilledInput, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import { SearchIcon } from '../../svg';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { Autocomplete, GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import './Campaigns.scss'
 // import Dropzone from 'react-dropzone';
 
@@ -13,10 +13,7 @@ const containerStyle = {
   height: '100%'
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
+const placesLibrary = ['places']
 
 const SelectCreatorsLocation = () => {
 
@@ -25,6 +22,12 @@ const SelectCreatorsLocation = () => {
   const [search, setSearched] = useState("")
   const [filter, /* setFilter */] = useState()
   const [map, setMap] = React.useState(null)
+  const [searchResult, setSearchResult] = useState('');
+
+  const [center, setCenter] = useState({
+    lat: 23.0225,
+    lng: 72.5714
+  });
 
   const handleSelect = (e) => {
     const {
@@ -56,7 +59,8 @@ const SelectCreatorsLocation = () => {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyB3qfOgTiJdEa5hv_l03saH8RMne_sQzqM"
+    googleMapsApiKey: "AIzaSyB3qfOgTiJdEa5hv_l03saH8RMne_sQzqM",
+    libraries: placesLibrary
   })
 
   const onLoad = React.useCallback(function callback(map) {
@@ -70,6 +74,44 @@ const SelectCreatorsLocation = () => {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)
   }, [])
+
+  const onLoaded = (autocomplete) =>  {
+    console.log('autocomplete: ', autocomplete);
+    setSearchResult(autocomplete)
+  }
+
+  function onPlaceChanged() {
+    if (searchResult != null) {
+      //variable to store the result
+      const place = searchResult.getPlace();
+      //variable to store the name from place details result 
+      const name = place.name;
+      //variable to store the status from place details result
+      const status = place.business_status;
+      //variable to store the formatted address from place details result
+      const formattedAddress = place.formatted_address;
+      // lat and lng
+      const latData = place.geometry.location.lat();
+      const lngData = place.geometry.location.lng();
+      // console.log(place);
+      //console log all results
+      console.log(`Name: ${name}`);
+      console.log(`Business Status: ${status}`);
+      console.log(`Formatted Address: ${formattedAddress}`);
+      console.log('place: ', place.geometry.location);
+      setCenter({lat : latData , lng : lngData })
+    } else {
+      alert("Please enter text");
+    }
+  }
+
+  const handleClickMarker = (marker) => {
+    console.log('marker: ', marker);
+    console.log('marker: ', marker.latLng.lat());
+    const latData = marker.latLng.lat();
+    const lngData = marker.latLng.lng();
+    setCenter({lat : latData , lng : lngData })
+  }
 
   const columns = [
     {
@@ -144,15 +186,33 @@ const SelectCreatorsLocation = () => {
         >
           <Grid item xs={8}>
             <Stack spacing={2} sx={{ width: 630 }}>
-              <Autocomplete
-                id="free-solo-demo"
-                freeSolo
-                size="small"
-                onChange={onMutate}
-                options={kycList.map((option) => option.name)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
+             {isLoaded && 
+            //  <Autocomplete
+            //     id="free-solo-demo"
+            //     freeSolo
+            //     size="small"
+            //     // onChange={onMutate}
+            //     onPlaceChanged={onPlaceChanged} 
+            //     onLoad={onLoaded}
+            //     // options={kycList.map((option) => option.name)}
+            //     renderInput={(params) => (
+            //       <TextField
+            //         {...params}
+            //         label=""
+            //         placeholder="Search for creators"
+            //         InputProps={{
+            //           startAdornment: (
+            //             <InputAdornment position="start">
+            //               <SearchIcon />
+            //             </InputAdornment>
+            //           )
+            //         }}
+            //       />
+            //     )}
+            //   />
+            <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoaded}>
+          <TextField
+                    // {...params}
                     label=""
                     placeholder="Search for creators"
                     InputProps={{
@@ -163,8 +223,9 @@ const SelectCreatorsLocation = () => {
                       )
                     }}
                   />
-                )}
-              />
+        </Autocomplete>
+      
+          }
             </Stack>
           </Grid>
           <Grid item xs={4}>
@@ -195,9 +256,10 @@ const SelectCreatorsLocation = () => {
             onLoad={onLoad}
             onUnmount={onUnmount}
             style={{width: '100%'}}
+            onClick={handleClickMarker}
           >
             { /* Child components, such as markers, info windows, etc. */}
-            <></>
+            <Marker position={center} clickable={true}/>
           </GoogleMap>
         ) : <></>}
       </div>

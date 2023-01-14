@@ -91,7 +91,7 @@ const ViewKyc = () => {
     <>
       <div className="avtar-header">
         <div className="avtar-info">
-          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/avtar.png')} sx={{ width: 78, height: 78 }} />
+          <Avatar alt="Remy Sharp" src={toAbsoluteUrl('/images/profile_place.jpg')} sx={{ width: 78, height: 78 }} />
           <h4 className="user-name">{creatorDetail ? creatorDetail?.name : '-'}</h4>
         </div>
       </div>
@@ -161,7 +161,7 @@ const ViewKyc = () => {
               value: creatorDetail?.is_passbook_verified
             }].map((text, i) => (
             <Grid item xs={6} key={i}>
-              <KycStatus svgFill={text.value == '1'? 'green' : 'red'} /> &nbsp;&nbsp;&nbsp;{text.name}
+              <KycStatus svgFill={text.value === '1' || text.value === 1 ? 'green' : 'red'} /> &nbsp;&nbsp;&nbsp;{text.name}
             </Grid>
           ))}
         </Grid>
@@ -195,7 +195,7 @@ const ViewKyc = () => {
           <KycCard
           cardWidth={4}
             cardHeadign="Bank Account Number"
-            cardContent={creatorDetail ? creatorDetail.bank_ac_holder_name : '-'}
+            cardContent={creatorDetail ? creatorDetail.bank_ac_number : '-'}
           />
           <KycCard
             cardHeadign="IFSC"
