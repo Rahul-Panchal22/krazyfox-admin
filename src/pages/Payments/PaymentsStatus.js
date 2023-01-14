@@ -301,33 +301,28 @@ const PaymentsStatus = () => {
           pageSize={10}
           rowsPerPageOptions={[5]}
           checkboxSelection
-          onSelectionModelChange={(newSelection) => {
-            console.log("newSelection", newSelection);
-            setSelection(newSelection);
+          // onSelectionModelChange={(newSelection) => {
+          //   console.log("newSelection", newSelection);
+          //   setSelection(newSelection);
+          // }}
+          selectionModel={selectionModel}
+          onCellClick={() => (cellClickRef.current = true)}
+          onSelectionModelChange={(selection, detail) => {
+            if (cellClickRef.current) {
+              if (selection.length > 1) {
+                const selectionSet = new Set(selectionModel);
+                const result = selection.filter((s) => !selectionSet.has(s));
+  
+                setSelectionModel(result);
+              } else {
+                setSelectionModel(selection);
+              }
+            }
+            //  else {
+            //   setSelectionModel(selection);
+            // }
+            cellClickRef.current = null;
           }}
-        // selectionModel={selectionModel}
-        // onCellClick={() => (cellClickRef.current = true)}
-        // onSelectionModelChange={(selection, detail) => {
-        //   console.log('selection: ', selection);
-          
-        //   if (cellClickRef.current) {
-        //     if (selection.length > 1) {
-        //       const selectionSet = new Set(selectionModel);
-        //       console.log('selectionSet: ', selectionSet);
-        //       console.log('selectionModel: ', selectionModel);
-        //       const result = selection.filter((s) => !selectionSet.has(s));
-        //       console.log('selection: ', result);
-
-        //       setSelectionModel(result);
-        //     } else {
-        //       setSelectionModel(selection);
-        //     }
-        //   } 
-        //   // else {
-        //   //   setSelectionModel(selection);
-        //   // }
-        //   cellClickRef.current = null;
-        // }}
         />
       </Box>
       <Modal
