@@ -20,7 +20,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { toAbsoluteUrl } from "../../utils";
-import { ListItem, Stack } from "@mui/material";
+import { Collapse, ListItem, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 // import { useTheme } from '@emotion/react';
 import { Sidermenu } from "../../constants/DummyData";
@@ -276,32 +276,32 @@ export default function MiniDrawer(props) {
                         {menuCollapse ? (
                           <ExpandLess sx={{ fill: "#ffffff" }} />
                         ) : (
-                          <ExpandMore sx={{ fill: "#ffffff" }} />
+                          <ExpandMore sx={{ fill: "#ffffff" }}/>
                         )}
                       </>
                     ) : (
                       ""
                     )}
-                    {menuCollapse ? submenuShow(menubar) : ""}
+                    {/* {menuCollapse ? submenuShow(menubar) : ""} */}
                   </ListItemButton>
                 </ListItem>
               </Link>
-              {/* {menubar.submenu === true ? menubar.submenu.map((subMenubar) => (
+              {menubar.submenu === true && menubar.submenulist.map((subMenubar) => (
                 <Collapse in={menuCollapse} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <Link to="/campaigns">
+                    <Link to={subMenubar.submenupath} key={menubar.id}>
                       <ListItem disablePadding sx={{ display: 'block' }}>
                         <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 4, }}>
                           <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center', fill: '#ffffff', }}>
                             {subMenubar.icon}
                           </ListItemIcon>
-                          <ListItemText primary="Sub menu 1" sx={{ opacity: open ? 1 : 0 }} />
+                          <ListItemText primary={subMenubar.name} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                       </ListItem>
                     </Link>
                   </List>
                 </Collapse>
-              ))} */}
+              ))}
             </>
           ))}
         </List>

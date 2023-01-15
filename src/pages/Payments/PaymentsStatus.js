@@ -208,7 +208,7 @@ const PaymentsStatus = () => {
 
   const addBucket = () => {
     const data = {
-      payoutIds: [selection[0].toString()],
+      payoutIds: [selectionModel[0].toString()],
       campaignId: parseInt(params?.payment)
     }
     dispatch(paymentCreateBucket(data))

@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CampaignListing } from "../../actions/campaign";
+import { PaymentPendingListing } from "../../actions/Payment";
 
 
 const Payments = () => {
@@ -123,7 +124,7 @@ const Payments = () => {
   ];
 
   const getAllCampaignListing = () => {
-    dispatch(CampaignListing())
+    dispatch(PaymentPendingListing())
       .then((res) => {
         setCampaignList(res.data);
         toast.success(res.message);
