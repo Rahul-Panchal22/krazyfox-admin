@@ -5,12 +5,21 @@ import {
     CREATORS_VIEW_S,
     CREATORS_VERIFY_DOCS_S,
     CREATORS_VERIFY_DOCS_F,
+    CREATORS_LIST_BASED_FILTER_S,
+    CREATORS_LIST_BASED_FILTER_F,
+    STATE_LIST_S,
+    STATE_LIST_F,
+    Notification_S,
+    Notification_F,
   } from "../constants/types";
   
   const initialState = {
     creators: [],
     creator: {},
-    verifyDocs: {}
+    verifyDocs: {},
+    creatorsFilterList: [],
+    state: [],
+    notification: {}
   };
   
   const creators = (state = initialState, action) => {
@@ -27,10 +36,22 @@ import {
         return { ...state, verifyDocs: action.payload.data };
       case CREATORS_VERIFY_DOCS_F:
         return { ...state, verifyDocs: action.payload.data };
+      case CREATORS_LIST_BASED_FILTER_S:
+        return { ...state, creatorsFilterList: action.payload.data };
+      case CREATORS_LIST_BASED_FILTER_F:
+        return { ...state, creatorsFilterList: undefined };
+      case STATE_LIST_S:
+        return { ...state, state: action.payload.data };
+      case STATE_LIST_F:
+        return { ...state, state: undefined };
+      case Notification_S:
+        return { ...state, notification: action.payload.data };
+      case Notification_F:
+        return { ...state, notification: undefined };
       default:
         return state;
     }
   };
   
-  export default creators;
+export default creators;
   

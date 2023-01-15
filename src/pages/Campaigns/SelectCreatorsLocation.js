@@ -3,6 +3,9 @@ import {  Box, Button, ButtonGroup, Chip, FilledInput, FormControl, Grid, InputA
 import { SearchIcon } from '../../svg';
 import { Autocomplete, GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import './Campaigns.scss'
+import { useDispatch } from 'react-redux';
+import { latLongCamp } from '../../actions/campaign';
+import { toast } from 'react-toastify';
 // import Dropzone from 'react-dropzone';
 
 const categoriesList = ['Surat', 'Maharashtra']
@@ -16,6 +19,8 @@ const containerStyle = {
 const placesLibrary = ['places']
 
 const SelectCreatorsLocation = () => {
+
+  const dispatch = useDispatch();
 
   const [kycList, setKycList] = useState([]);
   const [multiSelect, setMultiSelect] = useState([])
@@ -106,64 +111,28 @@ const SelectCreatorsLocation = () => {
   }
 
   const handleClickMarker = (marker) => {
-    console.log('marker: ', marker);
+    console.log('marker:', marker);
     console.log('marker: ', marker.latLng.lat());
     const latData = marker.latLng.lat();
     const lngData = marker.latLng.lng();
     setCenter({lat : latData , lng : lngData })
   }
 
-  const columns = [
-    {
-      field: "id",
-      headerName: "Sr No.",
-      minWidth: 60,
-    },
-    {
-      field: "creator_name",
-      headerName: "Creator Name",
-      minWidth: 220,
-      sortable: false,
-      filterable: false,
-    },
-    {
-      field: "followers",
-      headerName: "Followers",
-      minWidth: 120,
-    },
-    {
-      field: "state",
-      headerName: "State",
-      minWidth: 180,
-    },
-    {
-      field: "contact",
-      headerName: "Contact",
-      minWidth: 180,
-    },
-    {
-      field: "category",
-      headerName: "Category",
-      minWidth: 110,
-    },
-  ];
-
-  const rows = [
-    { id: 1, creator_name: 'Johny Depp', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 2, creator_name: 'Cersei', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 3, creator_name: 'Jaime', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 4, creator_name: 'Arya', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 5, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 6, creator_name: 'Bhautik', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 7, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 8, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 9, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 10, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 11, creator_name: 'Rahul', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 12, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 13, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 14, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-  ];
+  const handleSelectLocation = () => {
+    const data = {
+      latLongArray : [{lat : center.lat , long : center.lng }],
+      campaignId : localStorage.getItem("campaignId")
+    }
+    dispatch(latLongCamp(data))
+    .then((res) => {
+      if (res.code === 200) {
+        toast.success(res.message);
+      }
+    })
+    .catch((err) => {
+      toast.success(err);
+    });
+  }
 
   return (
     <>
@@ -272,7 +241,7 @@ const SelectCreatorsLocation = () => {
           spacing={2}
         >
           <Grid item xs={3} textAlign="right" className="mar-top-30">
-            <Button variant="contained">Select</Button>
+            <Button variant="contained" onClick={handleSelectLocation}>Select</Button>
           </Grid>
         </Grid>
       </div>

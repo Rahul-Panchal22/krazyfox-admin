@@ -234,6 +234,7 @@ const EditCampaign = () => {
           if (res.code === 200) {
             toast.success(res.message);
             if(pathname === '/hyper-local-campaign'){
+              localStorage.setItem("campaignId", res.data.id)
               navigate("/select-creators-location")              
             }
             else{
@@ -252,6 +253,7 @@ const EditCampaign = () => {
           if (res.code === 201) {
             toast.success(res.message);
             if(pathname === '/hyper-local-campaign'){
+              localStorage.setItem("campaignId", res.data.id)
               navigate("/select-creators-location")              
             }
             else{

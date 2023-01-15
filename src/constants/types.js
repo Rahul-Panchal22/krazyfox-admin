@@ -23,6 +23,9 @@ export const CREATORS_VIEW_F = "Creator profile couldn't fetch successfully."
 export const CREATORS_VERIFY_DOCS_S = "Creator docs verifyed successfully"
 export const CREATORS_VERIFY_DOCS_F = "Creator docs couldn't verifyed successfully"
 
+export const CREATORS_LIST_BASED_FILTER_S = "Creator Filter successfully"
+export const CREATORS_LIST_BASED_FILTER_F = "Creator Filter couldn't successfully"
+
 // campaign
 export const CAMPAIGN_S = "Campaign listed successfully"
 export const CAMPAIGN_F = "Campaign listing failed"
@@ -103,3 +106,18 @@ export const PAYMENTS_FETCH_TRANSACTION_DETAILS_F = "payment fetch transaction d
 // upload file
 export const UPLOAD_FILE_S = "Upload file successfully"
 export const UPLOAD_FILE_F = "Upload file deleted"
+
+// State
+
+export const STATE_LIST_S = 'State list successfully'
+export const STATE_LIST_F = 'State list failed' 
+
+// Notification
+
+export const Notification_S = 'Notification successfully'
+export const Notification_F = 'Notification failed' 
+
+// LatLong Api
+
+export const LATLONG_S = 'LatLong successfully';
+export const LATLONG_F = 'LatLong failed';

@@ -140,11 +140,11 @@ const SelectCreatorsBy = () => {
 		<>
       <div className="select-creators-by-sec">
         <ButtonGroup className='campaign-select-row' variant="contained" aria-label="outlined primary button group">
-          <Button className='active' onClick={() => handleCheckTab(1)}>Unfiltered</Button>
-          <Button onClick={() => handleCheckTab(2)}>Location</Button>
-          <Button onClick={() => handleCheckTab(3)}>Follower Range</Button>
-          <Button onClick={() => handleCheckTab(4)}>Exclusive Creators</Button>
-          <Button onClick={() => handleCheckTab(5)}>Hyper Local</Button>
+          <Button className={tab === 1 ? 'active' : ''} onClick={() => handleCheckTab(1)}>Unfiltered</Button>
+          <Button className={tab === 2 ? 'active' : ''} onClick={() => handleCheckTab(2)}>Location</Button>
+          <Button className={tab === 3 ? 'active' : ''} onClick={() => handleCheckTab(3)}>Follower Range</Button>
+          <Button className={tab === 4 ? 'active' : ''} onClick={() => handleCheckTab(4)}>Exclusive Creators</Button>
+          <Button className={tab === 5 ? 'active' : ''} onClick={() => handleCheckTab(5)}>Hyper Local</Button>
         </ButtonGroup>
       </div>
       {

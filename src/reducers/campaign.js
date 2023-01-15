@@ -5,6 +5,8 @@ import {
   VIEW_CAMPAIGN_F,
   CAMPAIGN_APPLICATION_STATUS_S,
   CAMPAIGN_APPLICATION_STATUS_F,
+  LATLONG_S,
+  LATLONG_F,
 } from "../constants/types";
 
 const initialState = {
@@ -28,6 +30,10 @@ const campaign = (state = initialState, action) => {
     case CAMPAIGN_APPLICATION_STATUS_S:
       return {...state, applicationStatus: action.payload.data}
     case CAMPAIGN_APPLICATION_STATUS_F:
+      return {...state, applicationStatus: undefined}
+    case LATLONG_S:
+      return {...state, applicationStatus: action.payload.data}
+    case LATLONG_F:
       return {...state, applicationStatus: undefined}
     default:
       return state;

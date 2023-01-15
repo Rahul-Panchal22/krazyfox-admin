@@ -9,6 +9,7 @@ export const API_CATEGORIES_LISTING = `${API_BASE}categories`
 export const API_CREATORS_LISTING = `${API_BASE}dashboard`
 export const API_CREATORS_VIEW = `${API_BASE}creators`
 export const API_CREATORS_LIST = `${API_BASE}creators/all`
+export const API_CREATORS_LIST_BASED_FILTER = `${API_BASE}creators/fetchCreatorBasedOnFilter`
 
 // Campaign API call url's
 export const API_CAMPAIGN_LIST = `${API_BASE}campaigns/all`
@@ -43,4 +44,16 @@ export const API_PAYMENTS_fetch_transaction = `${API_BASE}payments/fetchBucketTr
 export const API_PAYMENTS_fetch_transaction_details = `${API_BASE}payments/fetchBucketTransactionDetail`;
 
 // upload excel file
-export const UPLOAD_FILE = `${API_BASE}payments/uploadExcel`
+export const UPLOAD_FILE = `https://www.htmlspacecode.com/2021/08/indian-states-and-districts-in-json.html`
+
+// State && Districts
+
+export const API_StATE_DISTRICTS = `https://www.htmlspacecode.com/2021/08/indian-states-and-districts-in-json.html`
+
+// Notification
+
+export const API_NOTIFICATION = `${API_BASE}sendPushNotifications`
+
+// LatLong Api
+
+export const API_LATLONG = `${API_BASE}addHyperLocalCampaign`

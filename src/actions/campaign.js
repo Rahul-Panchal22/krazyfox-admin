@@ -8,6 +8,7 @@ import {
   API_CAMPAIGN_STEPPER,
   API_CAMPAIGN_VIEW,
   API_CATEGORIES_LISTING,
+  API_LATLONG,
 } from "../constants/api";
 import {
   ADD_CAMPAIGN_F,
@@ -25,6 +26,8 @@ import {
   DELETE_CAMPAIGN_S,
   EDIT_CAMPAIGN_F,
   EDIT_CAMPAIGN_S,
+  LATLONG_F,
+  LATLONG_S,
   VIEW_CAMPAIGN_APPLICATION_F,
   VIEW_CAMPAIGN_APPLICATION_S,
   VIEW_CAMPAIGN_F,
@@ -177,3 +180,20 @@ export const applicationStatusFetch = (data) => ({
     }),
   },
 })
+
+export const latLongCamp = (data) => ({
+  type: API,
+  payload: {
+    url: API_LATLONG,
+    method: "POST",
+    data: data,
+    success: (data) => ({
+      type: LATLONG_S,
+      payload: data,
+    }),
+    error: (data) => ({
+      type: LATLONG_F,
+      payload: data,
+    }),
+  },
+});
