@@ -98,6 +98,7 @@ export default function MiniDrawer(props) {
   // const headerTitle = props.title
   const [open, setOpen] = React.useState(true);
   const [menuCollapse, setMenuCollapse] = React.useState(true);
+  const [subMenuCollapse, setSubMenuCollapse] = React.useState(false);
   const [headerName, setHeaderName] = React.useState();
   const navigate = useNavigate();
   const location = useLocation();
@@ -140,7 +141,10 @@ export default function MiniDrawer(props) {
     navigate("/signin");
   };
 
-  const handlesetMenuClick = () => {
+  const handlesetMenuClick = (e, path) => {
+    if(path === '/payments'){
+      setSubMenuCollapse(!subMenuCollapse);
+    }
     setMenuCollapse(!menuCollapse);
   };
 
@@ -152,41 +156,41 @@ export default function MiniDrawer(props) {
     setOpen(!open);
   };
 
-  const submenuShow = (menu) => {
-    console.log("submenuShow", menu);
-    return menu?.submenulist?.map((menubar) => (
-      <Link to={menubar.menupath} key={menubar.id}>
-        <ListItem disablePadding sx={{ display: "block" }} selected={selectedIndex == menubar.id} onClick={(e) => handleListItemClick(e, menubar.id)}>
-          <ListItemButton onClick={handlesetMenuClick}>
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 2 : "auto",
-                justifyContent: "center",
-                fill: "#ffffff",
-              }}
-            >
-              {menubar.icon}
-            </ListItemIcon>
-            {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} */}
-            <ListItemText primary={menubar.name} />
-            {menubar.submenu === true ? (
-              <>
-                {menuCollapse ? (
-                  <ExpandLess sx={{ fill: "#ffffff" }} />
-                ) : (
-                  <ExpandMore sx={{ fill: "#ffffff" }} />
-                )}
-              </>
-            ) : (
-              ""
-            )}
-            {submenuShow(menubar)}
-          </ListItemButton>
-        </ListItem>
-      </Link>
-    ));
-  };
+  // const submenuShow = (menu) => {
+  //   console.log("submenuShow", menu);
+  //   return menu?.submenulist?.map((menubar) => (
+  //     <Link to={menubar.menupath} key={menubar.id}>
+  //       <ListItem disablePadding sx={{ display: "block" }} selected={selectedIndex == menubar.id} onClick={(e) => handleListItemClick(e, menubar.id)}>
+  //         <ListItemButton onClick={handlesetMenuClick}>
+  //           <ListItemIcon
+  //             sx={{
+  //               minWidth: 0,
+  //               mr: open ? 2 : "auto",
+  //               justifyContent: "center",
+  //               fill: "#ffffff",
+  //             }}
+  //           >
+  //             {menubar.icon}
+  //           </ListItemIcon>
+  //           {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} */}
+  //           <ListItemText primary={menubar.name} />
+  //           {menubar.submenu === true ? (
+  //             <>
+  //               {menuCollapse ? (
+  //                 <ExpandLess sx={{ fill: "#ffffff" }} />
+  //               ) : (
+  //                 <ExpandMore sx={{ fill: "#ffffff" }} />
+  //               )}
+  //             </>
+  //           ) : (
+  //             ""
+  //           )}
+  //           {submenuShow(menubar)}
+  //         </ListItemButton>
+  //       </ListItem>
+  //     </Link>
+  //   ));
+  // };
 
 
 
@@ -223,7 +227,7 @@ export default function MiniDrawer(props) {
             <Button
               variant="text"
               startIcon={<LogoutIcon />}
-              onClick={handleLogout}
+              onClick={(e) => handleLogout()}
             >
               Log Out
             </Button>
@@ -237,7 +241,7 @@ export default function MiniDrawer(props) {
       >
         <DrawerHeader>
           <IconButton
-            onClick={handleDrawerClose}
+            onClick={(e) => handleDrawerClose() }
             sx={{
               marginRight: 5,
               ...(open && { padding: 0 }),
@@ -255,11 +259,11 @@ export default function MiniDrawer(props) {
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
-          {/* {Sidermenu.map((menubar) => (
+          {Sidermenu.map((menubar) => (
             <>
               <Link to={menubar.menupath} key={menubar.id}>
                 <ListItem disablePadding sx={{ display: "block" }} selected={selectedIndex === menubar.id} onClick={(e) => handleListItemClick(e, menubar.id)}>
-                  <ListItemButton onClick={handlesetMenuClick}>
+                  <ListItemButton onClick={(e) => handlesetMenuClick(e, menubar.menupath)}>
                     <ListItemIcon
                       sx={{
                         minWidth: 0,
@@ -270,7 +274,6 @@ export default function MiniDrawer(props) {
                     >
                       {menubar.menuicon}
                     </ListItemIcon>
-                    {/* style={{backgroundColor: menubar.menupath.includes(location.pathname) ? 'white' : 'black'}} 
                     <ListItemText primary={menubar.menulist} />
                     {menubar.submenu === true ? (
                       <>
@@ -283,12 +286,12 @@ export default function MiniDrawer(props) {
                     ) : (
                       ""
                     )}
-                    {/* {menuCollapse ? submenuShow(menubar) : ""} 
+                    {/* {menuCollapse ? submenuShow(menubar) : ""}  */}
                   </ListItemButton>
                 </ListItem>
               </Link>
               {menubar.submenu === true && menubar.submenulist.map((subMenubar) => (
-                <Collapse in={menuCollapse} timeout="auto" unmountOnExit>
+                <Collapse in={subMenuCollapse} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     <Link to={subMenubar.submenupath} key={menubar.id}>
                       <ListItem disablePadding sx={{ display: 'block' }}>
@@ -304,8 +307,8 @@ export default function MiniDrawer(props) {
                 </Collapse>
               ))}
             </>
-          ))} */}
-          <NestedList />
+          ))}
+          {/* <NestedList /> */}
         </List>
       </Drawer>
       <Box

@@ -75,7 +75,7 @@ function FollowerRangeTab() {
         console.log("getTo", getTo, getFrom);
         if (getTo !== '' && getFrom !== '') {
             const data = {
-                followerStatrtRange: getFrom,
+                followerStartRange: getFrom,
                 followerEndRange: getTo
             }
             dispatch(CreatorsFiletrList(data))
@@ -92,21 +92,21 @@ function FollowerRangeTab() {
         let data;
         if (filterList === 1) {
             data = {
-                followerStatrtRange: "3000",
+                followerStartRange: "3000",
                 followerEndRange: "10000"
             }
         }
 
         if (filterList === 2) {
             data = {
-                followerStatrtRange: "10000",
+                followerStartRange: "10000",
                 followerEndRange: "30000"
             }
         }
 
         if (filterList === 3) {
             data = {
-                followerStatrtRange: "10000",
+                followerStartRange: "10000",
                 followerEndRange: "30000"
             }
         }
@@ -265,7 +265,8 @@ function FollowerRangeTab() {
             </Grid>
             <Box sx={{ height: 632, width: "auto" }}>
                 <DataGrid
-                    rows={rows}
+                    getRowId={(row) => row.creator_id}
+                    rows={getListFilter}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[5]}

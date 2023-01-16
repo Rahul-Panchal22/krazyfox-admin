@@ -52,7 +52,7 @@ const EditCampaign = () => {
   const dispatch = useDispatch();
   const history = useLocation();
   const pathname = history.pathname;
-  console.log('pathname: ', pathname);
+  console.log("pathname: ", pathname);
   const {
     campaign_name,
     campaign_description,
@@ -65,7 +65,7 @@ const EditCampaign = () => {
     video_name,
     buffervideo,
     videoUrl,
-    mediaType
+    mediaType,
   } = formField;
 
   const [brandNameError, setBrandNameError] = useState(false);
@@ -95,10 +95,15 @@ const EditCampaign = () => {
             campaign_steps: res.data.campaign_steps,
             campaign_guidelines: res.data.campaign_guidelines,
             status: res.data.status,
-            videoUrl: res.data.media_type == "video/mp4" ? res.data.campaign_submission : '',
+            videoUrl:
+              res.data.media_type == "video/mp4"
+                ? res.data.campaign_submission
+                : "",
             mediaType: res.data.media_type.toString(),
           }));
-          (res.data.media_type !== "video/mp4" && videoUrl == '') && setImageUrl(res.data.campaign_submission);
+          res.data.media_type !== "video/mp4" &&
+            videoUrl == "" &&
+            setImageUrl(res.data.campaign_submission);
         } else {
           toast.error("error");
         }
@@ -141,7 +146,7 @@ const EditCampaign = () => {
   // };
 
   const UploadVideo = (e) => {
-    console.log('e.target.files[0].type', e.target.files[0].type)
+    console.log("e.target.files[0].type", e.target.files[0].type);
     setFormField((prevState) => ({
       ...prevState,
       mediaType: e.target.files[0].type,
@@ -166,6 +171,7 @@ const EditCampaign = () => {
     }
   };
 
+  console.log("path", pathname);
   const onFinish = (e) => {
     e.preventDefault();
     setCampaignNameError(false);
@@ -205,7 +211,7 @@ const EditCampaign = () => {
       return setBrandNameError(true);
     }
 
-    if (mediaType == '') {
+    if (mediaType == "") {
       return setImageError(true);
     }
 
@@ -218,12 +224,16 @@ const EditCampaign = () => {
     formData.append("campaign_description", campaign_description);
     formData.append("campaign_requirements", campaign_requirements);
     formData.append("campaign_steps", campaign_steps);
-    (fileupload || buffervideo) && formData.append("campaign_submission", mediaType == "image/jpeg" ? fileupload : buffervideo);
+    (fileupload || buffervideo) &&
+      formData.append(
+        "campaign_submission",
+        mediaType == "image/jpeg" ? fileupload : buffervideo
+      );
     formData.append("campaign_price_range", campaign_price_range);
     formData.append("campaign_guidelines", campaign_guidelines);
     formData.append("campaign_followers_range", campaign_followers_range);
     formData.append("status", status);
-    formData.append("mediaType", mediaType)
+    formData.append("mediaType", mediaType);
     pathname !== "/add-campaign"
       ? formData.append("hyperLocal", "1")
       : formData.append("hyperLocal", "0");
@@ -233,11 +243,13 @@ const EditCampaign = () => {
         .then((res) => {
           if (res.code === 200) {
             toast.success(res.message);
-            if(pathname === '/hyper-local-campaign'){
-              localStorage.setItem("campaignId", res.data.id)
-              navigate("/select-creators-location")              
-            }
-            else{
+            if (pathname === "/hyper-local-campaign") {
+              localStorage.setItem("campaignId", res.data.id);
+              navigate("/select-creators-location");
+            } else if (pathname === "/add-campaign") {
+              localStorage.setItem("campaignId", res.data.id);
+              navigate("/select-creators-by");
+            } else {
               navigate("/campaigns");
             }
           } else {
@@ -252,11 +264,13 @@ const EditCampaign = () => {
         .then((res) => {
           if (res.code === 201) {
             toast.success(res.message);
-            if(pathname === '/hyper-local-campaign'){
-              localStorage.setItem("campaignId", res.data.id)
-              navigate("/select-creators-location")              
-            }
-            else{
+            if (pathname === "/hyper-local-campaign") {
+              localStorage.setItem("campaignId", res.data.id);
+              navigate("/select-creators-location");
+            } else if (pathname === "/add-campaign") {
+              localStorage.setItem("campaignId", res.data.id);
+              navigate("/select-creators-by");
+            } else {
               navigate("/campaigns");
             }
           } else {
@@ -654,7 +668,7 @@ const EditCampaign = () => {
             Campaign image or video is required
           </p>
         )}
-        </div>
+      </div>
       <div className="btn-row reverse mar-top-20">
         <Button
           variant="contained"

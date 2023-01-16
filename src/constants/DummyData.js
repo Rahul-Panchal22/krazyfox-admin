@@ -52,7 +52,7 @@ export const Sidermenu = [
     menupath: '/payments',
     submenu: true,
     submenulist: [
-      {id: 1, menuId: 3, name: 'Master Transaction', icon: <MasterMenu />, submenupath: '', },
+      // {id: 1, menuId: 3, name: 'Master Transaction', icon: <MasterMenu />, submenupath: '', },
       {id: 2, menuId: 4, name: 'Bucket Transaction', icon: <BucketMenu />, submenupath: '/backet-list', },
     ]
   },

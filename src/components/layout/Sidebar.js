@@ -8,7 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
-import { BrandMenu, BucketMenu, CampaignMenu, CreatorMenu, DashboardMenu, KycMenu, MasterMenu, PaymentsMenu } from '../../svg';
+import { BrandMenu, BucketMenu, CampaignMenu, CreatorMenu, DashboardMenu, KycMenu, MasterMenu, PaymentsMenu, WhitePen } from '../../svg';
 
 export default function NestedList() {
 
@@ -38,7 +38,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
           <DashboardMenu />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
@@ -49,7 +49,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
           <CampaignMenu />
         </ListItemIcon>
         <ListItemText primary="Campaigns" />
@@ -60,7 +60,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
           <BrandMenu />
         </ListItemIcon>
         <ListItemText primary="Brands" />
@@ -71,7 +71,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{backgroundColor: "transparent"}}>
           <CreatorMenu />
         </ListItemIcon>
         <ListItemText primary="Creators" />
@@ -82,8 +82,8 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
-          <KycMenu svgFill="#ffffff" />
+        }} style={{ backgroundColor: "transparent"  }}>
+          <KycMenu svgFill="white !important" />
         </ListItemIcon>
         <ListItemText primary="KYCs" />
       </ListItemButton>
@@ -93,7 +93,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
           <PaymentsMenu />
         </ListItemIcon>
         <ListItemText primary="payments" />
@@ -107,7 +107,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
               <MasterMenu />
             </ListItemIcon>
             <ListItemText primary="Master Transaction" />
@@ -118,7 +118,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
               <BucketMenu />
             </ListItemIcon>
             <ListItemText primary="Bucket Transaction" />
@@ -131,7 +131,7 @@ export default function NestedList() {
           mr: open ? 2 : "auto",
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ background: "#ffffff" }}>
+        }} style={{ backgroundColor: "transparent"  }}>
           <SendIcon />
         </ListItemIcon>
         <ListItemText primary="Hyper Local" />

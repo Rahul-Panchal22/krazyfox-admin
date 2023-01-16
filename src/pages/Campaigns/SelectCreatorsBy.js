@@ -49,12 +49,12 @@ const SelectCreatorsBy = () => {
 
   const columns = [
     {
-      field: "id",
+      field: "creator_id",
       headerName: "Sr No.",
       minWidth: 60,
     },
     {
-      field: "creator_name",
+      field: "name",
       headerName: "Creator Name",
       minWidth: 220,
       sortable: false,
@@ -71,7 +71,7 @@ const SelectCreatorsBy = () => {
       minWidth: 180,
     },
     {
-      field: "contact",
+      field: "phone_number",
       headerName: "Contact",
       minWidth: 180,
     },
@@ -128,12 +128,12 @@ const SelectCreatorsBy = () => {
       // )
     }
 
-    if(item === 5){
-      setTab(5)
-      // return(
-      //   <HyperLocal />
-      // )
-    }
+    // if(item === 5){
+    //   setTab(5)
+    //   // return(
+    //   //   <HyperLocal />
+    //   // )
+    // }
   }
 
 	return (
@@ -144,11 +144,11 @@ const SelectCreatorsBy = () => {
           <Button className={tab === 2 ? 'active' : ''} onClick={() => handleCheckTab(2)}>Location</Button>
           <Button className={tab === 3 ? 'active' : ''} onClick={() => handleCheckTab(3)}>Follower Range</Button>
           <Button className={tab === 4 ? 'active' : ''} onClick={() => handleCheckTab(4)}>Exclusive Creators</Button>
-          <Button className={tab === 5 ? 'active' : ''} onClick={() => handleCheckTab(5)}>Hyper Local</Button>
+          {/* <Button className={tab === 5 ? 'active' : ''} onClick={() => handleCheckTab(5)}>Hyper Local</Button> */}
         </ButtonGroup>
       </div>
       {
-        tab === 1 ? <Unfiltered /> : tab === 2 ? <LocationTab /> : tab === 3 ? <FollowerRangeTab /> : tab === 4 ? <ExclusiveCreatorsTab /> : tab === 5 ?  <HyperLocal /> : ''  
+        tab === 1 ? <Unfiltered /> : tab === 2 ? <LocationTab /> : tab === 3 ? <FollowerRangeTab /> : tab === 4 ? <ExclusiveCreatorsTab /> : ''  
       }
       {/* <div className="mar-top-30">
         <Grid item xs={12}>
