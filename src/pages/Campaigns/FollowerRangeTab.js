@@ -9,12 +9,12 @@ import { SearchIcon } from '../../svg'
 
 const columns = [
     {
-        field: "id",
+        field: "creator_id",
         headerName: "Sr No.",
         minWidth: 60,
     },
     {
-        field: "creator_name",
+        field: "name",
         headerName: "Creator Name",
         minWidth: 220,
         sortable: false,
@@ -31,15 +31,15 @@ const columns = [
         minWidth: 180,
     },
     {
-        field: "contact",
+        field: "phone_number",
         headerName: "Contact",
         minWidth: 180,
     },
-    {
-        field: "category",
-        headerName: "Category",
-        minWidth: 110,
-    },
+    // {
+    //     field: "category",
+    //     headerName: "Category",
+    //     minWidth: 110,
+    // },
 ];
 
 const rows = [
@@ -65,7 +65,7 @@ function FollowerRangeTab() {
 
     const [kycList, setKycList] = useState([]);
     const [search, setSearched] = useState("");
-    const [filter, /* setFilter */] = useState()
+    // const [filter, /* setFilter */] = useState()
     const [filterList, setFilterList] = useState(1);
     const [getListFilter, setGetListFilter] = useState([]);
     const [getFrom, setGetFrom] = useState('');
@@ -85,39 +85,68 @@ function FollowerRangeTab() {
                 .catch((err) => {
                     toast.error(err);
                 });
-        }
-    }, [getFrom, getTo])
-
-    useEffect(() => {
-        let data;
-        if (filterList === 1) {
-            data = {
-                followerStartRange: "3000",
-                followerEndRange: "10000"
+        } else {
+            let data;
+            if (filterList === 1) {
+                data = {
+                    followerStartRange: "3000",
+                    followerEndRange: "10000"
+                }
             }
-        }
 
-        if (filterList === 2) {
-            data = {
-                followerStartRange: "10000",
-                followerEndRange: "30000"
+            if (filterList === 2) {
+                data = {
+                    followerStartRange: "10000",
+                    followerEndRange: "30000"
+                }
             }
-        }
 
-        if (filterList === 3) {
-            data = {
-                followerStartRange: "10000",
-                followerEndRange: "30000"
+            if (filterList === 3) {
+                data = {
+                    followerStartRange: "10000",
+                    followerEndRange: "30000"
+                }
             }
+            dispatch(CreatorsFiletrList(data))
+                .then((res) => {
+                    setGetListFilter(res.data);
+                })
+                .catch((err) => {
+                    toast.error(err);
+                });
         }
-        dispatch(CreatorsFiletrList(data))
-            .then((res) => {
-                setGetListFilter(res.data);
-            })
-            .catch((err) => {
-                toast.error(err);
-            });
-    }, [filterList])
+    }, [getFrom, getTo, filterList])
+
+    // useEffect(() => {
+    //   let data;
+    //   if (filterList === 1) {
+    //     data = {
+    //       followerStartRange: "3000",
+    //       followerEndRange: "10000"
+    //     }
+    //   }
+
+    //   if (filterList === 2) {
+    //     data = {
+    //       followerStartRange: "10000",
+    //       followerEndRange: "30000"
+    //     }
+    //   }
+
+    //   if (filterList === 3) {
+    //     data = {
+    //       followerStartRange: "10000",
+    //       followerEndRange: "30000"
+    //     }
+    //   }
+    //   dispatch(CreatorsFiletrList(data))
+    //     .then((res) => {
+    //       setGetListFilter(res.data);
+    //     })
+    //     .catch((err) => {
+    //       toast.error(err);
+    //     });
+    // }, [filterList])
 
     const handleListGetFilter = (item) => {
         setFilterList(item)
@@ -139,31 +168,7 @@ function FollowerRangeTab() {
         //       toast.error(err);
         //     });
         // }
-    };
-
-    const top100Films = [
-        { title: 'The Shawshank Redemption', year: 1994 },
-        { title: 'The Godfather', year: 1972 },
-        { title: 'The Godfather: Part II', year: 1974 },
-        { title: 'The Dark Knight', year: 2008 },
-        { title: '12 Angry Men', year: 1957 },
-        { title: "Schindler's List", year: 1993 },
-        { title: 'Pulp Fiction', year: 1994 },
-        { title: 'The Lord of the Rings: The Return of the King', year: 2003, },
-        { title: 'Psycho', year: 1960 },
-        { title: 'The Green Mile', year: 1999 },
-        { title: 'The Intouchables', year: 2011 },
-        { title: 'Modern Times', year: 1936 },
-        { title: 'Raiders of the Lost Ark', year: 1981 },
-        { title: 'Rear Window', year: 1954 },
-        { title: 'The Pianist', year: 2002 },
-        { title: 'The Departed', year: 2006 },
-        { title: 'Terminator 2: Judgment Day', year: 1991 },
-        { title: 'Back to the Future', year: 1985 },
-        { title: 'Whiplash', year: 2014 },
-        { title: 'Gladiator', year: 2000 },
-        { title: 'Memento', year: 2000 },
-    ];
+    }; 
 
     const handleChangeFrom = (e) => {
         setGetFrom(e.target.value);
@@ -172,6 +177,8 @@ function FollowerRangeTab() {
     const handleChangeTo = (e) => {
         setGetTo(e.target.value);
     }
+
+    console.log("getListFilter", getListFilter);
 
     return (
         <>
@@ -249,7 +256,7 @@ function FollowerRangeTab() {
                             freeSolo
                             size='small'
                             sx={{ width: 140 }}
-                            options={top100Films.map((option) => option.title)}
+                            // options={top100Films.map((option) => option.title)}
                             renderInput={(params) => <TextField {...params} label="From" onChange={(e) => handleChangeFrom(e)} />}
                         />
                         <Autocomplete
@@ -257,7 +264,7 @@ function FollowerRangeTab() {
                             freeSolo
                             size='small'
                             sx={{ width: 140 }}
-                            options={top100Films.map((option) => option.title)}
+                            // options={top100Films.map((option) => option.title)}
                             renderInput={(params) => <TextField {...params} label="to" onChange={(e) => handleChangeTo(e)} />}
                         />
                     </Stack>

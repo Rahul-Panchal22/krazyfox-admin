@@ -44,11 +44,11 @@ export const API_PAYMENTS_fetch_transaction = `${API_BASE}payments/fetchBucketTr
 export const API_PAYMENTS_fetch_transaction_details = `${API_BASE}payments/fetchBucketTransactionDetail`;
 
 // upload excel file
-export const UPLOAD_FILE = `https://www.htmlspacecode.com/2021/08/indian-states-and-districts-in-json.html`
+export const UPLOAD_FILE = `${API_BASE}payments/uploadExcel`
 
 // State && Districts
 
-export const API_StATE_DISTRICTS = `https://www.htmlspacecode.com/2021/08/indian-states-and-districts-in-json.html`
+// export const API_StATE_DISTRICTS = `https://www.htmlspacecode.com/2021/08/indian-states-and-districts-in-json.html`
 
 // Notification
 

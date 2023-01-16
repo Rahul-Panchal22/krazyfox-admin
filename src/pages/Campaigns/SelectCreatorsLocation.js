@@ -138,11 +138,11 @@ const SelectCreatorsLocation = () => {
     <>
       <div className="select-creators-by-sec">
         <ButtonGroup className='campaign-select-row' variant="contained" aria-label="outlined primary button group">
-          <Button className='active'>Unfiltered</Button>
+          {/* <Button >Unfiltered</Button>
           <Button>Location</Button>
           <Button>Follower Range</Button>
-          <Button>Exclusive Creators</Button>
-          <Button>Hyper Local</Button>
+          <Button>Exclusive Creators</Button> */}
+          <Button className='active'>Hyper Local</Button>
         </ButtonGroup>
       </div>
       <div className="search-row mar-top-30">

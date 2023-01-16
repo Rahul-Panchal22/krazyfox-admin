@@ -102,21 +102,21 @@ export const CreatorsFiletrList = (data) => ({
   },
 });
 
-export const stateList = () => ({
-  type: API,
-  payload: {
-    url: API_StATE_DISTRICTS,
-    method: "GET",
-    success: (data) => ({
-      type: STATE_LIST_S,
-      payload: data,
-    }),
-    error: (data) => ({
-      type: STATE_LIST_F,
-      payload: data,
-    }),
-  },
-})
+// export const stateList = () => ({
+//   type: API,
+//   payload: {
+//     url: API_StATE_DISTRICTS,
+//     method: "GET",
+//     success: (data) => ({
+//       type: STATE_LIST_S,
+//       payload: data,
+//     }),
+//     error: (data) => ({
+//       type: STATE_LIST_F,
+//       payload: data,
+//     }),
+//   },
+// })
 
 export const notification = (data) => ({
   type: API,
