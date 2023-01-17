@@ -9,20 +9,50 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { CampaignListing } from "../../actions/campaign";
+
+import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
 import { PaymentPendingListing } from "../../actions/Payment";
 
 
 const Payments = () => {
 
-  const [campaignList, setCampaignList] = useState([]);
-  const [search, setSearched] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [campaignList, setCampaignList] = useState([]);
+  const [search, setSearched] = useState("");
+
+  // useEffect(() => {
+  //   getAllCampaignListing();
+  // }, []);
+
+  useEffect(() => {
+    if (!!search) {
+      setCampaignList(
+        campaignList?.filter((column) =>
+          search?.includes(column?.campaign_title)
+        )
+      );
+    } else {
+      getAllCampaignListing();
+    }
+  }, [search]);
+
+  const getAllCampaignListing = () => {
+    dispatch(PaymentPendingListing())
+      .then((res) => {
+        setCampaignList(res.data);
+        toast.success(res.message);
+      })
+      .catch((err) => { });
+  };
+
+  const onMutate = (e, value) => {
+    setSearched(value);
+  };
 
   const columns = [
     {
@@ -66,34 +96,8 @@ const Payments = () => {
       renderCell: (params) =>
         params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
     },
-    // {
-    //   field: "action",
-    //   headerName: "",
-    //   flex: 0.4,
-    //   renderCell: (params) => {
-    //     const onClick = (e) => {
-    //       e.stopPropagation();
-    //       const api = params.api;
-    //       const thisRow = {};
-    //       api
-    //         .getAllColumns()
-    //         .filter((c) => c.field !== "__check__" && !!c)
-    //         .forEach(
-    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-    //         );
-    //       navigate(`/view-campaign/${thisRow.id}`);
-    //     };
-
-    //     return (
-    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-    //         <ActionArrow />
-    //       </IconButton>
-    //     );
-    //   },
-    // },
     {
       field: "viewApplication",
-      // headerName: "View Application",
       headerName: "",
       flex: 0.4,
       renderCell: (params, row) => {
@@ -122,41 +126,6 @@ const Payments = () => {
       },
     },
   ];
-
-  const getAllCampaignListing = () => {
-    dispatch(PaymentPendingListing())
-      .then((res) => {
-        setCampaignList(res.data);
-        toast.success(res.message);
-      })
-      .catch((err) => {});
-  };
-
-  useEffect(() => {
-    getAllCampaignListing();
-  }, []);
-
-  // const handleRedirection = (e) => {
-  //   navigate("/edit-campaign");
-  // };
-
-  const onMutate = (e, value) => {
-    setSearched(value);
-  };
-
-  // useEffect(() => {
-  //   if (search !== null || search !== "" || search !== undefined) {
-  //     if (search === null) {
-  //       getAllCampaignListing();
-  //     } else {
-  //       setCampaignList(
-  //         campaignList.filter((column) =>
-  //           search.includes(column.campaign_title)
-  //         )
-  //       );
-  //     }
-  //   }
-  // }, [search]);
 
   return (
     <>

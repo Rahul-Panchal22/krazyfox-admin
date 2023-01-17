@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Stack } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+
 import { CampaignApplicationStepper } from "../../actions/campaign";
 
 
@@ -16,7 +17,6 @@ const UserStatus = ({ id, setStoreStatus }) => {
     }
     dispatch(CampaignApplicationStepper(data))
     .then((res) => {
-      console.log('res------>: ', res);
       toast.success(res.status);
       setStoreStatus(2);
     })

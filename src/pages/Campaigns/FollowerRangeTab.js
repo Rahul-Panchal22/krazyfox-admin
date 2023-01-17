@@ -1,7 +1,7 @@
-import { Autocomplete, Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Autocomplete, Button, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { Box, Stack } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
-import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { CreatorsFiletrList } from '../../actions/creators'
@@ -35,28 +35,6 @@ const columns = [
         headerName: "Contact",
         minWidth: 180,
     },
-    // {
-    //     field: "category",
-    //     headerName: "Category",
-    //     minWidth: 110,
-    // },
-];
-
-const rows = [
-    { id: 1, creator_name: 'Johny Depp', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 2, creator_name: 'Cersei', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 3, creator_name: 'Jaime', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 4, creator_name: 'Arya', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 5, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 6, creator_name: 'Bhautik', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 7, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 8, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 9, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 10, creator_name: 'Daenerys', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 11, creator_name: 'Rahul', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 12, creator_name: 'Ferrara', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 13, creator_name: 'Rossini', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
-    { id: 14, creator_name: 'Harvey', followers: '3.5M', state: 'Maharashtra', contact: '+91 0000000000', category: 'Beauty' },
 ];
 
 function FollowerRangeTab() {
@@ -65,14 +43,12 @@ function FollowerRangeTab() {
 
     const [kycList, setKycList] = useState([]);
     const [search, setSearched] = useState("");
-    // const [filter, /* setFilter */] = useState()
     const [filterList, setFilterList] = useState(1);
     const [getListFilter, setGetListFilter] = useState([]);
     const [getFrom, setGetFrom] = useState('');
     const [getTo, setGetTo] = useState('');
 
     useEffect(() => {
-        console.log("getTo", getTo, getFrom);
         if (getTo !== '' && getFrom !== '') {
             const data = {
                 followerStartRange: getFrom,
@@ -117,37 +93,6 @@ function FollowerRangeTab() {
         }
     }, [getFrom, getTo, filterList])
 
-    // useEffect(() => {
-    //   let data;
-    //   if (filterList === 1) {
-    //     data = {
-    //       followerStartRange: "3000",
-    //       followerEndRange: "10000"
-    //     }
-    //   }
-
-    //   if (filterList === 2) {
-    //     data = {
-    //       followerStartRange: "10000",
-    //       followerEndRange: "30000"
-    //     }
-    //   }
-
-    //   if (filterList === 3) {
-    //     data = {
-    //       followerStartRange: "10000",
-    //       followerEndRange: "30000"
-    //     }
-    //   }
-    //   dispatch(CreatorsFiletrList(data))
-    //     .then((res) => {
-    //       setGetListFilter(res.data);
-    //     })
-    //     .catch((err) => {
-    //       toast.error(err);
-    //     });
-    // }, [filterList])
-
     const handleListGetFilter = (item) => {
         setFilterList(item)
     }
@@ -155,20 +100,6 @@ function FollowerRangeTab() {
     const onMutate = (e, value) => {
         setSearched(value);
     };
-
-    const handleChangeFilter = (e) => {
-        // if (e.target.value == '5') {
-        //   getAllKycListing();
-        // } else {
-        //   dispatch(KycFilterListing(`?kyc_filter=${e.target.value}`))
-        //     .then((res) => {
-        //       setKycList(res.data);
-        //     })
-        //     .catch((err) => {
-        //       toast.error(err);
-        //     });
-        // }
-    }; 
 
     const handleChangeFrom = (e) => {
         setGetFrom(e.target.value);
@@ -215,23 +146,6 @@ function FollowerRangeTab() {
                             />
                         </Stack>
                     </Grid>
-                    {/* <Grid item xs={4}>
-                        <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
-                            <Select
-                                value={filter}
-                                onChange={handleChangeFilter}
-                                displayEmpty
-                                size='small'
-                                required
-                            >
-                                <MenuItem value={5}>View all creators</MenuItem>
-                                <MenuItem value={1}>KYC completed</MenuItem>
-                                <MenuItem value={2}>KYC Not completed</MenuItem>
-                                <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>
-                                <MenuItem value={4}>Bank Completed</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
                 </Grid>
             </div>
             <Grid

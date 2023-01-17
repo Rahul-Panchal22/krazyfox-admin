@@ -19,15 +19,15 @@ import "./Campaigns.scss";
 import Visibility from "@mui/icons-material/Visibility";
 
 const Campaigns = (params) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const history = useLocation();
+  const pathname = history.pathname;
+
   const [campaignList, setCampaignList] = useState([]);
   const [search, setSearched] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const history = useLocation();
-  console.log('history: ', history);
-  const pathname = history.pathname ;
-
-  console.log(campaignList);
+  
   const columns = [
     {
       field: "id",

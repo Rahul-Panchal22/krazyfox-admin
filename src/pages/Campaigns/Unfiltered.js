@@ -9,13 +9,8 @@ import { ActionArrow, KycStatus, SearchIcon } from '../../svg'
 
 function Unfiltered() {
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [, updateState] = useState();
-  const handleForceupdateMethod = useCallback(() => updateState({}), []);
-
-  const [kycList, setKycList] = useState([]);
   const [search, setSearched] = useState("");
   const [creatorsList, setCreatorsList] = useState([]);
   const [creatorsId, setCreatorsId] = useState([]);
@@ -38,13 +33,13 @@ function Unfiltered() {
   };
 
   useEffect(() => {
-      if (search === null || search === '' || search === undefined) {
-        getAllCreatorsListing();
-      } else {
-        setCreatorsList(
-          creatorsList.filter((column) => column.name.includes(search))
-        );
-      }
+    if (search === null || search === '' || search === undefined) {
+      getAllCreatorsListing();
+    } else {
+      setCreatorsList(
+        creatorsList.filter((column) => column.name.includes(search))
+      );
+    }
   }, [search]);
 
   const columns = [
@@ -113,49 +108,25 @@ function Unfiltered() {
         }
       },
     },
-    // {
-    //   field: "action",
-    //   headerName: "",
-    //   flex: 0.4,
-    //   renderCell: (params) => {
-    //     const onClick = (e) => {
-    //       e.stopPropagation();
-    //       const api = params.api;
-    //       const thisRow = {};
-    //       api
-    //         .getAllColumns()
-    //         .filter((c) => c.field !== "__check__" && !!c)
-    //         .forEach(
-    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-    //         );
-    //       navigate(`/view-creator/${thisRow.creator_id}`);
-    //     };
-    //     return (
-    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-    //         <ActionArrow />
-    //       </IconButton>
-    //     );
-    //   },
-    // },
   ];
 
   const handleSelectLocation = () => {
     const data = {
-      creatorsIds : creatorsId,
-      campaignId : localStorage.getItem("campaignId")
+      creatorsIds: creatorsId,
+      campaignId: localStorage.getItem("campaignId")
     }
     dispatch(notification(data))
-    .then((res) => {
-      if (res.code === 200) {
-        toast.success(res.message);
-      }
-    })
-    .catch((err) => {
-      toast.success(err);
-    });
+      .then((res) => {
+        if (res.code === 200) {
+          toast.success(res.message);
+        }
+      })
+      .catch((err) => {
+        toast.success(err);
+      });
   }
 
-  console.log("creatorsList", search);
+  console.log("creatorsList", creatorsList);
 
   return (
     <>
@@ -173,16 +144,18 @@ function Unfiltered() {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                options={creatorsList.map((option) => option?.name)}
+                options={creatorsList.map((option) => option.name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label=""
-                    placeholder="Search for creators"
+                    label="Search for campaign"
+                    placeholder=""
                     InputProps={{
+                      ...params.InputProps,
                       startAdornment: (
                         <InputAdornment position="start">
+                          {" "}
                           <SearchIcon />
                         </InputAdornment>
                       )
@@ -194,7 +167,7 @@ function Unfiltered() {
           </Grid>
         </Grid>
       </div>
-      
+
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid
           getRowId={(row) => row.creator_id}
@@ -204,7 +177,6 @@ function Unfiltered() {
           rowsPerPageOptions={[5]}
           checkboxSelection
           onSelectionModelChange={(newSelection) => {
-            console.log("newSelection", newSelection);
             setCreatorsId(newSelection)
           }}
         />
