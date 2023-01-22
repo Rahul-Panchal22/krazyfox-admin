@@ -205,10 +205,13 @@ const Kyc = () => {
                 size='small'
                 required
               >
-                <MenuItem value={1}>KYC completed</MenuItem>
-                <MenuItem value={2}>KYC Not completed</MenuItem>
-                <MenuItem value={3}>Aadhar and Pan card verification</MenuItem>
-                <MenuItem value={4}>Bank Completed</MenuItem>
+                <MenuItem value={1}>View all</MenuItem>
+                <MenuItem value={2}>KYC completed</MenuItem>
+                <MenuItem value={3}>KYC Incomplete</MenuItem>
+                <MenuItem value={4}>Documents Verified</MenuItem>
+                <MenuItem value={5}>Document Verification Pending</MenuItem>
+                <MenuItem value={6}>Bank Details Verified</MenuItem>
+                <MenuItem value={7}>Bank Details Verification Pending</MenuItem>
               </Select>
             </FormControl>
           </Grid>
