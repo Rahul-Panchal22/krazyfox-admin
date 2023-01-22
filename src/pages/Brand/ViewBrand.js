@@ -38,7 +38,7 @@ const ViewBrand = () => {
       .then((res) => {
         if (res.code === 200) {
           setViewBrand({});
-          navigate("/brand");
+          navigate("/brands");
           toast.success(res.message);
         } else {
           toast.error("error");

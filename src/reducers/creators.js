@@ -27,11 +27,11 @@ import {
       case CREATORS_S:
         return { ...state, creators: action.payload.data };
       case CREATORS_F:
-        return { ...state, creators: undefined };
+        return { ...state, creators: action.payload.data };
       case CREATORS_VIEW_S:
           return { ...state, creator: action.payload.data };
       case CREATORS_VIEW_F:
-          return { ...state, creator: undefined };
+          return { ...state, creator: action.payload.data };
       case CREATORS_VERIFY_DOCS_S:
         return { ...state, verifyDocs: action.payload.data };
       case CREATORS_VERIFY_DOCS_F:
@@ -39,15 +39,15 @@ import {
       case CREATORS_LIST_BASED_FILTER_S:
         return { ...state, creatorsFilterList: action.payload.data };
       case CREATORS_LIST_BASED_FILTER_F:
-        return { ...state, creatorsFilterList: undefined };
+        return { ...state, creatorsFilterList: action.payload.data };
       case STATE_LIST_S:
         return { ...state, state: action.payload.data };
       case STATE_LIST_F:
-        return { ...state, state: undefined };
+        return { ...state, state: action.payload.data };
       case Notification_S:
         return { ...state, notification: action.payload.data };
       case Notification_F:
-        return { ...state, notification: undefined };
+        return { ...state, notification: action.payload.data };
       default:
         return state;
     }

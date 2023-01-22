@@ -25,7 +25,7 @@ export const Sidermenu = [
     menuId: 7,
     menulist: 'Brands',
     menuicon: <BrandMenu />,
-    menupath: '/brand',
+    menupath: '/brands',
     submenu: false,
   },
   {
