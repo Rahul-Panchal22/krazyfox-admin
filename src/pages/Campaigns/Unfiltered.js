@@ -175,10 +175,10 @@ function Unfiltered() {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
-          checkboxSelection
-          onSelectionModelChange={(newSelection) => {
-            setCreatorsId(newSelection)
-          }}
+          // checkboxSelection
+          // onSelectionModelChange={(newSelection) => {
+          //   setCreatorsId(newSelection)
+          // }}
         />
       </Box>
       <div className="mar-top-30">

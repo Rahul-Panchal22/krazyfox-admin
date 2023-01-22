@@ -73,7 +73,8 @@ const ViewKyc = () => {
             if(name === "passbook_verification"){
               setPashbookFlag(1);
             }
-            setCreatorDetail(res.data);
+            // setCreatorDetail(res.data);
+            fetchCreatorDetailThroughId();
             toast.success(res.message);
           } else {
             toast.error("error");

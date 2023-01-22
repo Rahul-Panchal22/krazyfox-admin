@@ -52,7 +52,7 @@ const Routing = () => {
           <Route path="/edit-campaign/:campaignId" element={<PrivateRoute><EditCampaign /></PrivateRoute>} />
           <Route path="/campaign-application/:campaignId" element={<PrivateRoute><CampaignApplication /></PrivateRoute>} />
           <Route path="/application-status/:id/:creatorId" element={<PrivateRoute><ApplicationStatus /></PrivateRoute>} />
-          <Route path="/brand" element={<PrivateRoute><Brand /></PrivateRoute>} />
+          <Route path="/brands" element={<PrivateRoute><Brand /></PrivateRoute>} />
           <Route path="/select-creators-by" element={<PrivateRoute><SelectCreatorsBy /></PrivateRoute>} />
           <Route path="/select-creators-location" element={<PrivateRoute><SelectCreatorsLocation /></PrivateRoute>} />
           <Route path="/view-brand/:brandId" element={<PrivateRoute><ViewBrand /></PrivateRoute>} />

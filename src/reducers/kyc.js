@@ -8,12 +8,11 @@ import {
   };
   
   const kyc = (state = initialState, action) => {
-    console.log("action type ----->",action.type)
     switch (action.type) {
       case GET_LIST_KYC_S:
         return { ...state, kycListing: action.payload.data };
       case GET_LIST_KYC_F:
-        return { ...state, kycListing: undefined };
+        return { ...state, kycListing: action.payload.data };
       default:
         return state;
     }
