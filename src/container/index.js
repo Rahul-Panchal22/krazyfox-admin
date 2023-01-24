@@ -7,11 +7,14 @@ import Routes from './routes';
 import ScrollToTop from '../components/common/scroll';
 import Loader from '../components/common/loader';
 import { setupAxios } from '../utils';
+import { ErrorBoundary } from "../components/Error";
+
 const { PUBLIC_URL } = process.env;
 
 setupAxios(axios, store);
 
 const AppContainer = () => (
+    <ErrorBoundary>
     <Provider store={store}>
         <Suspense fallback={<Loader isSuspense />}>
             <Loader>
@@ -23,6 +26,7 @@ const AppContainer = () => (
             </Loader>
         </Suspense>
     </Provider>
+    </ErrorBoundary>
 )
 
 export default AppContainer;

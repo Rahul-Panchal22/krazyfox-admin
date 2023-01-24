@@ -192,7 +192,7 @@ export default function MiniDrawer(props) {
   //   ));
   // };
 
-
+console.log(Sidermenu);
 
   return (
     <Box sx={{ display: "flex" }} className="page-layout">
@@ -275,7 +275,7 @@ export default function MiniDrawer(props) {
                       {menubar.menuicon}
                     </ListItemIcon>
                     <ListItemText primary={menubar.menulist} />
-                    {menubar.submenu === true ? (
+                    {menubar?.submenu === true && menubar?.submenulist[0]?.matchpath === location.pathname && menubar?.submenulist?.map ? (
                       <>
                         {menuCollapse ? (
                           <ExpandLess sx={{ fill: "#ffffff" }} />
@@ -290,7 +290,7 @@ export default function MiniDrawer(props) {
                   </ListItemButton>
                 </ListItem>
               </Link>
-              {menubar.submenu === true && menubar.submenulist.map((subMenubar) => (
+              {menubar?.submenu === true && menubar?.submenulist[0]?.matchpath === location.pathname && menubar.submenulist.map((subMenubar) => (
                 <Collapse in={subMenuCollapse} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     <Link to={subMenubar.submenupath} key={menubar.id}>

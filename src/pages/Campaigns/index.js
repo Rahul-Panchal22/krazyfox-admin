@@ -113,47 +113,47 @@ const Campaigns = (params) => {
     //     );
     //   },
     // },
-    {
-      field: "action",
-      headerName: "",
-      flex: 0.4,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation();
-          const api = params.api;
-          const thisRow = {};
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== "__check__" && !!c)
-            .forEach(
-              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-            );
+    // {
+    //   field: "action",
+    //   headerName: "",
+    //   flex: 0.4,
+    //   renderCell: (params) => {
+    //     const onClick = (e) => {
+    //       e.stopPropagation();
+    //       const api = params.api;
+    //       const thisRow = {};
+    //       api
+    //         .getAllColumns()
+    //         .filter((c) => c.field !== "__check__" && !!c)
+    //         .forEach(
+    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+    //         );
             
-            if(pathname === "/hyperlocal"){
-              navigate({
-                pathname: `/hyper-applications/${params.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
-            else{
-              navigate({
-                pathname: `/campaign-applications/${params.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
-        };
+    //         if(pathname === "/hyperlocal"){
+    //           navigate({
+    //             pathname: `/hyper-applications/${params.id}`,
+    //             search: `?${createSearchParams({
+    //               name: params.row.brand_name+" "+ params.row.campaign_title
+    //             })}`
+    //           });
+    //         }
+    //         else{
+    //           navigate({
+    //             pathname: `/campaign-applications/${params.id}`,
+    //             search: `?${createSearchParams({
+    //               name: params.row.brand_name+" "+ params.row.campaign_title
+    //             })}`
+    //           });
+    //         }
+    //     };
 
-        return (
-          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <ActionArrow />
-          </IconButton>
-        );
-      },
-    },
+    //     return (
+    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+    //         <ActionArrow />
+    //       </IconButton>
+    //     );
+    //   },
+    // },
     
   ];
 

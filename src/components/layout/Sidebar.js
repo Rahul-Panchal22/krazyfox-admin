@@ -18,7 +18,7 @@ export default function NestedList() {
 
   const handleClick = () => {
     setOpen(!open);
-    navigate('/payments')
+    // navigate('/payments')
   };
 
   return (
