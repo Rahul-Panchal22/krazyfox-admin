@@ -47,7 +47,9 @@ const Payments = () => {
         setCampaignList(res.data);
         toast.success(res.message);
       })
-      .catch((err) => { });
+      .catch((err) => {
+        toast.error(err.message);
+       });
   };
 
   const onMutate = (e, value) => {

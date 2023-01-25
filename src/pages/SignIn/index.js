@@ -63,7 +63,7 @@ const SignIn = () => {
             "user_type",
             res.data.role
           );
-          navigate("/brand");
+          navigate("/brands");
         } else {
           toast.error(res.message);
         }

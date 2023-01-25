@@ -28,12 +28,21 @@ const SelectCreatorsLocation = () => {
   const [filter, /* setFilter */] = useState()
   const [map, setMap] = React.useState(null)
   const [searchResult, setSearchResult] = useState('');
+  const [activeMarker, setActiveMarker] = useState(null);
+  console.log('activeMarker: ', activeMarker);
 
   const [center, setCenter] = useState({
     lat: 23.0225,
     lng: 72.5714
   });
 
+  const [markers, setMarker] = useState(
+    [{
+          lat: '',
+          lng: ''
+        
+      }])
+    
   const handleSelect = (e) => {
     const {
       target: { value },
@@ -116,11 +125,20 @@ const SelectCreatorsLocation = () => {
     const latData = marker.latLng.lat();
     const lngData = marker.latLng.lng();
     setCenter({lat : latData , lng : lngData })
+    setMarker([...markers, { lat: latData, lng: lngData }])
   }
+
+  const handleActiveMarker = (marker) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
 
   const handleSelectLocation = () => {
     const data = {
-      latLongArray : [{lat : center.lat , long : center.lng }],
+      // latLongArray : [{lat : center.lat , long : center.lng }],
+      latLongArray : markers,
       campaignId : localStorage.getItem("campaignId")
     }
     dispatch(latLongCamp(data))
@@ -220,7 +238,7 @@ const SelectCreatorsLocation = () => {
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={center}
+            // center={center}
             zoom={10}
             onLoad={onLoad}
             onUnmount={onUnmount}
@@ -228,7 +246,25 @@ const SelectCreatorsLocation = () => {
             onClick={handleClickMarker}
           >
             { /* Child components, such as markers, info windows, etc. */}
-            <Marker position={center} clickable={true}/>
+            {/* <Marker position={center} clickable={true}/> */}
+            {Array.isArray(markers) && markers.map((item) => {
+            console.log('item: ', item);
+
+            return (
+              <Marker
+                key={item?.id}
+                position={{lat:item.lat,lng:item.lng}}
+                onClick={() => handleActiveMarker(item?.id)}
+                clickable={true}
+              >
+                {/* {activeMarker === item?.id ? (
+                <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                  <div>{item.id}</div>
+                </InfoWindow>
+              ) : null} */}
+              </Marker>
+            )
+          })}
           </GoogleMap>
         ) : <></>}
       </div>

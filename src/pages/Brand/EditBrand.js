@@ -182,7 +182,7 @@ const EditBrand = () => {
         .then((res) => {
           if (res.code === 200) {
             toast.success(res.message);
-            navigate("/brand");
+            navigate("/brands");
           } else {
             toast.error(res.message);
           }
@@ -195,7 +195,7 @@ const EditBrand = () => {
         .then((res) => {
           if (res.code === 201) {
             toast.success(res.message);
-            navigate("/brand");
+            navigate("/brands");
           } else {
             toast.error(res.message);
           }

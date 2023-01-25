@@ -248,7 +248,7 @@ function FollowerRangeTab() {
             <Button variant="contained" className={`filter-btn ${filterList === 3 ? 'active' : ''}`} onClick={() => handleListGetFilter(3)}>C3 (30K- 150/200K)</Button>
           </Stack>
         </Grid>
-        <Grid item xs={5}>
+        {/* <Grid item xs={5}>
           <Stack direction="row" spacing={2}>
             <InputLabel id="demo-simple-select-label" className='extra-label mar-top-8'>Follower Range</InputLabel>
             <Autocomplete
@@ -268,7 +268,7 @@ function FollowerRangeTab() {
               renderInput={(params) => <TextField {...params} label="to" onChange={(e) => handleChangeTo(e)} />}
             />
           </Stack>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid

@@ -18,7 +18,7 @@ export default function NestedList() {
 
   const handleClick = () => {
     setOpen(!open);
-    navigate('/payments')
+    // navigate('/payments')
   };
 
   return (
@@ -54,7 +54,7 @@ export default function NestedList() {
         </ListItemIcon>
         <ListItemText primary="Campaigns" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate('/brand')}>
+      <ListItemButton onClick={() => navigate('/brands')}>
         <ListItemIcon sx={{
           minWidth: 0,
           mr: open ? 2 : "auto",

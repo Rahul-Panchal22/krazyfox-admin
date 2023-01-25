@@ -135,7 +135,7 @@ const Brand = () => {
         getAllBrandListing();
       } else {
         setBrandList(
-          brandList.filter((column) => search.includes(column.brand_name))
+          brandList.filter((column) => `${column.brand_name}${column.poc_name}`.toLowerCase().includes(search.toLowerCase()))
         );
       }
     }

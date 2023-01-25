@@ -1,8 +1,9 @@
-import { Autocomplete, Chip, Grid, Stack, TextField } from '@mui/material';
+import { Autocomplete, Box, Chip, Grid, Stack, TextField } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { CreatorsFiletrList } from '../../actions/creators';
+import { CreatorsAllListing, CreatorsFiletrList } from '../../actions/creators';
 import { states } from '../../utils/State';
 
 function LocationTab() {
@@ -13,7 +14,22 @@ function LocationTab() {
     const [stateValue, setStateValue] = useState('');
     const [districts, setDistricts] = useState([]);
     const [districtValue, setDistrictValue] = useState('');
+    const [creatorsList, setCreatorsList] = useState([]);
+    console.log('creatorsList: ', creatorsList);
 
+    const getAllCreatorsListing = () => {
+        dispatch(CreatorsAllListing())
+          .then((res) => {
+            if (res.code === 200) {
+              toast.success("Creators Listing fetch successfully");
+              setCreatorsList(res.data);
+            }
+          })
+          .catch((err) => {
+            toast.success(err);
+          });
+      };
+    
     useEffect(() => {
         if (stateValue !== '') {
             const findDis = states.find(item => item.state.includes(stateValue));
@@ -28,8 +44,9 @@ function LocationTab() {
             }
             dispatch(CreatorsFiletrList(data))
                 .then((res) => {
-                    toast.success(res.message);
-                    window.location.reload();
+                    toast.success(res.message); 
+                    // window.location.reload();
+                    getAllCreatorsListing();
                 })
                 .catch((err) => {
                     toast.error(err);
@@ -45,6 +62,74 @@ function LocationTab() {
         setDistrictValue(value);
     }
 
+    const columns = [
+        {
+          field: "creator_id",
+          headerName: "Sr No.",
+          flex: 0.5,
+        },
+        {
+          field: "name",
+          headerName: "Creator Name",
+          flex: 1.5,
+          sortable: false,
+          filterable: false,
+          renderCell: (params) => (params.value ? params.value : "-"),
+        },
+        {
+          field: "campaign_followers_range",
+          headerName: "Followers",
+          flex: 1,
+          renderCell: (params) => (params.value ? params.value : "-"),
+        },
+        {
+          field: "address",
+          headerName: "State",
+          flex: 1.2,
+          renderCell: (params) => (params.value ? params.value : "-"),
+        },
+        {
+          field: "phone_number",
+          headerName: "Contact",
+          flex: 1,
+          renderCell: (params) => (params.value ? params.value : "-"),
+        },
+        {
+          field: "categoriesArrayList",
+          headerName: "Category",
+          flex: 1,
+          renderCell: (params) => {
+            const value = params.value;
+            return (
+              <Chip
+                label={`${value.length > 0 ? value[0].name : "Not Data"}`}
+                variant="outlined"
+              />
+            );
+          },
+        },
+        // {
+        //   field: "kyc_status",
+        //   headerName: "KYC",
+        //   flex: 0.5,
+        //   renderCell: (params) => {
+        //     if (params.value === null || params.value === "0") {
+        //       return (
+        //         <Stack direction="row" spacing={2}>
+        //           <KycStatus svgFill="red" />
+        //         </Stack>
+        //       );
+        //     } else {
+        //       return (
+        //         <Stack direction="row" spacing={2}>
+        //           <KycStatus svgFill="green" />
+        //         </Stack>
+        //       );
+        //     }
+        //   },
+        // },
+      ];
+    
     return (
         <div className="mar-top-30">
             <Grid item xs={12}>
@@ -96,6 +181,19 @@ function LocationTab() {
                     />
                 </Stack>
             </Grid>
+            <Box sx={{ height: 632, width: "100%" ,margin:'10px'}}>
+            <DataGrid
+          getRowId={(row) => row.creator_id}
+          rows={creatorsList}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[5]}
+          // checkboxSelection
+          // onSelectionModelChange={(newSelection) => {
+          //   setCreatorsId(newSelection)
+          // }}
+        />
+      </Box>
         </div>
     )
 }

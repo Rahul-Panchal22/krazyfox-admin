@@ -37,11 +37,13 @@ const columns = [
     },
 ];
 
+const fromOption = ["3000", "10000", "30000"]
+const toOption = ["10000", "30000","150000"]
+
 function FollowerRangeTab() {
 
     const dispatch = useDispatch();
 
-    const [kycList, setKycList] = useState([]);
     const [search, setSearched] = useState("");
     const [filterList, setFilterList] = useState(1);
     const [getListFilter, setGetListFilter] = useState([]);
@@ -49,7 +51,7 @@ function FollowerRangeTab() {
     const [getTo, setGetTo] = useState('');
 
     useEffect(() => {
-        if (getTo !== '' && getFrom !== '') {
+        if (!!getTo && !!getFrom) {
             const data = {
                 followerStartRange: getFrom,
                 followerEndRange: getTo
@@ -57,6 +59,7 @@ function FollowerRangeTab() {
             dispatch(CreatorsFiletrList(data))
                 .then((res) => {
                     setGetListFilter(res.data);
+                    toast.success(res.message);
                 })
                 .catch((err) => {
                     toast.error(err);
@@ -93,6 +96,16 @@ function FollowerRangeTab() {
         }
     }, [getFrom, getTo, filterList])
 
+    useEffect(() => {
+        if (search === null || search === '' || search === undefined) {
+        //   getAllCreatorsListing();
+        } else {
+          setGetListFilter(
+            getListFilter?.filter((column) => column?.name.includes(search))
+          );
+        }
+      }, [search]);
+
     const handleListGetFilter = (item) => {
         setFilterList(item)
     }
@@ -101,12 +114,12 @@ function FollowerRangeTab() {
         setSearched(value);
     };
 
-    const handleChangeFrom = (e) => {
-        setGetFrom(e.target.value);
+    const handleChangeFrom = (e, newValue) => {
+        setGetFrom(newValue);
     }
 
-    const handleChangeTo = (e) => {
-        setGetTo(e.target.value);
+    const handleChangeTo = (e, newValue) => {
+        setGetTo(newValue);
     }
 
     console.log("getListFilter", getListFilter);
@@ -127,16 +140,18 @@ function FollowerRangeTab() {
                                 id="free-solo-demo"
                                 freeSolo
                                 size="small"
-                                onChange={onMutate}
-                                options={kycList.map((option) => option.name)}
+                                onChange={(e, value) => onMutate(e, value)}
+                                options={getListFilter?.map((option) => option?.name)}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label=""
-                                        placeholder="Search for creators"
+                                        label="Search for campaign"
+                                        placeholder=""
                                         InputProps={{
+                                            ...params.InputProps,
                                             startAdornment: (
                                                 <InputAdornment position="start">
+                                                    {" "}
                                                     <SearchIcon />
                                                 </InputAdornment>
                                             )
@@ -170,16 +185,48 @@ function FollowerRangeTab() {
                             freeSolo
                             size='small'
                             sx={{ width: 140 }}
-                            // options={top100Films.map((option) => option.title)}
-                            renderInput={(params) => <TextField {...params} label="From" onChange={(e) => handleChangeFrom(e)} />}
+                            onChange={(e, value) => handleChangeFrom(e, value)}
+                            options={fromOption.map((option) => option)}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="From"
+                                    placeholder=""
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                {" "}
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                            )}
+                        // renderInput={(params) => <TextField {...params} label="From" onChange={(e) => handleChangeFrom(e)} />}
                         />
                         <Autocomplete
                             id="free-solo-demo"
                             freeSolo
                             size='small'
                             sx={{ width: 140 }}
-                            // options={top100Films.map((option) => option.title)}
-                            renderInput={(params) => <TextField {...params} label="to" onChange={(e) => handleChangeTo(e)} />}
+                            onChange={(e, value) => handleChangeTo(e, value)}
+                            options={toOption.map((option) => option)}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="To"
+                                    placeholder=""
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                {" "}
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                            )}
+                        // renderInput={(params) => <TextField {...params} label="to" onChange={(e) => handleChangeTo(e)} />}
                         />
                     </Stack>
                 </Grid>
@@ -187,11 +234,11 @@ function FollowerRangeTab() {
             <Box sx={{ height: 632, width: "auto" }}>
                 <DataGrid
                     getRowId={(row) => row.creator_id}
-                    rows={getListFilter}
+                    rows={!getListFilter?.length ? [] :getListFilter}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection
+                // checkboxSelection
                 />
             </Box>
             <div className="mar-top-30">

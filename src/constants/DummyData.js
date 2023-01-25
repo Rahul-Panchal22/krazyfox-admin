@@ -15,17 +15,18 @@ export const Sidermenu = [
     menulist: 'Campaigns',
     menuicon: <CampaignMenu />,
     menupath: '/campaigns',
-    submenu: false,
-    // submenulist: [
-    //   { menuId: 3, name: 'Applications 1', icon: <ApplicationMenu />, submenupath: '', }
-    // ]
+    submenu: true,
+    submenulist: [
+      // { id: 11, matchpath:'/campaigns' , menuId: 14, name: 'View Applications ', icon: <ApplicationMenu />, submenupath: '/campaign-applications', },
+      {id: 11, matchpath:  '/campaigns',  menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/campaign-applications', },
+    ]
   },
   {
     id: 3,
     menuId: 7,
     menulist: 'Brands',
     menuicon: <BrandMenu />,
-    menupath: '/brand',
+    menupath: '/brands',
     submenu: false,
   },
   {
@@ -53,7 +54,7 @@ export const Sidermenu = [
     submenu: true,
     submenulist: [
       // {id: 1, menuId: 3, name: 'Master Transaction', icon: <MasterMenu />, submenupath: '', },
-      {id: 2, menuId: 4, name: 'Bucket Transaction', icon: <BucketMenu />, submenupath: '/backet-list', },
+      {id: 11, matchpath:  '/payments',  menuId: 4, name: 'Bucket Transaction', icon: <BucketMenu />, submenupath: '/backet-list', },
     ]
   },
   {
