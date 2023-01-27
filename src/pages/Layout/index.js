@@ -25,7 +25,6 @@ import Button from "@mui/material/Button";
 // import { useTheme } from '@emotion/react';
 import { Sidermenu } from "../../constants/DummyData";
 import "./layout.scss";
-import NestedList from "../../components/layout/Sidebar";
 
 const drawerWidth = 232;
 

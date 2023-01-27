@@ -411,7 +411,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="Price Range"
+                placeholder="Price Range"
                 variant="filled"
                 size="small"
                 onChange={onMutate}
@@ -437,7 +437,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label="Follower Range"
+                placeholder="Follower Range"
                 variant="filled"
                 size="small"
                 name="campaign_followers_range"
@@ -472,7 +472,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-multiline-static"
-                label="Enter Campaign Title"
+                placeholder="Enter Campaign Title"
                 multiline
                 rows={4}
                 variant="filled"
@@ -499,7 +499,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-multiline-static"
-                label="Enter Description"
+                placeholder="Enter Description"
                 multiline
                 rows={4}
                 variant="filled"
@@ -535,7 +535,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-multiline-static"
-                label="Enter Requirements"
+                placeholder="Enter Requirements"
                 multiline
                 rows={4}
                 variant="filled"
@@ -562,7 +562,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-multiline-static"
-                label="Add Steps"
+                placeholder="Add Steps"
                 multiline
                 rows={4}
                 variant="filled"
@@ -589,7 +589,7 @@ const EditCampaign = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-multiline-static"
-                label="Add Guidelines"
+                placeholder="Add Guidelines"
                 multiline
                 rows={4}
                 variant="filled"

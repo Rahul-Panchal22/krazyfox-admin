@@ -162,8 +162,7 @@ const Brand = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search for brand"
-                    placeholder=""
+                    placeholder="Search for brand"
                     InputProps={{
                       ...params.InputProps,
                       startAdornment: (

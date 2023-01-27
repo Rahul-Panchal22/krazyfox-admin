@@ -150,8 +150,7 @@ const Payments = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search for campaign"
-                    placeholder=""
+                    placeholder="Search for campaign"
                     InputProps={{
                       ...params.InputProps,
                       startAdornment: (

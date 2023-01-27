@@ -169,8 +169,7 @@ const Creator = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search for creators"
-                    placeholder=""
+                    placeholder="Search for creators"
                     InputProps={{
                       ...params.InputProps,
                       startAdornment: (

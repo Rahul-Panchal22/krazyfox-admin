@@ -49,7 +49,7 @@ const Kyc = () => {
     {
       field: "id",
       headerName: "Sr No.",
-      flex: 0.4,
+      flex: 0.8,
       renderCell: (params) => (params.id ? params.id : "-"),
     },
     {
@@ -63,7 +63,7 @@ const Kyc = () => {
     {
       field: "followers",
       headerName: "Followers",
-      flex: 0.7,
+      flex: 0.8,
       renderCell: (params) => params?.row?.campaign_followers_range ? params?.row?.campaign_followers_range : "-",
     },
     {
@@ -87,7 +87,7 @@ const Kyc = () => {
     {
       field: "kyc_status",
       headerName: "KYC",
-      flex: 0.7,
+      flex: 0.5,
       renderCell: (params) => {
         if (params.value === null || params.value === "0" || params.value === 0 ) {
           return (
@@ -179,8 +179,7 @@ const Kyc = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search for creators"
-                    placeholder=""
+                    placeholder="Search for creators"
                     InputProps={{
                       ...params.InputProps,
                       startAdornment: (

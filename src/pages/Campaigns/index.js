@@ -5,20 +5,18 @@ import {
   Box,
   Button,
   Grid,
-  IconButton,
   InputAdornment,
   Stack,
   TextField,
 } from "@mui/material";
-import { ActionArrow, Eye, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "./Campaigns.scss";
-import Visibility from "@mui/icons-material/Visibility";
 
-const Campaigns = (params) => {
+const Campaigns = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,7 +36,10 @@ const Campaigns = (params) => {
       field: "brand_logo_url",
       headerName: "Brand Logo",
       flex: 1.5,
-      renderCell: (params) => <img src={params.value} alt="" />,
+      align: "left",
+      renderCell: (params) => <div className="overflow-hide w-100 h-100 obj-content-inside">
+        <img src={params.value} alt="" />
+      </div>,
       sortable: false,
       filterable: false,
     },
@@ -221,8 +222,7 @@ const Campaigns = (params) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search for campaign"
-                    placeholder=""
+                    placeholder="Search for campaign"
                     InputProps={{
                       ...params.InputProps,
                       startAdornment: (

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Chip } from '@mui/material';
+import { Autocomplete, Box, Grid, IconButton, InputAdornment, Stack, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { CreatorsListing } from '../../actions/creators';
+import { ActionArrow, SearchIcon } from '../../svg';
 
 
 const Dashboard = () => {
 
 	const dispatch = useDispatch();
 	const [creatorsList, setCreatorsList] = useState([])
+	const [search, setSearched] = useState("")
 	
 	const columns = [
 		{
 			field: "id",
 			headerName: "Sr No.",
-			minWidth: 60,
+			flex: 0.7,
 		},
 		{
 			field: "name",
 			headerName: "Creator Name",
-			minWidth: 220,
+			flex: 1.4,
 			sortable: false,
 			filterable: false,
 			renderCell: (params) => params.value ? params.value : '-'
@@ -28,32 +30,34 @@ const Dashboard = () => {
 		{
 			field: "campaign_followers_range",
 			headerName: "Followers",
-			minWidth: 120,
+			flex: 1,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
 			field: "address",
 			headerName: "State",
-			minWidth: 180,
+			flex: 1.4,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
 			field: "phone_number",
 			headerName: "Contact",
-			minWidth: 180,
+			flex: 1.2,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
-		// {
-		// 	field: "categoriesArrayList",
-		// 	headerName: "Category",
-		// 	minWidth: 110,
-		// 	// categoriesArrayList,
-		// 	renderCell: (params) => {
-		// 		const value = params.value
-		// 		// console.log("value", value.length > 0 ? value[0].name : 'Not Data')
-		// 		return <Chip label={`${value.length > 0 ? value[0].name : 'Not Data'}`} variant="outlined" />
-		// 	}
-		// },
+		{
+      field: "action",
+      headerName: "",
+      align: "right",
+      flex: 0.3,
+      renderCell: (params) => {
+        return (
+          <IconButton aria-label="fingerprint">
+            <ActionArrow />
+          </IconButton>
+        );
+      },
+    },
 	];
 
 	const getAllCreatorsListing = () => {
@@ -72,9 +76,49 @@ const Dashboard = () => {
 		getAllCreatorsListing()
 	}, [])
 
+	const onMutate = (e, value) => {
+    setSearched(value);
+  };
 
 	return (
 		<>
+			<div className="search-row">
+				<Grid
+					container
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center"
+					spacing={2}
+				>
+					<Grid item xs={9}>
+						<Stack spacing={2} sx={{ width: 630 }}>
+							<Autocomplete
+								id="free-solo-demo"
+								freeSolo
+								size="small"
+								options={creatorsList.map((option) => option.campaign_title)}
+								onChange={(e, value) => onMutate(e, value)}
+								renderInput={(params) => (
+									<TextField
+										{...params}
+										placeholder="Search for campaign"
+										InputProps={{
+											...params.InputProps,
+											startAdornment: (
+												<InputAdornment position="start">
+													{" "}
+													<SearchIcon />
+												</InputAdornment>
+											),
+											disableUnderline: true,
+										}}
+									/>
+								)}
+							/>
+						</Stack>
+					</Grid>
+				</Grid>
+			</div>
 			<Box sx={{ height: 632, width: "auto" }}>
 				<DataGrid
 					rows={creatorsList}
