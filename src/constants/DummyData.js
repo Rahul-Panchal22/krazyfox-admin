@@ -18,7 +18,7 @@ export const Sidermenu = [
     submenu: true,
     submenulist: [
       // { id: 11, matchpath:'/campaigns' , menuId: 14, name: 'View Applications ', icon: <ApplicationMenu />, submenupath: '/campaign-applications', },
-      {id: 11, matchpath:  '/campaigns',  menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/campaign-applications', },
+      {id: 11, matchpath:  '/campaigns',  menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/view-applications', },
     ]
   },
   {

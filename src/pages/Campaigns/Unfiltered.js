@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CreatorsAllListing, notification } from '../../actions/creators';
-import { ActionArrow, KycStatus, SearchIcon } from '../../svg'
+import { KycStatus, SearchIcon } from '../../svg'
 
 function Unfiltered() {
 
@@ -111,18 +111,26 @@ function Unfiltered() {
   ];
 
   const handleSelectLocation = () => {
+    const newArray = [];
+    const datas = creatorsList.map(item => {
+      newArray.push(item.creator_id);
+    })
     const data = {
-      creatorsIds: creatorsId,
+      creatorsIds: newArray,
       campaignId: localStorage.getItem("campaignId")
     }
     dispatch(notification(data))
       .then((res) => {
         if (res.code === 200) {
           toast.success(res.message);
+          newArray = [];
+        }else{
+          toast.error(res.message);
         }
       })
       .catch((err) => {
-        toast.success(err);
+        toast.success(err.message);
+        newArray = [];
       });
   }
 

@@ -4,7 +4,7 @@ import { Box, Stack } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import { CreatorsFiletrList } from '../../actions/creators'
+import { CreatorsFiletrList, notification } from '../../actions/creators'
 import { SearchIcon } from '../../svg'
 
 const columns = [
@@ -38,7 +38,7 @@ const columns = [
 ];
 
 const fromOption = ["3000", "10000", "30000"]
-const toOption = ["10000", "30000","150000"]
+const toOption = ["10000", "30000", "150000"]
 
 function FollowerRangeTab() {
 
@@ -98,13 +98,13 @@ function FollowerRangeTab() {
 
     useEffect(() => {
         if (search === null || search === '' || search === undefined) {
-        //   getAllCreatorsListing();
+            //   getAllCreatorsListing();
         } else {
-          setGetListFilter(
-            getListFilter?.filter((column) => column?.name.includes(search))
-          );
+            setGetListFilter(
+                getListFilter?.filter((column) => column?.name.includes(search))
+            );
         }
-      }, [search]);
+    }, [search]);
 
     const handleListGetFilter = (item) => {
         setFilterList(item)
@@ -120,6 +120,30 @@ function FollowerRangeTab() {
 
     const handleChangeTo = (e, newValue) => {
         setGetTo(newValue);
+    }
+
+    const handleSelectLocation = () => {
+        const newArray = [];
+        const datas = getListFilter.map(item => {
+            newArray.push(item.creator_id);
+        })
+        const data = {
+            creatorsIds: newArray,
+            campaignId: localStorage.getItem("campaignId")
+        }
+        dispatch(notification(data))
+            .then((res) => {
+                if (res.code === 200) {
+                    toast.success(res.message);
+                    newArray = [];
+                }else{
+                    toast.error(res.message);
+                }
+            })
+            .catch((err) => {
+                toast.success(err.message);
+                newArray = [];
+            });
     }
 
     console.log("getListFilter", getListFilter);
@@ -234,7 +258,7 @@ function FollowerRangeTab() {
             <Box sx={{ height: 632, width: "auto" }}>
                 <DataGrid
                     getRowId={(row) => row.creator_id}
-                    rows={!getListFilter?.length ? [] :getListFilter}
+                    rows={!getListFilter?.length ? [] : getListFilter}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[5]}
@@ -250,7 +274,7 @@ function FollowerRangeTab() {
                     spacing={2}
                 >
                     <Grid item xs={3} textAlign="right" className="mar-top-30">
-                        <Button variant="contained">Select</Button>
+                        <Button variant="contained" onClick={handleSelectLocation}>Select</Button>
                     </Grid>
                 </Grid>
             </div>
