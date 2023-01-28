@@ -36,6 +36,7 @@
 .layout-sider {
   // z-index: 0;
   &.sider-docked {
+    width: 108px;
     .MuiTypography-root {
       opacity: 0;
     }

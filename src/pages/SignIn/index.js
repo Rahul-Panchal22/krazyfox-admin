@@ -78,7 +78,7 @@ const SignIn = () => {
       <div
         className="auth-page"
         style={{
-          backgroundImage: `url(${toAbsoluteUrl("/images/auth-bg.png")})`,
+          backgroundImage: `url(${toAbsoluteUrl("/images/KF-LOGIN-PAGE-MOBILE-.jpg")})`,
         }}
       >
         <div className="auth-scroll">
