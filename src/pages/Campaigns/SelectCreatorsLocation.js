@@ -6,6 +6,7 @@ import './Campaigns.scss'
 import { useDispatch } from 'react-redux';
 import { latLongCamp } from '../../actions/campaign';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 // import Dropzone from 'react-dropzone';
 
 const categoriesList = ['Surat', 'Maharashtra']
@@ -21,7 +22,7 @@ const placesLibrary = ['places']
 const SelectCreatorsLocation = () => {
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [kycList, setKycList] = useState([]);
   const [multiSelect, setMultiSelect] = useState([])
   const [search, setSearched] = useState("")
@@ -37,11 +38,7 @@ const SelectCreatorsLocation = () => {
   });
 
   const [markers, setMarker] = useState(
-    [{
-          lat: '',
-          lng: ''
-        
-      }])
+    [])
     
   const handleSelect = (e) => {
     const {
@@ -145,6 +142,7 @@ const SelectCreatorsLocation = () => {
     .then((res) => {
       if (res.code === 200) {
         toast.success(res.message);
+        navigate('/hyperlocal')
       }
     })
     .catch((err) => {
