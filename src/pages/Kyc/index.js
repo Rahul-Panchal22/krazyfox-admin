@@ -89,7 +89,7 @@ const Kyc = () => {
       headerName: "KYC",
       flex: 0.5,
       renderCell: (params) => {
-        if (params.value === null || params.value === "0" || params.value === 0 ) {
+        if (params.value === null || params.value === "0" || params.value === 0) {
           return (
             <Stack direction="row" spacing={2}>
               <KycStatus svgFill="red" />
@@ -131,17 +131,14 @@ const Kyc = () => {
   ];
 
   const handleChangeFilter = (e) => {
-    if (e.target.value == '5') {
-      getAllKycListing();
-    } else {
-      dispatch(KycFilterListing(`?kyc_filter=${e.target.value}`))
-        .then((res) => {
-          setKycList(res.data);
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
-    }
+    dispatch(KycFilterListing(`?kyc_filter=${e.target.value}`))
+      .then((res) => {
+        setKycList(res.data);
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+
   };
 
   const onMutate = (e, value) => {
@@ -204,13 +201,10 @@ const Kyc = () => {
                 size='small'
                 required
               >
-                <MenuItem value={1}>View all</MenuItem>
-                <MenuItem value={2}>KYC completed</MenuItem>
-                <MenuItem value={3}>KYC Incomplete</MenuItem>
-                <MenuItem value={4}>Documents Verified</MenuItem>
-                <MenuItem value={5}>Document Verification Pending</MenuItem>
-                <MenuItem value={6}>Bank Details Verified</MenuItem>
-                <MenuItem value={7}>Bank Details Verification Pending</MenuItem>
+                <MenuItem value={2}>KYC Incomplete</MenuItem>
+                <MenuItem value={1}>KYC complete</MenuItem>
+                <MenuItem value={3}>Aadhar verified</MenuItem>
+                <MenuItem value={4}>Pan Card verified</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -223,7 +217,7 @@ const Kyc = () => {
           getRowId={(row) => row.id}
           pageSize={10}
           rowsPerPageOptions={[5]}
-          // checkboxSelection
+        // checkboxSelection
         />
       </Box>
     </>
