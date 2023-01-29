@@ -57,3 +57,7 @@ export const API_NOTIFICATION = `${API_BASE}sendPushNotifications`
 // LatLong Api
 
 export const API_LATLONG = `${API_BASE}addHyperLocalCampaign`
+
+// mastrTranction
+
+export const API_MASTER = `${API_BASE}payments/fetchMasterTransactionList`

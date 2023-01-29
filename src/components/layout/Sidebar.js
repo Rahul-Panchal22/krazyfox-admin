@@ -8,59 +8,72 @@ import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
-import { BrandMenu, BucketMenu, CampaignMenu, CreatorMenu, DashboardMenu, KycMenu, MasterMenu, PaymentsMenu, WhitePen } from '../../svg';
+import { ApplicationMenu, BrandMenu, BucketMenu, CampaignMenu, CreatorMenu, DashboardMenu, KycMenu, MasterMenu, PaymentsMenu, WhitePen } from '../../svg';
 
 export default function NestedList() {
 
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
+  const [campopen, setCampOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
-    // navigate('/payments')
+    navigate('/payments')
+  };
+
+  const handleClickCamp = () => {
+    setCampOpen(!campopen);
+    navigate('/campaigns')
   };
 
   return (
-    <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'black' }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-    // subheader={
-    //   <ListSubheader component="div" id="nested-list-subheader">
-    //     Nested List Items
-    //   </ListSubheader>
-    // }
-    >
+    <>
       <ListItemButton onClick={() => navigate('/dashboard')}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
+        }}>
           <DashboardMenu />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate('/campaigns')}>
+      <ListItemButton onClick={handleClickCamp}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2 ,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
+        }}>
           <CampaignMenu />
         </ListItemIcon>
         <ListItemText primary="Campaigns" />
+        {campopen ? <ExpandLess sx={{ fill: "#ffffff" }} /> : <ExpandMore sx={{ fill: "#ffffff" }} />}
       </ListItemButton>
+      <Collapse in={campopen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }} onClick={() => navigate('/view-applications')}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 2,
+              justifyContent: "center",
+              fill: "#ffffff",
+            }}>
+              <ApplicationMenu />
+            </ListItemIcon>
+            <ListItemText primary="View Applications" />
+          </ListItemButton>
+        </List>
+      </Collapse>
       <ListItemButton onClick={() => navigate('/brands')}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
+        }}>
           <BrandMenu />
         </ListItemIcon>
         <ListItemText primary="Brands" />
@@ -68,10 +81,10 @@ export default function NestedList() {
       <ListItemButton onClick={() => navigate('/creator')}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{backgroundColor: "transparent"}}>
+        }}>
           <CreatorMenu />
         </ListItemIcon>
         <ListItemText primary="Creators" />
@@ -79,46 +92,46 @@ export default function NestedList() {
       <ListItemButton onClick={() => navigate('/kyc')}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
-          <KycMenu svgFill="white !important" />
+        }}>
+          <KycMenu svgFill="#ffffff" />
         </ListItemIcon>
         <ListItemText primary="KYCs" />
       </ListItemButton>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
+        }}>
           <PaymentsMenu />
         </ListItemIcon>
         <ListItemText primary="payments" />
-        {open ? <ExpandLess style={{ background: "#ffffff" }}/> : <ExpandMore style={{ background: "#ffffff" }}/>}
+        {open ? <ExpandLess sx={{ fill: "#ffffff" }} /> : <ExpandMore sx={{ fill: "#ffffff" }} />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton sx={{ pl: 4 }} onClick={() => navigate('/mastertransactionlist')}>
             <ListItemIcon sx={{
-          minWidth: 0,
-          mr: open ? 2 : "auto",
-          justifyContent: "center",
-          fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
+              minWidth: 0,
+              mr: 2,
+              justifyContent: "center",
+              fill: "#ffffff",
+            }}>
               <MasterMenu />
             </ListItemIcon>
             <ListItemText primary="Master Transaction" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton sx={{ pl: 4 }} onClick={() => navigate('/backet-list')}>
             <ListItemIcon sx={{
-          minWidth: 0,
-          mr: open ? 2 : "auto",
-          justifyContent: "center",
-          fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
+              minWidth: 0,
+              mr: 2,
+              justifyContent: "center",
+              fill: "#ffffff",
+            }}>
               <BucketMenu />
             </ListItemIcon>
             <ListItemText primary="Bucket Transaction" />
@@ -128,14 +141,14 @@ export default function NestedList() {
       <ListItemButton onClick={() => navigate('/hyperlocal')}>
         <ListItemIcon sx={{
           minWidth: 0,
-          mr: open ? 2 : "auto",
+          mr: 2,
           justifyContent: "center",
           fill: "#ffffff",
-        }} style={{ backgroundColor: "transparent"  }}>
-          <SendIcon />
+        }}>
+          <CampaignMenu />
         </ListItemIcon>
         <ListItemText primary="Hyper Local" />
       </ListItemButton>
-    </List>
+    </>
   );
 }

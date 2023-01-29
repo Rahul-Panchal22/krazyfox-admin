@@ -11,6 +11,8 @@ import {
     PAYMENTS_FETCH_TRANSACTION_F,
     PAYMENTS_FETCH_TRANSACTION_DETAILS_S,
     PAYMENTS_FETCH_TRANSACTION_DETAILS_F,
+    MATER_API_S,
+    MATER_API_F,
   } from "../constants/types";
   
   const initialState = {
@@ -18,7 +20,8 @@ import {
     creatorPayout: [],
     paymentBucket: [],
     paymentTransaction: [],
-    paymentTransactionDetails: []
+    paymentTransactionDetails: [],
+    masterTransection: []
   };
   
   const Payment = (state = initialState, action) => {
@@ -47,7 +50,11 @@ import {
       case PAYMENTS_FETCH_TRANSACTION_DETAILS_S:
         return { ...state, paymentTransactionDetails: action.payload.data };
       case PAYMENTS_FETCH_TRANSACTION_DETAILS_F:
-        return { ...state, paymentTransactionDetails: undefined };    
+        return { ...state, paymentTransactionDetails: undefined };
+      case MATER_API_S:
+        return {...state, masterTransection: action.payload.data}
+      case MATER_API_F:
+        return {...state, masterTransection: action.payload.data}    
       default:
         return state;
     }

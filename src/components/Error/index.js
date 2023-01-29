@@ -13,6 +13,11 @@ export class ErrorBoundary extends React.Component {
     // It will catch error in any component below. We can also log the error to an error reporting service.
     console.log("error : ", error);
   }
+
+  hndlReload = () => {
+    window.location.reload();
+  }
+
   render() {
     if (this.state.hasError) {
       return (
@@ -24,9 +29,12 @@ export class ErrorBoundary extends React.Component {
           <div className="content"> */}
             {/* <Link to={"/"}> */}
             <a href="/">
-              <button class="glow-on-hover" type="button">
+              {/* <button class="glow-on-hover" type="button">
                 Go Back
-              </button>
+              </button> */}
+              {/* <button class="glow-on-hover" onClick={this.hndlReload}>
+                Go Back
+              </button> */}
             </a>
             {/* </Link> */}
           </div>

@@ -121,3 +121,8 @@ export const Notification_F = 'Notification failed'
 
 export const LATLONG_S = 'LatLong successfully';
 export const LATLONG_F = 'LatLong failed';
+
+// Msater Api
+
+export const MATER_API_S = 'MATER_API_S';
+export const MATER_API_F = 'MATER_API_F';

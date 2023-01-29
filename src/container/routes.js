@@ -25,6 +25,7 @@ const ViewCreator = lazy(() => import("../pages/Creator/ViewCreator"));
 const Kyc = lazy(() => import("../pages/Kyc"));
 const ViewKyc = lazy(() => import("../pages/Kyc/ViewKyc"));
 const Payments = lazy(() => import("../pages/Payments"));
+const Mastertransactionlist = lazy(() => import("../pages/Payments/Mastertransactionlist"));
 const PaymentsStatus = lazy(() => import("../pages/Payments/PaymentsStatus"));
 const PaymentsRejectionReason = lazy(() => import("../pages/Payments/PaymentsRejectionReason"));
 const BacketList = lazy(() => import("../pages/Payments/BacketList"))
@@ -65,6 +66,7 @@ const Routing = () => {
           <Route path="/kyc" element={<PrivateRoute><Kyc /></PrivateRoute>} />
           <Route path="/view-kyc/:kycId" element={<PrivateRoute><ViewKyc /></PrivateRoute>} />
           <Route path="/payments" element={<PrivateRoute><Payments /></PrivateRoute>} />
+          <Route path="/mastertransactionlist" element={<PrivateRoute><Mastertransactionlist /></PrivateRoute>} />
           <Route path="/payments-approved/:payment" element={<PrivateRoute><PaymentsStatus /></PrivateRoute>} />
           <Route path="/payments-rejection-reason/:rejectId" element={<PrivateRoute><PaymentsRejectionReason /></PrivateRoute>} />
           <Route path="/backet-list" element={<PrivateRoute><BacketList/></PrivateRoute>} />

@@ -25,6 +25,7 @@ import Button from "@mui/material/Button";
 // import { useTheme } from '@emotion/react';
 import { Sidermenu } from "../../constants/DummyData";
 import "./layout.scss";
+import NestedList from "../../components/layout/Sidebar";
 
 const drawerWidth = 232;
 
@@ -258,7 +259,8 @@ console.log(Sidermenu);
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
-          {Sidermenu.map((menubar) => (
+          <NestedList />
+          {/* {Sidermenu.map((menubar) => (
             <>
               <Link to={menubar.menupath} key={menubar.id}>
                 <ListItem disablePadding sx={{ display: "block" }} selected={selectedIndex === menubar.id} onClick={(e) => handleListItemClick(e, menubar.id)}>
@@ -285,7 +287,7 @@ console.log(Sidermenu);
                     ) : (
                       ""
                     )}
-                    {/* {menuCollapse ? submenuShow(menubar) : ""}  */}
+                    {menuCollapse ? submenuShow(menubar) : ""} 
                   </ListItemButton>
                 </ListItem>
               </Link>
@@ -306,7 +308,7 @@ console.log(Sidermenu);
                 </Collapse>
               ))}
             </>
-          ))}
+          ))} */}
           {/* <NestedList /> */}
         </List>
       </Drawer>

@@ -1,5 +1,5 @@
-import { API_PAYMENTS, API_PAYMENTS_createBucket, API_PAYMENTS_creatorPayout, API_PAYMENTS_fetch_transaction, API_PAYMENTS_fetch_transaction_details, API_PAYMENTS_pending_list, API_PAYMENTS_update, UPLOAD_FILE } from "../constants/api";
-import { API, PAYMENTS_F, PAYMENTS_S, PAYMENTS_UPDATE_F, PAYMENTS_UPDATE_S, PAYMENTS_CREATOR_PAYOUT_S, PAYMENTS_CREATOR_PAYOUT_F, PAYMENTS_CREATE_BUCKET_S, PAYMENTS_CREATE_BUCKET_F, PAYMENTS_FETCH_TRANSACTION_S, PAYMENTS_FETCH_TRANSACTION_F, PAYMENTS_FETCH_TRANSACTION_DETAILS_S, PAYMENTS_FETCH_TRANSACTION_DETAILS_F, UPLOAD_FILE_S, UPLOAD_FILE_F } from "../constants/types";
+import { API_MASTER, API_PAYMENTS, API_PAYMENTS_createBucket, API_PAYMENTS_creatorPayout, API_PAYMENTS_fetch_transaction, API_PAYMENTS_fetch_transaction_details, API_PAYMENTS_pending_list, API_PAYMENTS_update, UPLOAD_FILE } from "../constants/api";
+import { API, PAYMENTS_F, PAYMENTS_S, PAYMENTS_UPDATE_F, PAYMENTS_UPDATE_S, PAYMENTS_CREATOR_PAYOUT_S, PAYMENTS_CREATOR_PAYOUT_F, PAYMENTS_CREATE_BUCKET_S, PAYMENTS_CREATE_BUCKET_F, PAYMENTS_FETCH_TRANSACTION_S, PAYMENTS_FETCH_TRANSACTION_F, PAYMENTS_FETCH_TRANSACTION_DETAILS_S, PAYMENTS_FETCH_TRANSACTION_DETAILS_F, UPLOAD_FILE_S, UPLOAD_FILE_F, MATER_API_F, MATER_API_S } from "../constants/types";
 
 export const PaymentListing = (data) => ({
     type: API,
@@ -139,3 +139,20 @@ export const uploadFile = (data) => ({
       }),
     },
 })
+
+export const masterTrans = (daat) => ({
+  type: API,
+  payload: {
+    url: API_MASTER+daat,
+    method: "GET",
+    success: (data) =>
+    ({
+      type: MATER_API_S,
+      payload: data,
+    }),
+    error: (data) => ({
+      type: MATER_API_F,
+      payload: data,
+    }),
+  },
+});
