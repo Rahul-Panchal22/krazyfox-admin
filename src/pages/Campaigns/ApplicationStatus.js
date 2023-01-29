@@ -69,7 +69,7 @@ const ApplicationStatus = () => {
     dispatch(applicationStatusFetch(`?id=${params.id}`))
       .then((res) => {
         if (res.code === 200) {
-          if(res.data.application_status === 1 || res.data.application_status === 0 ){
+          if(res.data.application_status === 1){
             setActiveStep(res.data.application_status - 1);
             setGetActiveStep(1) 
           }

@@ -40,7 +40,7 @@ export default function NestedList() {
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton onClick={handleClickCamp}>
+      <ListItemButton onClick={(e) => handleClickCamp()}>
         <ListItemIcon sx={{
           minWidth: 0,
           mr: 2 ,
@@ -100,7 +100,7 @@ export default function NestedList() {
         </ListItemIcon>
         <ListItemText primary="KYCs" />
       </ListItemButton>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton onClick={(e) => handleClick()}>
         <ListItemIcon sx={{
           minWidth: 0,
           mr: 2,

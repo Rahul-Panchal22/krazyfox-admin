@@ -144,8 +144,13 @@ export default function MiniDrawer(props) {
   const handlesetMenuClick = (e, path) => {
     if(path === '/payments'){
       setSubMenuCollapse(!subMenuCollapse);
+    } else if (path === '/campaigns'){
+      setSubMenuCollapse(!subMenuCollapse);
     }
-    setMenuCollapse(!menuCollapse);
+    else{
+      setMenuCollapse(!menuCollapse);
+    }
+    
   };
 
   // const handleDrawerOpen = () => {
@@ -259,8 +264,8 @@ console.log(Sidermenu);
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
-          <NestedList />
-          {/* {Sidermenu.map((menubar) => (
+          {/* <NestedList /> */}
+          {Sidermenu.map((menubar) => (
             <>
               <Link to={menubar.menupath} key={menubar.id}>
                 <ListItem disablePadding sx={{ display: "block" }} selected={selectedIndex === menubar.id} onClick={(e) => handleListItemClick(e, menubar.id)}>
@@ -287,7 +292,7 @@ console.log(Sidermenu);
                     ) : (
                       ""
                     )}
-                    {menuCollapse ? submenuShow(menubar) : ""} 
+                    {/* {menuCollapse ? submenuShow(menubar) : ""}  */}
                   </ListItemButton>
                 </ListItem>
               </Link>
@@ -308,7 +313,7 @@ console.log(Sidermenu);
                 </Collapse>
               ))}
             </>
-          ))} */}
+          ))}
           {/* <NestedList /> */}
         </List>
       </Drawer>
