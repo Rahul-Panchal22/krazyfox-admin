@@ -5,6 +5,7 @@ import {
   Divider,
   FormControl,
   Grid,
+  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -381,12 +382,14 @@ const EditCampaign = () => {
               Brand Name
             </InputLabel>
             <FormControl variant="filled">
+            <InputLabel htmlFor="name-multiple">Select Brand</InputLabel>
               <Select
                 value={selectedBrandValue}
                 onChange={handleChange}
                 displayEmpty
                 size="small"
                 required
+                input={<Input id="name-multiple" />}
               >
                 {brandList.map((item) => (
                   <MenuItem value={item.id}>{item.brand_name}</MenuItem>

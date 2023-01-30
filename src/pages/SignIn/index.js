@@ -64,7 +64,8 @@ const SignIn = () => {
             res.data.role
           );
           navigate("/brands");
-        } else {
+        } else if(res.code === 0) {
+          console.log("Gelef")
           toast.error(res.message);
         }
       })

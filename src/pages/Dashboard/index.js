@@ -12,7 +12,7 @@ const Dashboard = () => {
 	const dispatch = useDispatch();
 	const [creatorsList, setCreatorsList] = useState([])
 	const [search, setSearched] = useState("")
-	
+
 	const columns = [
 		{
 			field: "id",
@@ -46,18 +46,18 @@ const Dashboard = () => {
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
-      field: "action",
-      headerName: "",
-      align: "right",
-      flex: 0.3,
-      renderCell: (params) => {
-        return (
-          <IconButton aria-label="fingerprint">
-            <ActionArrow />
-          </IconButton>
-        );
-      },
-    },
+			field: "action",
+			headerName: "",
+			align: "right",
+			flex: 0.3,
+			renderCell: (params) => {
+				return (
+					<IconButton aria-label="fingerprint">
+						<ActionArrow />
+					</IconButton>
+				);
+			},
+		},
 	];
 
 	const getAllCreatorsListing = () => {
@@ -77,8 +77,19 @@ const Dashboard = () => {
 	}, [])
 
 	const onMutate = (e, value) => {
-    setSearched(value);
-  };
+		setSearched(value);
+	};
+	useEffect(() => {
+		if (search !== null || search !== "" || search !== undefined) {
+		  if (search === null) {
+			getAllCreatorsListing();
+		  } else {
+			setCreatorsList(
+			  creatorsList.filter((column) => search.includes(column.name))
+			);
+		  }
+		}
+	  }, [search]);
 
 	return (
 		<>
@@ -96,7 +107,7 @@ const Dashboard = () => {
 								id="free-solo-demo"
 								freeSolo
 								size="small"
-								options={creatorsList.map((option) => option.campaign_title)}
+								options={creatorsList.map((option) => option.name)}
 								onChange={(e, value) => onMutate(e, value)}
 								renderInput={(params) => (
 									<TextField
@@ -125,7 +136,7 @@ const Dashboard = () => {
 					columns={columns}
 					pageSize={10}
 					rowsPerPageOptions={[5]}
-					// checkboxSelection
+				// checkboxSelection
 				/>
 			</Box>
 		</>
