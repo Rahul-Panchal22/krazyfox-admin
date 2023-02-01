@@ -8,6 +8,7 @@ const columns = [
     field: "id",
     headerName: "Sr No.",
     minWidth: 60,
+    sortable: false,
   },
   {
     field: "creator_name",
@@ -20,21 +21,25 @@ const columns = [
     field: "followers",
     headerName: "Followers",
     minWidth: 120,
+    sortable: false,
   },
   {
     field: "state",
     headerName: "State",
     minWidth: 180,
+    sortable: false,
   },
   {
     field: "contact",
     headerName: "Contact",
     minWidth: 180,
+    sortable: false,
   },
   {
     field: "category",
     headerName: "Category",
     minWidth: 110,
+    sortable: false,
   },
 ];
 
@@ -184,6 +189,7 @@ function HyperLocal() {
           pageSize={10}
           rowsPerPageOptions={[5]}
           checkboxSelection
+          disableColumnMenu
         />
       </Box>
       <div className="mar-top-30">

@@ -40,6 +40,7 @@ const AddCreator = () => {
       field: "creator_id",
       headerName: "Sr No.",
       minWidth: 60,
+      sortable: false,
     },
     {
       field: "name",
@@ -53,24 +54,28 @@ const AddCreator = () => {
       field: "followers",
       headerName: "Followers",
       minWidth: 120,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "address",
       headerName: "State",
       minWidth: 180,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "contact",
       headerName: "Contact",
       minWidth: 180,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "categoriesArrayList",
       headerName: "Category",
       minWidth: 110,
+      sortable: false,
       renderCell: (params) => {
         const value = params.value;
         console.log('value: ', value);
@@ -86,6 +91,7 @@ const AddCreator = () => {
       field: "application_status",
       headerName: "Status",
       minWidth: 110,
+      sortable: false,
       renderCell: (params) => {
         const value = params.value;
         return (
@@ -99,6 +105,7 @@ const AddCreator = () => {
       field: "action",
       headerName: "Action",
       width: 110,
+      sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
@@ -267,6 +274,7 @@ const AddCreator = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
           // checkboxSelection
         />
       </Box>

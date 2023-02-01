@@ -228,7 +228,7 @@ const EditCampaign = () => {
     (fileupload || buffervideo) &&
       formData.append(
         "campaign_submission",
-        mediaType == "image/jpeg" ? fileupload : buffervideo
+        mediaType == "image/png" || mediaType == "image/jpeg"  ? fileupload : buffervideo
       );
     formData.append("campaign_price_range", campaign_price_range);
     formData.append("campaign_guidelines", campaign_guidelines);
@@ -336,7 +336,7 @@ const EditCampaign = () => {
             className="campaign-status"
             variant="contained"
             aria-label="outlined primary button group"
-            disabled={status !== 3 ? false : true}
+            // disabled={status !== 3 ? false : true}
           >
             <Button
               className={`${status == 1 ? "active" : ""}`}

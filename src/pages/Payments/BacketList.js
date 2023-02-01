@@ -30,6 +30,7 @@ const BacketList = () => {
       field: "campaign_id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -43,16 +44,19 @@ const BacketList = () => {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "export_date",
       headerName: "Export  Date",
       flex: 0.9,
+      sortable: false,
       renderCell : (params) => {
         const startT = new Date(params.value * 1000).toISOString();
         const exportDate = moment(startT).format('DD/MM/YYYY')
@@ -64,6 +68,7 @@ const BacketList = () => {
       // headerName: "View Application",
       headerName: "",
       flex: 0.4,
+      sortable: false,
       renderCell: (params, row) => {
         const onClick = (e) => {
           console.log('params, row: ', params, row);
@@ -177,6 +182,7 @@ const BacketList = () => {
           pageSize={10}
           rowsPerPageOptions={[5]}
           getRowId={(row) => row?.bucket_id}
+          disableColumnMenu
         />
       </Box>
     </>

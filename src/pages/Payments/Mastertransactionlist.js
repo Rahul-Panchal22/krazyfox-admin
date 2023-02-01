@@ -63,6 +63,7 @@ const Mastertransactionlist = () => {
       field: "id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -76,27 +77,32 @@ const Mastertransactionlist = () => {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
       flex: 0.9,
+      sortable: false,
     },
     {
       field: "campaign_description",
       headerName: "Campaign Description",
       flex: 1.8,
+      sortable: false,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
       flex: 1,
       align: 'center',
+      sortable: false,
       renderCell: (params) =>
         params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
     },
@@ -104,6 +110,7 @@ const Mastertransactionlist = () => {
       field: "viewApplication",
       headerName: "",
       flex: 0.4,
+      sortable: false,
       renderCell: (params, row) => {
         const onClick = (e) => {
           console.log('params, row: ', params, row);
@@ -176,6 +183,7 @@ const Mastertransactionlist = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
         />
       </Box>
     </>

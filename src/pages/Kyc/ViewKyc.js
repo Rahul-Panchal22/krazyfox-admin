@@ -171,22 +171,22 @@ const ViewKyc = () => {
           <Grid item xs={6} className="veiw-card">
             <p className="label">Aadhar Card</p>
             <figure className='view-doc d-flex-start-start'>
-              <img src={creatorDetail ? creatorDetail?.adhar_front_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
-              <img src={creatorDetail ? creatorDetail?.adhar_back_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
+              <img src={creatorDetail?.adhar_front_url ? creatorDetail?.adhar_front_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
+              <img src={creatorDetail?.adhar_back_url ? creatorDetail?.adhar_back_url : toAbsoluteUrl("/images/view-doc.png")} alt="" />
             </figure>
             <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_adhar_verified == 1) || (adharCardflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_adhar_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_adhar_verified, "adhar_verification")}/>
           </Grid>
           <Grid item xs={6} className="veiw-card">
             <p className="label">PAN Card</p>
             <figure className='view-doc d-flex-start-start'>
-              <img src={creatorDetail ? creatorDetail?.pan_card_url : ("/images/view-doc.png")} alt="" />
+              <img src={creatorDetail?.pan_card_url ? creatorDetail?.pan_card_url : ("/images/view-doc.png")} alt="" />
             </figure>
             <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_pan_card_verified == 1) || (panCardflag == 1)  ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_pan_card_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_pan_card_verified, "pan_card_verification")}/>
           </Grid>
           <Grid item xs={6} className="veiw-card">
             <p className="label">Passbook</p>
             <figure className='view-doc d-flex-start-start'>
-              <img src={creatorDetail ? creatorDetail?.passbook_url: toAbsoluteUrl("/images/view-doc.png")} alt="" />
+              <img src={creatorDetail?.passbook_url ? creatorDetail?.passbook_url: toAbsoluteUrl("/images/view-doc.png")} alt="" />
             </figure>
             <Chip icon={<KycStatus svgFill='#1B5E20' />} label={`${(creatorDetail?.is_passbook_verified == 1) || (pashbookflag == 1) ? 'Verified' : 'Not Verified'}`} variant="outlined" className = {`${creatorDetail?.is_passbook_verified == 1 ? 'verified-tag filled' : 'verified-tag'}`} onClick={() => handleClick(creatorDetail?.is_passbook_verified, "passbook_verification")}/>
           </Grid>

@@ -48,6 +48,7 @@ const Creator = () => {
       field: "creator_id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "name",
@@ -61,24 +62,27 @@ const Creator = () => {
       field: "campaign_followers_range",
       headerName: "Followers",
       flex: 1,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "address",
       headerName: "State",
       flex: 1.2,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "phone_number",
       headerName: "Contact",
-      flex: 1,
+      flex: 1, sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "categoriesArrayList",
       headerName: "Category",
       flex: 1,
+      sortable: false,
       renderCell: (params) => {
         const value = params.value;
         return (
@@ -93,6 +97,7 @@ const Creator = () => {
       field: "kyc_status",
       headerName: "KYC",
       flex: 0.5,
+      sortable: false,
       renderCell: (params) => {
         if (params.value === null || params.value === "0" || params.value === 0) {
           return (
@@ -114,6 +119,7 @@ const Creator = () => {
       field: "action",
       headerName: "",
       flex: 0.4,
+      sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
@@ -194,6 +200,7 @@ const Creator = () => {
           pageSize={10}
           rowsPerPageOptions={[5]}
           getRowId={(row) => row.creator_id}
+          disableColumnMenu
         />
       </Box>
     </>

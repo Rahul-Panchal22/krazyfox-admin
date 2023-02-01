@@ -12,6 +12,7 @@ const columns = [
         field: "creator_id",
         headerName: "Sr No.",
         minWidth: 60,
+        sortable: false,
     },
     {
         field: "name",
@@ -24,16 +25,19 @@ const columns = [
         field: "followers",
         headerName: "Followers",
         minWidth: 120,
+        sortable: false,
     },
     {
         field: "state",
         headerName: "State",
         minWidth: 180,
+        sortable: false,
     },
     {
         field: "phone_number",
         headerName: "Contact",
         minWidth: 180,
+        sortable: false,
     },
 ];
 
@@ -262,6 +266,7 @@ function FollowerRangeTab() {
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[5]}
+                    disableColumnMenu
                 // checkboxSelection
                 />
             </Box>

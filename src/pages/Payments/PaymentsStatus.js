@@ -111,6 +111,7 @@ const PaymentsStatus = () => {
       field: "payout_request_id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -124,26 +125,31 @@ const PaymentsStatus = () => {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "creator_name",
       headerName: "Creator Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "amount",
       headerName: "Price Range",
       flex: 0.9,
+      sortable: false,
     },
     {
       field: "viewApplication",
       // headerName: "View Application",
       headerName: "",
+      sortable: false,
       flex: 0.4,
       renderCell: (params, row) => {
         const onClick = (e) => {
@@ -307,6 +313,7 @@ const PaymentsStatus = () => {
           pageSize={10}
           rowsPerPageOptions={[5]}
           checkboxSelection
+          disableColumnMenu
           // onSelectionModelChange={(newSelection) => {
           //   console.log("newSelection", newSelection);
           // }}

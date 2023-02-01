@@ -67,6 +67,7 @@ function LocationTab() {
           field: "creator_id",
           headerName: "Sr No.",
           flex: 0.5,
+          sortable: false,
         },
         {
           field: "name",
@@ -80,24 +81,28 @@ function LocationTab() {
           field: "campaign_followers_range",
           headerName: "Followers",
           flex: 1,
+          sortable: false,
           renderCell: (params) => (params.value ? params.value : "-"),
         },
         {
           field: "address",
           headerName: "State",
           flex: 1.2,
+          sortable: false,
           renderCell: (params) => (params.value ? params.value : "-"),
         },
         {
           field: "phone_number",
           headerName: "Contact",
           flex: 1,
+          sortable: false,
           renderCell: (params) => (params.value ? params.value : "-"),
         },
         {
           field: "categoriesArrayList",
           headerName: "Category",
           flex: 1,
+          sortable: false,
           renderCell: (params) => {
             const value = params.value;
             return (
@@ -187,6 +192,7 @@ function LocationTab() {
           rows={creatorsList}
           columns={columns}
           pageSize={10}
+          disableColumnMenu
           rowsPerPageOptions={[5]}
           // checkboxSelection
           // onSelectionModelChange={(newSelection) => {

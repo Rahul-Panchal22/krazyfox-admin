@@ -31,7 +31,8 @@ const CampaignApplication = () => {
     {
       field: "id",
       headerName: "Sr No.",
-      width: 80
+      width: 80,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -45,33 +46,39 @@ const CampaignApplication = () => {
       field: "brand_name",
       headerName: "Brand Name",
       width: 150,
+      sortable: false,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
       width: 180,
+      sortable: false,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
       width: 160,
+      sortable: false,
     },
     {
       field: "campaign_description",
       headerName: "Category",
       width: 110,
+      sortable: false,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
       width: 110,
       align: 'center',
+      sortable: false,
       renderCell: () => {<SparkFill />},
     },
     {
       field: "action",
       headerName: "",
       width: 40,
+      sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
@@ -181,6 +188,7 @@ const CampaignApplication = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
         />
       </Box>
     </>

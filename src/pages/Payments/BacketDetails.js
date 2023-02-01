@@ -101,11 +101,13 @@ const BacketDetails = () => {
       field: "bucket_id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "name",
       headerName: "Creator Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -119,11 +121,13 @@ const BacketDetails = () => {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "submission_date",
       headerName: "Submitted On",
       flex: 1.5,
+      sortable: false,
       renderCell: (params) => {
         const startT = new Date(params.value * 1000).toISOString();
         const exportDate = moment(startT).format('DD/MM/YYYY')
@@ -134,6 +138,7 @@ const BacketDetails = () => {
       field: "amount",
       headerName: "Price Range",
       flex: 0.9,
+      sortable: false,
     }
   ];
 
@@ -200,6 +205,7 @@ const BacketDetails = () => {
           getRowId={(row) => row?.bucket_id}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
         />
       </Box>
     </>

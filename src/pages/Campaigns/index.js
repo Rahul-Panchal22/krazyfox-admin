@@ -33,6 +33,7 @@ const Campaigns = () => {
       field: "id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -49,26 +50,31 @@ const Campaigns = () => {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
       flex: 0.9,
+      sortable: false,
     },
     {
       field: "campaign_description",
       headerName: "Campaign Description",
       flex: 1.8,
+      sortable: false,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
       flex: 1,
+      sortable: false,
       align: 'center',
       renderCell: (params) =>
         params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
@@ -165,6 +171,7 @@ const Campaigns = () => {
       field: "id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
@@ -181,27 +188,32 @@ const Campaigns = () => {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
+      sortable: false,
     },
     {
       field: "campaign_price_range",
       headerName: "Price Range",
       flex: 0.9,
+      sortable: false,
     },
     {
       field: "campaign_description",
       headerName: "Campaign Description",
       flex: 1.8,
+      sortable: false,
     },
     {
       field: "status",
       headerName: "Live/ Paused",
       flex: 1,
       align: 'center',
+      sortable: false,
       renderCell: (params) =>
         params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
     },
@@ -252,6 +264,7 @@ const Campaigns = () => {
       field: "action",
       headerName: "",
       flex: 0.4,
+      sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
@@ -384,6 +397,7 @@ const Campaigns = () => {
           rows={campaignList}
           columns={pathname.includes('view-applications') ? columns1 : columns}
           pageSize={10}
+          disableColumnMenu
           rowsPerPageOptions={[5]}
           disableSelectionOnClick={true}
           onRowClick={(item) => {

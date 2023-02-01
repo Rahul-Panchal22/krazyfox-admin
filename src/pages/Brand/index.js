@@ -29,37 +29,41 @@ const Brand = () => {
       field: "id",
       headerName: "Sr No.",
       flex: 0.5,
+      sortable: false,
     },
     {
       field: "brand_logo_url",
       headerName: "Brand Logo",
       flex: 0.75,
       sortable: false,
-      filterable: false,
       renderCell: (params) => <img src={params.value} alt="" />,
     },
     {
       field: "brand_name",
       headerName: "Brand Name",
       flex: 1.5,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "poc_name",
       headerName: "POC Name",
       flex: 1.5,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "poc_phone",
       headerName: "POC Contact",
       flex: 1,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
       field: "categoriesArrayList",
       headerName: "Category",
       flex: 1,
+      sortable: false,
       renderCell: (params) => {
         const value = params.value;
         return (
@@ -75,6 +79,7 @@ const Brand = () => {
       headerName: "Live/ Paused",
       flex: 0.8,
       align: "center",
+      sortable: false,
       renderCell: (params) =>
         params.value === 1 ? <SparkFill /> : <SparkOutline />,
     },
@@ -83,6 +88,7 @@ const Brand = () => {
       headerName: "",
       align: "right",
       flex: 0.4,
+      sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
@@ -191,6 +197,7 @@ const Brand = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
         />
       </Box>
     </>

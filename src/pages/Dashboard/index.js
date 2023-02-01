@@ -18,31 +18,34 @@ const Dashboard = () => {
 			field: "id",
 			headerName: "Sr No.",
 			flex: 0.7,
+			sortable:false
 		},
 		{
 			field: "name",
 			headerName: "Creator Name",
 			flex: 1.4,
-			sortable: false,
-			filterable: false,
+			sortable:false,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
 			field: "campaign_followers_range",
 			headerName: "Followers",
 			flex: 1,
+			sortable:false,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
 			field: "address",
 			headerName: "State",
 			flex: 1.4,
+			sortable:false,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
 			field: "phone_number",
 			headerName: "Contact",
 			flex: 1.2,
+			sortable:false,
 			renderCell: (params) => params.value ? params.value : '-'
 		},
 		{
@@ -50,6 +53,7 @@ const Dashboard = () => {
 			headerName: "",
 			align: "right",
 			flex: 0.3,
+			sortable:false,
 			renderCell: (params) => {
 				return (
 					<IconButton aria-label="fingerprint">
@@ -136,6 +140,7 @@ const Dashboard = () => {
 					columns={columns}
 					pageSize={10}
 					rowsPerPageOptions={[5]}
+					disableColumnMenu
 				// checkboxSelection
 				/>
 			</Box>

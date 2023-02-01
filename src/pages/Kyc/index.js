@@ -52,6 +52,7 @@ const Kyc = () => {
       field: "id",
       headerName: "Sr No.",
       flex: 0.8,
+      sortable: false,
       renderCell: (params) => (params.id ? params.id : "-"),
     },
     {
@@ -66,18 +67,21 @@ const Kyc = () => {
       field: "followers",
       headerName: "Followers",
       flex: 0.8,
+      sortable: false,
       renderCell: (params) => params?.row?.campaign_followers_range ? params?.row?.campaign_followers_range : "-",
     },
     {
       field: "state",
       headerName: "State",
       flex: 1,
+      sortable: false,
       renderCell: (params) => params?.row?.address ? params?.row?.address : "-",
     },
     {
       field: "contact",
       headerName: "Contact",
       flex: 1,
+      sortable: false,
       renderCell: (params) =>
         params?.row?.phone_number ? params?.row?.phone_number : "-",
     },
@@ -85,11 +89,13 @@ const Kyc = () => {
       field: "category",
       headerName: "Category",
       flex: 1.3,
+      sortable: false,
     },
     {
       field: "kyc_status",
       headerName: "KYC",
       flex: 0.5,
+      sortable: false,
       renderCell: (params) => {
         if (params.value === null || params.value === "0" || params.value === 0) {
           return (
@@ -110,6 +116,7 @@ const Kyc = () => {
       field: "action",
       headerName: "Action",
       flex: 0.6,
+      sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
@@ -221,6 +228,7 @@ const Kyc = () => {
           getRowId={(row) => row.id}
           pageSize={10}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
         // checkboxSelection
         />
       </Box>

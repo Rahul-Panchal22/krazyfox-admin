@@ -199,7 +199,7 @@ const SelectCreatorsLocation = () => {
           <TextField
                     // {...params}
                     label=""
-                    placeholder="Search for creators"
+                    placeholder="Search for location"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -213,7 +213,7 @@ const SelectCreatorsLocation = () => {
           }
             </Stack>
           </Grid>
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
               <Select
                 value={filter}
@@ -229,7 +229,7 @@ const SelectCreatorsLocation = () => {
                 <MenuItem value={4}>Bank Completed</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
       <div className="map-section">

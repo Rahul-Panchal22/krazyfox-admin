@@ -1,10 +1,11 @@
-import { Autocomplete, Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Autocomplete, Button, Grid, InputAdornment, TextField } from '@mui/material'
 import { Box, Stack } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { CreatorsFiletrList } from '../../actions/creators'
+import { CreatorsFiletrList, notification } from '../../actions/creators'
 import { SearchIcon } from '../../svg'
 
 const columns = [
@@ -12,6 +13,7 @@ const columns = [
     field: "creator_id",
     headerName: "Sr No.",
     minWidth: 60,
+    sortable: false,
   },
   {
     field: "name",
@@ -24,16 +26,19 @@ const columns = [
     field: "followers",
     headerName: "Followers",
     minWidth: 120,
+    sortable: false,
   },
   {
     field: "state",
     headerName: "State",
     minWidth: 180,
+    sortable: false,
   },
   {
     field: "phone_number",
     headerName: "Contact",
     minWidth: 180,
+    sortable: false,
   },
   // {
   //     field: "category",
@@ -62,91 +67,96 @@ const rows = [
 function FollowerRangeTab() {
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [kycList, setKycList] = useState([]);
   const [search, setSearched] = useState("");
   // const [filter, /* setFilter */] = useState()
   const [filterList, setFilterList] = useState(1);
   const [getListFilter, setGetListFilter] = useState([]);
+  console.log('getListFilter: ', getListFilter);
   const [getFrom, setGetFrom] = useState('');
   const [getTo, setGetTo] = useState('');
-
-  useEffect(() => {
-    console.log("getTo", getTo, getFrom);
-    if (getTo !== '' && getFrom !== '') {
-      const data = {
-        followerStartRange: getFrom,
-        followerEndRange: getTo
-      }
-      dispatch(CreatorsFiletrList(data))
-        .then((res) => {
-          setGetListFilter(res.data);
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
-    } else {
-      let data;
-      if (filterList === 1) {
-        data = {
-          followerStartRange: "3000",
-          followerEndRange: "10000"
-        }
-      }
-
-      if (filterList === 2) {
-        data = {
-          followerStartRange: "10000",
-          followerEndRange: "30000"
-        }
-      }
-
-      if (filterList === 3) {
-        data = {
-          followerStartRange: "10000",
-          followerEndRange: "30000"
-        }
-      }
-      dispatch(CreatorsFiletrList(data))
-        .then((res) => {
-          setGetListFilter(res.data);
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
-    }
-  }, [getFrom, getTo, filterList])
+  const cellClickRef = React.useRef(null);
+  const [selectionModel, setSelectionModel] = React.useState([]);
+  console.log('selectionModel: ', selectionModel);
+  const [selection, setSelection] = useState();
 
   // useEffect(() => {
-  //   let data;
-  //   if (filterList === 1) {
-  //     data = {
-  //       followerStartRange: "3000",
-  //       followerEndRange: "10000"
+  //   console.log("getTo", getTo, getFrom);
+  //   if (getTo !== '' && getFrom !== '') {
+  //     const data = {
+  //       followerStartRange: getFrom,
+  //       followerEndRange: getTo
   //     }
-  //   }
+  //     dispatch(CreatorsFiletrList(data))
+  //       .then((res) => {
+  //         setGetListFilter(res.data);
+  //       })
+  //       .catch((err) => {
+  //         toast.error(err);
+  //       });
+  //   } else {
+  //     let data;
+  //     if (filterList === 1) {
+  //       data = {
+  //         followerStartRange: "3000",
+  //         followerEndRange: "10000"
+  //       }
+  //     }
 
-  //   if (filterList === 2) {
-  //     data = {
-  //       followerStartRange: "10000",
-  //       followerEndRange: "30000"
+  //     if (filterList === 2) {
+  //       data = {
+  //         followerStartRange: "10000",
+  //         followerEndRange: "30000"
+  //       }
   //     }
-  //   }
 
-  //   if (filterList === 3) {
-  //     data = {
-  //       followerStartRange: "10000",
-  //       followerEndRange: "30000"
+  //     if (filterList === 3) {
+  //       data = {
+  //         followerStartRange: "30000",
+  //         followerEndRange: "150000"
+  //       }
   //     }
+  //     dispatch(CreatorsFiletrList(data))
+  //       .then((res) => {
+  //         setGetListFilter(res.data);
+  //       })
+  //       .catch((err) => {
+  //         toast.error(err);
+  //       });
   //   }
-  //   dispatch(CreatorsFiletrList(data))
-  //     .then((res) => {
-  //       setGetListFilter(res.data);
-  //     })
-  //     .catch((err) => {
-  //       toast.error(err);
-  //     });
-  // }, [filterList])
+  // }, [getFrom, getTo, filterList])
+
+  useEffect(() => {
+    //   let data;
+    //   if (filterList === 1) {
+    //     data = {
+    //       followerStartRange: "3000",
+    //       followerEndRange: "10000"
+    //     }
+    //   }
+
+    //   if (filterList === 2) {
+    //     data = {
+    //       followerStartRange: "10000",
+    //       followerEndRange: "30000"
+    //     }
+    //   }
+
+    //   if (filterList === 3) {
+    //     data = {
+    //       followerStartRange: "10000",
+    //       followerEndRange: "30000"
+    //     }
+    //   }
+    dispatch(CreatorsFiletrList())
+      .then((res) => {
+        setGetListFilter(res.data);
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  }, [filterList])
 
   const handleListGetFilter = (item) => {
     setFilterList(item)
@@ -169,6 +179,30 @@ function FollowerRangeTab() {
     //     });
     // }
   };
+  const handleSelectLocation = () => {
+    const newArray = [];
+    const datas = getListFilter.map(item => {
+      newArray.push(item.creator_id);
+    })
+    const data = {
+      creatorsIds: selectionModel,
+      campaignId: localStorage.getItem("campaignId")
+    }
+    dispatch(notification(data))
+      .then((res) => {
+        if (res.code === 200) {
+          toast.success(res.message);
+          navigate('/campaigns')
+          newArray = [];
+        } else {
+          toast.error(res.message);
+        }
+      })
+      .catch((err) => {
+        toast.success(err.message);
+        newArray = [];
+      });
+  }
 
   const handleChangeFrom = (e) => {
     setGetFrom(e.target.value);
@@ -177,8 +211,15 @@ function FollowerRangeTab() {
   const handleChangeTo = (e) => {
     setGetTo(e.target.value);
   }
-
-  console.log("getListFilter", getListFilter);
+  useEffect(() => {
+    if (search === null || search === '' || search === undefined) {
+        //   getAllCreatorsListing();
+    } else {
+        setGetListFilter(
+            getListFilter?.filter((column) => column?.name.includes(search))
+        );
+    }
+}, [search]);
 
   return (
     <>
@@ -196,16 +237,18 @@ function FollowerRangeTab() {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                onChange={onMutate}
-                options={kycList.map((option) => option.name)}
+                onChange={(e, value) => onMutate(e, value)}
+                options={getListFilter?.map((option) => option?.name)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label=""
-                    placeholder="Search for creators"
+                    label="Search for campaign"
+                    placeholder=""
                     InputProps={{
+                      ...params.InputProps,
                       startAdornment: (
                         <InputAdornment position="start">
+                          {" "}
                           <SearchIcon />
                         </InputAdornment>
                       )
@@ -241,13 +284,13 @@ function FollowerRangeTab() {
         alignItems="center"
         spacing={2}
       >
-        <Grid item xs={7}>
+        {/* <Grid item xs={7}>
           <Stack direction="row" spacing={2} className="filter-row">
             <Button variant="contained" className={`filter-btn ${filterList === 1 ? 'active' : ''}`} onClick={() => handleListGetFilter(1)}>C1 (3K-10K)</Button>
             <Button variant="contained" className={`filter-btn ${filterList === 2 ? 'active' : ''}`} onClick={() => handleListGetFilter(2)}>C2(10K-30K)</Button>
             <Button variant="contained" className={`filter-btn ${filterList === 3 ? 'active' : ''}`} onClick={() => handleListGetFilter(3)}>C3 (30K- 150/200K)</Button>
           </Stack>
-        </Grid>
+        </Grid> */}
         {/* <Grid item xs={5}>
           <Stack direction="row" spacing={2}>
             <InputLabel id="demo-simple-select-label" className='extra-label mar-top-8'>Follower Range</InputLabel>
@@ -278,6 +321,11 @@ function FollowerRangeTab() {
           pageSize={10}
           rowsPerPageOptions={[5]}
           checkboxSelection
+          onSelectionModelChange={(newSelectionModel) => {
+            setSelectionModel(newSelectionModel);
+          }}
+          selectionModel={selectionModel}
+          disableColumnMenu
         />
       </Box>
       <div className="mar-top-30">
@@ -289,7 +337,7 @@ function FollowerRangeTab() {
           spacing={2}
         >
           <Grid item xs={3} textAlign="right" className="mar-top-30">
-            <Button variant="contained">Select</Button>
+            <Button variant="contained" onClick={handleSelectLocation}>Select</Button>
           </Grid>
         </Grid>
       </div>
