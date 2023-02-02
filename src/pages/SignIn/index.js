@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { doLogin } from "../../actions/auth";
 import { toAbsoluteUrl } from "../../utils";
@@ -21,7 +21,8 @@ const defaultFormField = {
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const loginData = useSelector( state => state)
+  console.log('loginData: ', loginData);
   const [formData, setFormData] = useState(defaultFormField);
   const { username, password } = formData;
   const [userNameError, setUserNameError] = useState(false);
@@ -64,13 +65,17 @@ const SignIn = () => {
             res.data.role
           );
           navigate("/brands");
-        } else if(res.code === 0) {
+        } 
+        else if(res.code === 0) {
           console.log("Gelef")
+          toast.error(res.message);
+        }
+        else{
           toast.error(res.message);
         }
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error("Enter valid user name and password");
       });
   };
 

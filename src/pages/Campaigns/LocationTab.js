@@ -16,8 +16,14 @@ function LocationTab() {
   const [creatorsList, setCreatorsList] = useState([]);
 
   useEffect(() => {
-    if (stateValue !== '') {
+    // if (stateValue !== '') {
       const findDis = states.find(item => item.state.includes(stateValue));
+      console.log('findDis: ', findDis);
+      // }
+      if(!findDis){
+        setDistricts([])
+      }
+      else{
       setDistricts(findDis.districts)
     }
   }, [stateValue])

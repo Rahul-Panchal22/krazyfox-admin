@@ -31,7 +31,7 @@ const apiMiddleware = store => next => action => {
             return Promise.resolve(res.data);
         }).catch(err => {
             store.dispatch(error(err.response.data));
-
+            store.dispatch(fetchFailed());
             return Promise.reject(err.response.data);
         });
     }

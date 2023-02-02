@@ -86,8 +86,8 @@ function FollowerRangeTab() {
 
             if (filterList === 3) {
                 data = {
-                    followerStartRange: "10000",
-                    followerEndRange: "30000"
+                    followerStartRange: "30000",
+                    followerEndRange: "150000"
                 }
             }
             dispatch(CreatorsFiletrList(data))
