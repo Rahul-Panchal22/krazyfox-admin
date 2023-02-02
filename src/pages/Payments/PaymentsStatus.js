@@ -191,13 +191,14 @@ const PaymentsStatus = () => {
     if(item === 1){
       data = {
         payoutStatus: item.toString(),
-        id: selection[0]
+        // id: selection[0]
+        id: selectionModel[0]
       }
       setFilterNumber(1);
     }else{
       data = {
         payoutStatus: item.toString(),
-        id: selection[0],
+        id: selectionModel[0],
         note: note
       }
       setFilterNumber(2);
@@ -324,7 +325,6 @@ const PaymentsStatus = () => {
               if (selection.length > 1) {
                 const selectionSet = new Set(selectionModel);
                 const result = selection.filter((s) => !selectionSet.has(s));
-                
                 setSelectionModel(result);
                   setSelection(result);
               } else {
