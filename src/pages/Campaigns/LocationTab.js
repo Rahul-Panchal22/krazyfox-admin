@@ -46,7 +46,9 @@ function LocationTab() {
                 .then((res) => {
                     toast.success(res.message); 
                     // window.location.reload();
-                    getAllCreatorsListing();
+                    // getAllCreatorsListing();
+                    console.log("res", res.data);
+                    setCreatorsList(res.data);
                 })
                 .catch((err) => {
                     toast.error(err);
@@ -98,21 +100,21 @@ function LocationTab() {
           sortable: false,
           renderCell: (params) => (params.value ? params.value : "-"),
         },
-        {
-          field: "categoriesArrayList",
-          headerName: "Category",
-          flex: 1,
-          sortable: false,
-          renderCell: (params) => {
-            const value = params.value;
-            return (
-              <Chip
-                label={`${value.length > 0 ? value[0].name : "Not Data"}`}
-                variant="outlined"
-              />
-            );
-          },
-        },
+        // {
+        //   field: "categoriesArrayList",
+        //   headerName: "Category",
+        //   flex: 1,
+        //   sortable: false,
+        //   renderCell: (params) => {
+        //     const value = params.value;
+        //     return (
+        //       <Chip
+        //         label={`${value.length > 0 ? value[0].name : "Not Data"}`}
+        //         variant="outlined"
+        //       />
+        //     );
+        //   },
+        // },
         // {
         //   field: "kyc_status",
         //   headerName: "KYC",
