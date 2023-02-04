@@ -203,7 +203,6 @@ const Kyc = () => {
           </Grid>
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
-            <InputLabel htmlFor="name-multiple">Select Status</InputLabel>
               <Select
                 // value={filter}
                 onChange={handleChangeFilter}
@@ -211,11 +210,13 @@ const Kyc = () => {
                 size='small'
                 required
                 input={<Input id="name-multiple" />}
+                defaultValue={1}
               >
-                <MenuItem value={2}>KYC Incomplete</MenuItem>
-                <MenuItem value={1}>KYC complete</MenuItem>
-                <MenuItem value={3}>Aadhar verified</MenuItem>
-                <MenuItem value={4}>Pan Card verified</MenuItem>
+                <MenuItem value={3}>KYC Incomplete</MenuItem>
+                <MenuItem value={1}>KYC Filter</MenuItem>
+                <MenuItem value={2}>KYC complete</MenuItem>
+                <MenuItem value={4}>Aadhar verified</MenuItem>
+                <MenuItem value={5}>Pan Card verified</MenuItem>
               </Select>
             </FormControl>
           </Grid>

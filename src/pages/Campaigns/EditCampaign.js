@@ -12,7 +12,6 @@ import {
   TextField,
 } from "@mui/material";
 import { SparkFill, SparkOutline, RightStatus, DeleteRed } from "../../svg";
-import UploadHere from "../../components/UploadFile";
 import { BrandsListing } from "../../actions/brands";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -22,10 +21,9 @@ import {
   fetchCampaign,
 } from "../../actions/campaign";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import "./Campaigns.scss";
-import FileUploader from "../../components/UploadFile/FileUploader";
 import { toAbsoluteUrl } from "../../utils";
 import ReactPlayer from "react-player";
+import "./Campaigns.scss";
 
 const defaultFormField = {
   campaign_name: "",
@@ -382,15 +380,19 @@ const EditCampaign = () => {
               Brand Name
             </InputLabel>
             <FormControl variant="filled">
-            <InputLabel htmlFor="name-multiple">Select Brand</InputLabel>
+            {/* <InputLabel htmlFor="name-multiple">Select Brand</InputLabel> */}
               <Select
                 value={selectedBrandValue}
                 onChange={handleChange}
                 displayEmpty
                 size="small"
                 required
+                // placeholder="Select Brand"
                 input={<Input id="name-multiple" />}
               >
+                <MenuItem disabled value="">
+                  <em>Brand Name</em>
+                </MenuItem>
                 {brandList.map((item) => (
                   <MenuItem value={item.id}>{item.brand_name}</MenuItem>
                 ))}

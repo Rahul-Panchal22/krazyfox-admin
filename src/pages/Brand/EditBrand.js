@@ -347,7 +347,7 @@ const EditBrand = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label=""
+                placeholder="Brand Name"
                 variant="filled"
                 size="small"
                 name="brand_name"
@@ -375,7 +375,7 @@ const EditBrand = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label=""
+                placeholder="Brand Description"
                 variant="filled"
                 size="small"
                 type="textarea"
@@ -402,7 +402,7 @@ const EditBrand = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label=""
+                placeholder="Website"
                 variant="filled"
                 size="small"
                 type="text"
@@ -438,6 +438,9 @@ const EditBrand = () => {
                 //   value.map((obj) => categoriesList[obj - 1].name).join(", ")
                 // }
               >
+                <MenuItem disabled value="">
+                  <em>Categories</em>
+                </MenuItem>
                 {categoriesList?.map((item) => (
                   <MenuItem key={item.id} value={item.id}>
                     {item.name}
@@ -472,7 +475,7 @@ const EditBrand = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                // label=""
+                placeholder="POC Name"
                 variant="filled"
                 size="small"
                 type="text"
@@ -499,7 +502,7 @@ const EditBrand = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label=""
+                placeholder="POC Email"
                 variant="filled"
                 size="small"
                 type="email"
@@ -526,7 +529,7 @@ const EditBrand = () => {
             <FormControl variant="filled">
               <TextField
                 id="filled-basic"
-                label=""
+                placeholder="POC Contact Number"
                 variant="filled"
                 size="small"
                 type="text"
