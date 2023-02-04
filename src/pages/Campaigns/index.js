@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { useLocation, useNavigate,createSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -27,7 +27,7 @@ const Campaigns = () => {
   console.log("pathname", pathname);
   const [campaignList, setCampaignList] = useState([]);
   const [search, setSearched] = useState("");
-  
+
   const columns = [
     {
       field: "id",
@@ -137,7 +137,7 @@ const Campaigns = () => {
     //         .forEach(
     //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
     //         );
-            
+
     //         if(pathname === "/hyperlocal"){
     //           navigate({
     //             pathname: `/hyper-applications/${params.id}`,
@@ -163,7 +163,7 @@ const Campaigns = () => {
     //     );
     //   },
     // },
-    
+
   ];
 
   const columns1 = [
@@ -358,23 +358,23 @@ const Campaigns = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-            
-            if(pathname === "/hyperlocal"){
-              navigate({
-                pathname: `/hyper-applications/${params.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
-            else{
-              navigate({
-                pathname: `/campaign-applications/${params.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
+
+          if (pathname === "/hyperlocal") {
+            navigate({
+              pathname: `/hyper-applications/${params.id}`,
+              search: `?${createSearchParams({
+                name: params.row.brand_name + " " + params.row.campaign_title
+              })}`
+            });
+          }
+          else {
+            navigate({
+              pathname: `/campaign-applications/${params.id}`,
+              search: `?${createSearchParams({
+                name: params.row.brand_name + " " + params.row.campaign_title
+              })}`
+            });
+          }
         };
 
         return (
@@ -384,28 +384,37 @@ const Campaigns = () => {
         );
       },
     },
-    
+
   ];
 
   const getAllCampaignListing = () => {
-    dispatch(CampaignListing())
-      .then((res) => {
-        toast.success(res.message);
-        setCampaignList(res.data);
-      })
-      .catch((err) => {});
+    if (pathname === '/hyperlocal') {
+      dispatch(CampaignListing('?hyperLocalTrue=1'))
+        .then((res) => {
+          toast.success(res.message);
+          setCampaignList(res.data);
+        })
+        .catch((err) => { });
+    } else {
+      dispatch(CampaignListing())
+        .then((res) => {
+          toast.success(res.message);
+          setCampaignList(res.data);
+        })
+        .catch((err) => { });
+    }
   };
 
   useEffect(() => {
     getAllCampaignListing();
-  }, []);
+  }, [pathname]);
 
   const handleRedirection = (e) => {
-    if(pathname === '/hyperlocal'){
-    navigate("/hyper-local-campaign");
+    if (pathname === '/hyperlocal') {
+      navigate("/hyper-local-campaign");
     }
-    else{
-    navigate("/add-campaign");
+    else {
+      navigate("/add-campaign");
 
     }
   };
@@ -427,8 +436,6 @@ const Campaigns = () => {
       }
     }
   }, [search]);
-
-  // console.log(`/edit-campaign/${params.campaignId}`);
 
   return (
     <>
@@ -483,10 +490,10 @@ const Campaigns = () => {
           rowsPerPageOptions={[5]}
           disableSelectionOnClick={true}
           onRowClick={(item) => {
-            if(pathname === "/hyperlocal"){
+            if (pathname === "/hyperlocal") {
               navigate(`/view-hyper/${item.id}`);
             }
-            else{
+            else {
               navigate(`/view-campaign/${item.id}`);
             }
           }}
