@@ -64,7 +64,7 @@ const SignIn = () => {
             "user_type",
             res.data.role
           );
-          navigate("/brands");
+          navigate("/dashboard");
         } 
         else if(res.code === 0) {
           console.log("Gelef")
