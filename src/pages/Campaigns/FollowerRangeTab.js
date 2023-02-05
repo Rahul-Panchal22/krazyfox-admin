@@ -150,7 +150,6 @@ function FollowerRangeTab() {
             });
     }
 
-    console.log("getListFilter", getListFilter);
 
     return (
         <>
@@ -200,9 +199,9 @@ function FollowerRangeTab() {
             >
                 <Grid item xs={7}>
                     <Stack direction="row" spacing={2} className="filter-row">
-                        <Button variant="contained" className={`filter-btn ${filterList === 1 ? 'active' : ''}`} onClick={() => handleListGetFilter(1)}>C1 (3K-10K)</Button>
-                        <Button variant="contained" className={`filter-btn ${filterList === 2 ? 'active' : ''}`} onClick={() => handleListGetFilter(2)}>C2(10K-30K)</Button>
-                        <Button variant="contained" className={`filter-btn ${filterList === 3 ? 'active' : ''}`} onClick={() => handleListGetFilter(3)}>C3 (30K- 150/200K)</Button>
+                        <Button variant="contained" className={`filter-btn ${filterList === 1 && !getFrom && !getTo ? 'active' : ''}`} onClick={() => handleListGetFilter(1)} disabled={!getFrom && !getTo ? false : true}>C1 (3K-10K)</Button>
+                        <Button variant="contained" className={`filter-btn ${filterList === 2 && !getFrom && !getTo ? 'active' : ''}`} onClick={() => handleListGetFilter(2)} disabled={!getFrom && !getTo ? false : true}>C2(10K-30K)</Button>
+                        <Button variant="contained" className={`filter-btn ${filterList === 3 && !getFrom && !getTo ? 'active' : ''}`} onClick={() => handleListGetFilter(3)} disabled={!getFrom && !getTo ? false : true}>C3 (30K- 150/200K)</Button>
                     </Stack>
                 </Grid>
                 <Grid item xs={5}>

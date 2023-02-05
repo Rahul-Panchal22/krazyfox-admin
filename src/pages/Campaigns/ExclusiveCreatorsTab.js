@@ -149,14 +149,18 @@ function FollowerRangeTab() {
     //       followerEndRange: "30000"
     //     }
     //   }
+    getAllCreatorsListing();
+  }, [])
+
+  const getAllCreatorsListing = () => {
     dispatch(CreatorsFiletrList())
-      .then((res) => {
-        setGetListFilter(res.data);
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  }, [filterList])
+    .then((res) => {
+      setGetListFilter(res.data);
+    })
+    .catch((err) => {
+      toast.error(err);
+    });
+  }
 
   const handleListGetFilter = (item) => {
     setFilterList(item)
@@ -212,13 +216,17 @@ function FollowerRangeTab() {
     setGetTo(e.target.value);
   }
   useEffect(() => {
-    if (search === null || search === '' || search === undefined) {
+    if (search !== null || search !== '' || search !== undefined) {
         //   getAllCreatorsListing();
-    } else {
+        if (search === null) {
+          getAllCreatorsListing();
+        }
+     else {
         setGetListFilter(
             getListFilter?.filter((column) => column?.name.includes(search))
         );
     }
+  }
 }, [search]);
 
   return (

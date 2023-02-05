@@ -15,8 +15,8 @@ import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import "./Campaigns.scss";
 import { Visibility } from "@mui/icons-material";
+import "./Campaigns.scss";
 
 const Campaigns = () => {
   const dispatch = useDispatch();

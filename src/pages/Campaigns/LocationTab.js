@@ -9,11 +9,13 @@ import { states } from '../../utils/State';
 function LocationTab() {
 
   const dispatch = useDispatch();
+  
   const statelist = states.map(item => item.state);
   const [stateValue, setStateValue] = useState('');
   const [districts, setDistricts] = useState([]);
   const [districtValue, setDistrictValue] = useState('');
   const [creatorsList, setCreatorsList] = useState([]);
+  const [dist, setDist] = useState([]);
 
   useEffect(() => {
     // if (stateValue !== '') {
@@ -29,7 +31,7 @@ function LocationTab() {
   }, [stateValue])
 
   useEffect(() => {
-    if (stateValue !== '' && districtValue !== '') {
+    if (stateValue !== '' && districtValue !== '' && stateValue !== null &&  districtValue !== null) {
       const data = {
         locationArray: [stateValue, districtValue]
       }
@@ -45,11 +47,17 @@ function LocationTab() {
   }, [stateValue, districtValue])
 
   const onMutate = (e, value) => {
+    // const findDis = states.find(item => item.state.includes(value));
+    // console.log("states",  findDis);
+    // const data = findDis.districts.filter((item) => item === dist[0]);
+    // console.log("data", data);
     setStateValue(value)
+    setDist([])
   }
 
   const onSelectDis = (e, value) => {
     setDistrictValue(value);
+    setDist([value])
   }
 
   const columns = [
@@ -120,8 +128,9 @@ function LocationTab() {
       <Grid item xs={12}>
         <Stack spacing={2} sx={{ width: 630 }}>
           <Autocomplete
-            // multiple
+            multiple
             id="tags-filled"
+            value={dist}
             options={districts.map((option) => option)}
             onChange={(e, value) => onSelectDis(e, value)}
             className='multiple-chip'
