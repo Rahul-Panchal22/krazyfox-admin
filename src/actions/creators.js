@@ -69,10 +69,10 @@ export const creatorsVerify = (data, id) =>
   },
 });
 
-export const CreatorsAllListing = () => ({
+export const CreatorsAllListing = (data) => ({
   type: API,
   payload: {
-    url: API_CREATORS_LIST,
+    url: API_CREATORS_LIST + data,
     method: "GET",
     success: (data) => ({
       type: LIST_CREATORS_S,

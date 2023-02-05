@@ -1,10 +1,10 @@
 import { GET_KYC_LIST } from "../constants/api";
 import { API, GET_LIST_KYC_F, GET_LIST_KYC_S } from "../constants/types";
 
-export const KycListing = () => ({
+export const KycListing = (data) => ({
   type: API,
   payload: {
-    url: GET_KYC_LIST,
+    url: GET_KYC_LIST + data,
     method: "GET",
     success: (data) =>
     ({

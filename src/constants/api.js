@@ -8,7 +8,7 @@ export const API_CATEGORIES_LISTING = `${API_BASE}categories`
 // Creators
 export const API_CREATORS_LISTING = `${API_BASE}dashboard`
 export const API_CREATORS_VIEW = `${API_BASE}creators`
-export const API_CREATORS_LIST = `${API_BASE}creators/all`
+export const API_CREATORS_LIST = `${API_BASE}creators/all/`
 export const API_CREATORS_LIST_BASED_FILTER = `${API_BASE}creators/fetchCreatorBasedOnFilter`
 
 // Campaign API call url's
@@ -22,14 +22,14 @@ export const API_CAMPAIGN_STEPPER = `${API_BASE}campaigns/updateApplicationStatu
 export const API_CAMPAIGN_APPLICATION_STATUS = `${API_BASE}campaigns/fetchApplicationStatus`
 
 // Brand API call url's
-export const API_BRANDS_LIST = `${API_BASE}brands/all`
+export const API_BRANDS_LIST = `${API_BASE}brands/all/`
 export const API_BRAND_CREATE = `${API_BASE}brands/create`
 export const API_BRAND_EDIT = `${API_BASE}brands/edit-brand`
 export const API_BRAND_VIEW = `${API_BASE}brands`
 export const API_BRAND_DELETE = `${API_BASE}brands/delete/`
 
 // KYC API Call url's
-export const GET_KYC_LIST = `${API_BASE}kyc`
+export const GET_KYC_LIST = `${API_BASE}kyc/`
 
 // creators VerifyDocs 
 export const API_CREATOR_VERIFY = `${API_BASE}creators/verifyDocs`

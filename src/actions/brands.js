@@ -1,10 +1,10 @@
 import { API_BRANDS_LIST, API_BRAND_CREATE, API_BRAND_DELETE, API_BRAND_EDIT, API_BRAND_VIEW } from "../constants/api";
 import { ADD_BRAND_F, ADD_BRAND_S, API, BRANDS_F, BRANDS_S, DELETE_BRAND_F, DELETE_BRAND_S, EDIT_BRAND_F, EDIT_BRAND_S, VIEW_BRAND_F, VIEW_BRAND_S} from "../constants/types";
 
-export const BrandsListing = () => ({
+export const BrandsListing = (data) => ({
   type: API,
   payload: {
-    url: API_BRANDS_LIST,
+    url: API_BRANDS_LIST + data,
     method: "GET",
     success: (data) =>
       ({

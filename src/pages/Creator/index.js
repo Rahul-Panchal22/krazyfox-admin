@@ -17,6 +17,13 @@ import { toast } from "react-toastify";
 import { CreatorsAllListing, CreatorsListing } from "../../actions/creators";
 
 const Creator = () => {
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    limit: 10,
+    page: 0
+  })
   const [creatorsList, setCreatorsList] = useState([]);
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
@@ -27,10 +34,12 @@ const Creator = () => {
   };
 
   const getAllCreatorsListing = () => {
-    dispatch(CreatorsAllListing())
+    setPageState(old => ({ ...old, isLoading: true }))
+    dispatch(CreatorsAllListing(`?page=${pageState.page}&limit=${pageState.limit}`))
       .then((res) => {
         if (res.code === 200) {
           toast.success("Creators Listing fetch successfully");
+          setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
           setCreatorsList(res.data);
         }
       })
@@ -41,7 +50,7 @@ const Creator = () => {
 
   useEffect(() => {
     getAllCreatorsListing();
-  }, []);
+  }, [pageState.page, pageState.limit]);
 
   const columns = [
     {
@@ -147,9 +156,11 @@ const Creator = () => {
       if (search === null) {
         getAllCreatorsListing();
       } else {
-        setCreatorsList(
-          creatorsList.filter((column) => search.includes(column.name))
-        );
+        setPageState(old => ({
+          ...old,
+          data: pageState.data.filter((column) => search.includes(column.name)),
+          total:  pageState.data.filter((column) => search.includes(column.name)).length
+        }))
       }
     }
   }, [search]);
@@ -170,7 +181,7 @@ const Creator = () => {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                options={creatorsList.map((option) => option.name)}
+                options={pageState.data.map((option) => option.name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
                   <TextField
@@ -195,12 +206,19 @@ const Creator = () => {
       </div>
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid
-          rows={creatorsList}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5]}
           getRowId={(row) => row.creator_id}
           disableColumnMenu
+          rows={pageState.data}
+          rowCount={pageState.total}
+          loading={pageState.isLoading}
+          rowsPerPageOptions={[10, 30, 50, 70, 100]}
+          pagination
+          page={pageState.page}
+          pageSize={pageState.limit}
+          paginationMode="server"
+          onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage }))}
+          onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, limit: newPageSize }))}
+          columns={columns}
         />
       </Box>
     </>

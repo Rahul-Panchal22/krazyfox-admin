@@ -21,22 +21,35 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+const filterMenu = [
+  {
+    id: 1, name: "KYC Complete"
+  }, { id: 2, name: "KYC Incomplete" }, { id: 3, name: "Aadhar verified" }, { id: 4, name: "Pan Card Verified" }, { id: 5, name: "Bank Details verified" }
+]
 
 const Kyc = () => {
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    limit: 10,
+    page: 0
+  })
   const dispatch = useDispatch();
   const [kycList, setKycList] = useState([]);
   const [/* AllkycList, */ setAllKycList] = useState([]);
-  // const [filter, /* setFilter */] = useState();
+  const [filter, setFilter] = useState('');
   const [search, setSearched] = useState("");
   const navigate = useNavigate()
 
   const getAllKycListing = () => {
-    dispatch(KycListing())
+    let filterLink = filter ? `page=${pageState.page}&limit=${pageState.limit}&kyc_filter=${filter}` : `page=${pageState.page}&limit=${pageState.limit}`
+    setPageState(old => ({ ...old, isLoading: true }))
+    dispatch(KycListing(`?${filterLink}`))
       .then((res) => {
         console.log("response -----> ", res.data);
         toast.success(res.message);
-        setKycList(res.data);
-        setAllKycList(res.data);
+        setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
       })
       .catch((err) => {
         toast.success(err);
@@ -45,7 +58,7 @@ const Kyc = () => {
 
   useEffect(() => {
     getAllKycListing();
-  }, []);
+  }, [pageState.page, pageState.limit, filter]);
 
   const columns = [
     {
@@ -140,9 +153,11 @@ const Kyc = () => {
   ];
 
   const handleChangeFilter = (e) => {
-    dispatch(KycFilterListing(`?kyc_filter=${e.target.value}`))
+    setFilter(e.target.value)
+    setPageState(old => ({ ...old, isLoading: true }))
+    dispatch(KycFilterListing(`?page=${pageState.page}&limit=${pageState.limit}&kyc_filter=${e.target.value}`))
       .then((res) => {
-        setKycList(res.data);
+        setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
       })
       .catch((err) => {
         toast.error(err);
@@ -159,7 +174,7 @@ const Kyc = () => {
       if (search === null) {
         getAllKycListing();
       } else {
-        setKycList(kycList.filter((column) => search.includes(column.name)));
+        setPageState(old => ({ ...old, data: pageState.data.filter((column) => search.includes(column.name)), total: pageState.data.filter((column) => search.includes(column.name)).length }))
       }
     }
   }, [search]);
@@ -181,7 +196,7 @@ const Kyc = () => {
                 freeSolo
                 size="small"
                 onChange={onMutate}
-                options={kycList.map((option) => option.name)}
+                options={pageState.data.map((option) => option.name)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -203,8 +218,9 @@ const Kyc = () => {
           </Grid>
           <Grid item xs={4}>
             <FormControl variant="filled" sx={{ m: 1, maxWidth: 400 }}>
+              <InputLabel htmlFor="name-multiple">Select KYC Filter</InputLabel>
               <Select
-                // value={filter}
+                value={filter}
                 onChange={handleChangeFilter}
                 displayEmpty
                 size='small'
@@ -212,11 +228,16 @@ const Kyc = () => {
                 input={<Input id="name-multiple" />}
                 defaultValue={1}
               >
-                <MenuItem value={3}>KYC Incomplete</MenuItem>
-                <MenuItem value={1}>KYC Filter</MenuItem>
-                <MenuItem value={2}>KYC complete</MenuItem>
-                <MenuItem value={4}>Aadhar verified</MenuItem>
-                <MenuItem value={5}>Pan Card verified</MenuItem>
+                {/* <MenuItem value={5}>Bank Details verified</MenuItem>
+                <MenuItem value={1}>KYC Complete</MenuItem>
+                <MenuItem value={2}>KYC Incomplete</MenuItem>
+                <MenuItem value={3}>Aadhar verified</MenuItem>
+                <MenuItem value={4}>Pan Card verified</MenuItem> */}
+                {filterMenu?.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    <em>{item.name}</em>
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -224,12 +245,25 @@ const Kyc = () => {
       </div>
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid
-          rows={kycList}
-          columns={columns}
-          getRowId={(row) => row.id}
-          pageSize={10}
-          rowsPerPageOptions={[5]}
+          // rows={kycList}
+          // columns={columns}
+          // getRowId={(row) => row.id}
+          // pageSize={10}
+          // rowsPerPageOptions={[5]}
+          // disableColumnMenu
+          rows={pageState.data}
+          // getRowId={(row) => row.creator_id}
           disableColumnMenu
+          rowCount={pageState.total}
+          loading={pageState.isLoading}
+          rowsPerPageOptions={[10, 30, 50, 70, 100]}
+          pagination
+          page={pageState.page}
+          pageSize={pageState.limit}
+          paginationMode="server"
+          onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage }))}
+          onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, limit: newPageSize }))}
+          columns={columns}
         // checkboxSelection
         />
       </Box>

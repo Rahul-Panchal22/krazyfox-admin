@@ -19,6 +19,13 @@ import { toast } from "react-toastify";
 import "./Brand.scss";
 
 const Brand = () => {
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    limit: 10,
+    page: 0
+  })
   const [brandList, setBrandList] = useState([]);
   const [search, setSearched] = useState("");
   const navigate = useNavigate();
@@ -113,10 +120,11 @@ const Brand = () => {
   ];
 
   const getAllBrandListing = () => {
-    dispatch(BrandsListing())
+    setPageState(old => ({ ...old, isLoading: true }))
+    dispatch(BrandsListing(`?page=${pageState.page}&limit=${pageState.limit}`))
       .then((res) => {
         toast.success(res.message);
-        setBrandList(res.data);
+        setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
       })
       .catch((err) => {
         toast.error(err);
@@ -125,7 +133,7 @@ const Brand = () => {
 
   useEffect(() => {
     getAllBrandListing();
-  }, []);
+  }, [pageState.page, pageState.limit]);
 
   const handleRedirection = (e) => {
     navigate("/Add-brand");
@@ -140,8 +148,11 @@ const Brand = () => {
       if (search === null) {
         getAllBrandListing();
       } else {
-        setBrandList(
-          brandList.filter((column) => `${column.brand_name}${column.poc_name}`.toLowerCase().includes(search.toLowerCase()))
+        setPageState(old => ({
+          ...old,
+          data: pageState.data.filter((column) => `${column.brand_name}${column.poc_name}`.toLowerCase().includes(search.toLowerCase())),
+          total: pageState.data.filter((column) => `${column.brand_name}${column.poc_name}`.toLowerCase().includes(search.toLowerCase())).length
+        })
         );
       }
     }
@@ -163,7 +174,7 @@ const Brand = () => {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                options={brandList.map((option) => option.brand_name)}
+                options={pageState.data.map((option) => option.brand_name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
                   <TextField
@@ -193,11 +204,23 @@ const Brand = () => {
       </div>
       <Box sx={{ height: 632, width: "100%" }}>
         <DataGrid
-          rows={brandList}
+          // rows={brandList}
+          // columns={columns}
+          // pageSize={10}
+          // rowsPerPageOptions={[5]}
+          // disableColumnMenu
+          rows={pageState.data}
+          rowCount={pageState.total}
+          loading={pageState.isLoading}
+          rowsPerPageOptions={[10, 30, 50, 70, 100]}
+          pagination
+          page={pageState.page}
+          pageSize={pageState.limit}
+          paginationMode="server"
+          onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage }))}
+          onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, limit: newPageSize }))}
           columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5]}
-          disableColumnMenu
+
         />
       </Box>
     </>

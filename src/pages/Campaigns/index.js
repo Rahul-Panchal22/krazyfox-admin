@@ -21,6 +21,13 @@ import { Visibility } from "@mui/icons-material";
 const Campaigns = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    limit: 10,
+    page: 0
+  })
 
   const history = useLocation();
   const pathname = history.pathname;
@@ -388,17 +395,20 @@ const Campaigns = () => {
   ];
 
   const getAllCampaignListing = () => {
+    setPageState(old => ({ ...old, isLoading: true }))
     if (pathname === '/hyperlocal') {
-      dispatch(CampaignListing('?hyperLocalTrue=1'))
+      dispatch(CampaignListing(`?page=${pageState.page}&limit=${pageState.limit}&hyperLocalTrue=1`))
         .then((res) => {
           toast.success(res.message);
+          setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
           setCampaignList(res.data);
         })
         .catch((err) => { });
     } else {
-      dispatch(CampaignListing())
+      dispatch(CampaignListing(`?page=${pageState.page}&limit=${pageState.limit}`))
         .then((res) => {
           toast.success(res.message);
+          setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
           setCampaignList(res.data);
         })
         .catch((err) => { });
@@ -407,7 +417,7 @@ const Campaigns = () => {
 
   useEffect(() => {
     getAllCampaignListing();
-  }, [pathname]);
+  }, [pathname, pageState.page, pageState.limit]);
 
   const handleRedirection = (e) => {
     if (pathname === '/hyperlocal') {
@@ -428,10 +438,14 @@ const Campaigns = () => {
       if (search === null) {
         getAllCampaignListing();
       } else {
-        setCampaignList(
-          campaignList.filter((column) =>
+        setPageState(old => ({
+          ...old,
+          data: pageState.data.filter((column) =>
             search.includes(column.campaign_title)
-          )
+          ),
+          total: pageState.data.filter((column) =>
+            search.includes(column.campaign_title)).length
+        })
         );
       }
     }
@@ -453,7 +467,7 @@ const Campaigns = () => {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                options={campaignList.map((option) => option.campaign_title)}
+                options={pageState.data.map((option) => option.campaign_title)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
                   <TextField
@@ -483,11 +497,22 @@ const Campaigns = () => {
       </div>
       <Box sx={{ height: 632, width: "100%" }}>
         <DataGrid
-          rows={campaignList}
+          // rows={campaignList}
+          // columns={pathname.includes('view-applications') ? columns1 : columns}
+          // pageSize={10}
+          // disableColumnMenu
+          // rowsPerPageOptions={[5]}
+          rows={pageState.data}
+          rowCount={pageState.total}
+          loading={pageState.isLoading}
+          rowsPerPageOptions={[10, 30, 50, 70, 100]}
+          pagination
+          page={pageState.page}
+          pageSize={pageState.limit}
+          paginationMode="server"
+          onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage }))}
+          onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, limit: newPageSize }))}
           columns={pathname.includes('view-applications') ? columns1 : columns}
-          pageSize={10}
-          disableColumnMenu
-          rowsPerPageOptions={[5]}
           disableSelectionOnClick={true}
           onRowClick={(item) => {
             if (pathname === "/hyperlocal") {
