@@ -44,7 +44,7 @@ const Payments = () => {
   const getAllCampaignListing = () => {
     dispatch(PaymentPendingListing())
       .then((res) => {
-        setCampaignList(res.data);
+        setCampaignList(res.data || []);
         toast.success(res.message);
       })
       .catch((err) => {
@@ -152,7 +152,7 @@ const Payments = () => {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                options={campaignList.map((option) => option.campaign_title)}
+                options={campaignList?.map((option) => option?.campaign_title)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
                   <TextField
@@ -177,6 +177,7 @@ const Payments = () => {
       </div>
       <Box sx={{ height: 632, width: "100%" }}>
         <DataGrid
+        getRowId={(row) => row.id}
           rows={campaignList}
           columns={columns}
           pageSize={10}
