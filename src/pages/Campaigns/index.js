@@ -15,8 +15,8 @@ import { useLocation, useNavigate,createSearchParams } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import "./Campaigns.scss";
 import { Visibility } from "@mui/icons-material";
+import "./Campaigns.scss";
 
 const Campaigns = () => {
   const dispatch = useDispatch();
@@ -309,14 +309,18 @@ const Campaigns = () => {
     dispatch(CampaignListing())
       .then((res) => {
         toast.success(res.message);
-        setCampaignList(res.data);
+        if(pathname.includes('/hyperlocal')){
+          setCampaignList(res?.data?.filter((item) => item?.hyper_local === 1));
+        }else{
+          setCampaignList(res?.data?.filter((item) => item?.hyper_local === 0));
+        }
       })
       .catch((err) => {});
   };
 
   useEffect(() => {
     getAllCampaignListing();
-  }, []);
+  }, [pathname]);
 
   const handleRedirection = (e) => {
     if(pathname === '/hyperlocal'){

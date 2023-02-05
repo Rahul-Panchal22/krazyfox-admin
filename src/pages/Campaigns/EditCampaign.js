@@ -250,7 +250,11 @@ const EditCampaign = () => {
             } else if (pathname === "/add-campaign") {
               localStorage.setItem("campaignId", res.data.id);
               navigate("/select-creators-by");
-            } else {
+            }else if (pathname.includes("/edit-campaign")) {
+              localStorage.setItem("campaignId", res.data.id);
+              navigate("/select-creators-by");
+            }  
+            else {
               navigate("/campaigns");
             }
           } else {
@@ -652,7 +656,7 @@ const EditCampaign = () => {
                         UploadVideo(e);
                         // handleChangeImage(e)
                       }}
-                      accept="*"
+                      accept="image/*,video/*"
                       multiple
                       required
                     />

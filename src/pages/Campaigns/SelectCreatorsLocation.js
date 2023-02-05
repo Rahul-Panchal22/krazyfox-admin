@@ -150,6 +150,12 @@ const SelectCreatorsLocation = () => {
     });
   }
 
+
+  const handleActiveMarkerRemove = (item) => {
+    const filter = markers.filter((list, i) => list.lat !== item.lat && list.lng !== item.lng)
+    setMarker(filter);
+  }
+
   return (
     <>
       <div className="select-creators-by-sec">
@@ -236,7 +242,7 @@ const SelectCreatorsLocation = () => {
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
-            // center={center}
+            center={center}
             zoom={10}
             onLoad={onLoad}
             onUnmount={onUnmount}
@@ -254,6 +260,7 @@ const SelectCreatorsLocation = () => {
                 position={{lat:item.lat,lng:item.lng}}
                 onClick={() => handleActiveMarker(item?.id)}
                 clickable={true}
+                onDblClick={() => handleActiveMarkerRemove(item)}
               >
                 {/* {activeMarker === item?.id ? (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
