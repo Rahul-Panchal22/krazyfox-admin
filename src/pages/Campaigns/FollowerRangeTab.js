@@ -172,7 +172,7 @@ function FollowerRangeTab() {
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label="Search for campaign"
+                                        label="Search for Creators"
                                         placeholder=""
                                         InputProps={{
                                             ...params.InputProps,

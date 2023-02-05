@@ -34,10 +34,10 @@ import {
   VIEW_CAMPAIGN_S,
 } from "../constants/types";
 
-export const CampaignListing = () => ({
+export const CampaignListing = (data) => ({
   type: API,
   payload: {
-    url: API_CAMPAIGN_LIST,
+    url: data ? API_CAMPAIGN_LIST + data : API_CAMPAIGN_LIST,
     method: "GET",
     success: (data) => ({
       type: CAMPAIGN_S,

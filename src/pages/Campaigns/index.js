@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
-import { useLocation, useNavigate,createSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
 import { CampaignListing } from "../../actions/campaign";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -27,7 +27,7 @@ const Campaigns = () => {
   console.log("pathname", pathname);
   const [campaignList, setCampaignList] = useState([]);
   const [search, setSearched] = useState("");
-  
+
   const columns = [
     {
       field: "id",
@@ -137,7 +137,7 @@ const Campaigns = () => {
     //         .forEach(
     //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
     //         );
-            
+
     //         if(pathname === "/hyperlocal"){
     //           navigate({
     //             pathname: `/hyper-applications/${params.id}`,
@@ -163,7 +163,7 @@ const Campaigns = () => {
     //     );
     //   },
     // },
-    
+
   ];
 
   const columns1 = [
@@ -261,6 +261,88 @@ const Campaigns = () => {
     //   },
     // },
     {
+      field: "brand_logo_url",
+      headerName: "Brand Logo",
+      flex: 1.5,
+      align: "left",
+      renderCell: (params) => <div className="overflow-hide w-100 h-100 obj-content-inside">
+        <img src={params.value} alt="" />
+      </div>,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: "brand_name",
+      headerName: "Brand Name",
+      flex: 1.5,
+    },
+    {
+      field: "campaign_title",
+      headerName: "Campaign Title",
+      flex: 1.5,
+    },
+    {
+      field: "campaign_price_range",
+      headerName: "Price Range",
+      flex: 0.9,
+    },
+    {
+      field: "campaign_description",
+      headerName: "Campaign Description",
+      flex: 1.8,
+    },
+    {
+      field: "status",
+      headerName: "Live/ Paused",
+      flex: 1,
+      align: 'center',
+      renderCell: (params) =>
+        params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
+    },
+    // {
+    //   field: "viewApplication",
+    //   headerName: "View Application",
+    //   flex: 0.4,
+    //   renderCell: (params, row) => {
+    //     const onClick = (e) => {
+    //       console.log('params, row: ', params, row);
+    //       e.stopPropagation();
+
+    //       const api = params.api;
+    //       const thisRow = {};
+
+    //       api
+    //         .getAllColumns()
+    //         .filter((c) => c.field !== "__check__" && !!c)
+    //         .forEach(
+    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+    //         );
+    //         if(pathname === "/hyperlocal"){
+    //           navigate({
+    //             pathname: `/hyper-applications/${thisRow.id}`,
+    //             search: `?${createSearchParams({
+    //               name: params.row.brand_name+" "+ params.row.campaign_title
+    //             })}`
+    //           });
+    //         }
+    //         else{
+    //           navigate({
+    //             pathname: `/campaign-applications/${thisRow.id}`,
+    //             search: `?${createSearchParams({
+    //               name: params.row.brand_name+" "+ params.row.campaign_title
+    //             })}`
+    //           });
+    //         }
+    //         }
+
+    //     return (
+    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+    //         <Visibility />
+    //       </IconButton>
+    //     );
+    //   },
+    // },
+    {
       field: "action",
       headerName: "",
       flex: 0.4,
@@ -276,23 +358,23 @@ const Campaigns = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-            
-            if(pathname === "/hyperlocal"){
-              navigate({
-                pathname: `/hyper-applications/${params.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
-            else{
-              navigate({
-                pathname: `/campaign-applications/${params.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
+
+          if (pathname === "/hyperlocal") {
+            navigate({
+              pathname: `/hyper-applications/${params.id}`,
+              search: `?${createSearchParams({
+                name: params.row.brand_name + " " + params.row.campaign_title
+              })}`
+            });
+          }
+          else {
+            navigate({
+              pathname: `/campaign-applications/${params.id}`,
+              search: `?${createSearchParams({
+                name: params.row.brand_name + " " + params.row.campaign_title
+              })}`
+            });
+          }
         };
 
         return (
@@ -302,20 +384,25 @@ const Campaigns = () => {
         );
       },
     },
-    
+
   ];
 
   const getAllCampaignListing = () => {
-    dispatch(CampaignListing())
-      .then((res) => {
-        toast.success(res.message);
-        if(pathname.includes('/hyperlocal')){
-          setCampaignList(res?.data?.filter((item) => item?.hyper_local === 1));
-        }else{
-          setCampaignList(res?.data?.filter((item) => item?.hyper_local === 0));
-        }
-      })
-      .catch((err) => {});
+    if (pathname === '/hyperlocal') {
+      dispatch(CampaignListing('?hyperLocalTrue=1'))
+        .then((res) => {
+          toast.success(res.message);
+          setCampaignList(res.data);
+        })
+        .catch((err) => { });
+    } else {
+      dispatch(CampaignListing())
+        .then((res) => {
+          toast.success(res.message);
+          setCampaignList(res.data);
+        })
+        .catch((err) => { });
+    }
   };
 
   useEffect(() => {
@@ -323,11 +410,11 @@ const Campaigns = () => {
   }, [pathname]);
 
   const handleRedirection = (e) => {
-    if(pathname === '/hyperlocal'){
-    navigate("/hyper-local-campaign");
+    if (pathname === '/hyperlocal') {
+      navigate("/hyper-local-campaign");
     }
-    else{
-    navigate("/add-campaign");
+    else {
+      navigate("/add-campaign");
 
     }
   };
@@ -349,8 +436,6 @@ const Campaigns = () => {
       }
     }
   }, [search]);
-
-  // console.log(`/edit-campaign/${params.campaignId}`);
 
   return (
     <>
@@ -405,10 +490,10 @@ const Campaigns = () => {
           rowsPerPageOptions={[5]}
           disableSelectionOnClick={true}
           onRowClick={(item) => {
-            if(pathname === "/hyperlocal"){
+            if (pathname === "/hyperlocal") {
               navigate(`/view-hyper/${item.id}`);
             }
-            else{
+            else {
               navigate(`/view-campaign/${item.id}`);
             }
           }}

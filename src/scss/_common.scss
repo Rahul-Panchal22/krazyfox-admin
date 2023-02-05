@@ -39,6 +39,7 @@ p { font-size: 16px;
 
 // margin scss start
 .mar-left-auto { margin-left: auto; }
+.mar-left-auto-imp { margin-left: auto !important; }
 .mar-left-8 { margin-left: 8px; }
 .mar-left-10 { margin-left: 10px; }
 .mar-left-4 { margin-left: 4px; }
@@ -59,6 +60,7 @@ p { font-size: 16px;
 .mar-top-8 { margin-top: 8px; }
 .mar-top-10 { margin-top: 10px; }
 .mar-top-20 { margin-top: 20px; }
+.mar-top-20-imp { margin-top: 20px !important; }
 .mar-top-24 { margin-top: 24px; }
 .mar-top-48 { margin-top: 48px; }
 .mar-top--20 { margin-top: -20px; }
@@ -151,6 +153,21 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 		}
 		svg { transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
 	}
+	&.delete-contained.MuiButton-contained {
+		border-color:#B71C1C;
+		font-weight: 700;
+		font-size: 15px;
+		text-transform: none;
+		background: #B71C1C;
+		color: $white;
+		&:hover {
+			background: transparent;
+			color: #B71C1C;
+			border-color: #B71C1C;
+			svg { fill: $white; }
+		}
+		svg { transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
+	}
 	&.MuiButton-contained {
 		background: $black;
 		color: $white;
@@ -195,8 +212,22 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 .MuiFormControl-root { width: 100%; margin: 0 !important;
 	.MuiInputBase-root {
 		border-radius: 12px;
+		overflow: hidden;
 		&::before, &::after { border: 0; }
-		.MuiSelect-select { padding: 12px 30px 12px 15px; }
+		.MuiSelect-select { padding: 12px 30px 12px 15px; background: rgba($color: #000000, $alpha: 0.05);
+		}
+		// .MuiSelect-nativeInput {
+		// 	padding: 12px 30px 12px 15px;
+		// 	height: 100%;
+		// 	opacity: 1;
+		// 	background: transparent;
+		// 	font-weight: 400;
+		// 	font-size: 1rem;
+		// 	line-height: 1.4375em;
+		// 	letter-spacing: 0.00938em;
+		// 	color: rgba(0, 0, 0, 0.87);
+		// 	color: #808080;
+		// }
 		&:hover:not(.Mui-disabled):before { border: 0; }
 		&.Mui-focused {
 			fieldset { border-color: $black; }
@@ -225,6 +256,9 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 	color: #616161;
 	margin-bottom: 8px;
 	display: inline-block;
+	&.bold {
+		color: $black;
+	}
 }
 .description {
 	font-weight: 400;
@@ -235,6 +269,10 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 }
 .MuiFormLabel-root.extra-label { font-weight: 500; font-size: 16px; line-height: 24px; color: #616161; margin-bottom: 16px;
 	&.white { color: $white; }
+	&.bold {
+		color: $black;
+		font-weight: 600;
+	}
 }
 // MuiFormControl-root css over
 // stack css start
@@ -277,6 +315,7 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 	width: 166px !important;
 	height: 248px !important;
 	overflow: hidden;
+	img { height: 100%; width: 100%; object-fit: cover; }
 }
 // upload-video css over
 
@@ -305,7 +344,7 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 		line-height: 24px;
 		color: #121212;
 		padding: 8px 26px;
-		font-family: 'larsseitbold';
+		// font-family: 'larsseitbold';
 		&.approved { background:#1B5E20; color: $white; border-color: #1B5E20;
 			&:hover { color: #1B5E20; background: transparent; }
 		}
@@ -396,6 +435,7 @@ main.MuiBox-root { position: relative; z-index: 1300; }
     font-size: 20px;
     line-height: 24px;
     color: #000000;
+		word-break: break-all;
   }
 }
 // veiw-card css over
@@ -490,10 +530,31 @@ main.MuiBox-root { position: relative; z-index: 1300; }
 }
 // Toastify css over
 
+
+// Modal css start
+.MuiBox-root {
+	&.modal-box {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		background-color: $white;
+		border: 0;
+		// box-shadow: 24;
+		padding: 24px;
+		max-width: 750px
+	}
+}
+// Modal css over
+
 // map-section css star
 .map-section {
 	width: 100%;
 	height: 460px;
+}
+.pac-container {
+	z-index: 9999;
 }
 // map-section css over
 

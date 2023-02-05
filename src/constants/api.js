@@ -12,7 +12,7 @@ export const API_CREATORS_LIST = `${API_BASE}creators/all`
 export const API_CREATORS_LIST_BASED_FILTER = `${API_BASE}creators/fetchCreatorBasedOnFilter`
 
 // Campaign API call url's
-export const API_CAMPAIGN_LIST = `${API_BASE}campaigns/all`
+export const API_CAMPAIGN_LIST = `${API_BASE}campaigns/all/`
 export const API_CAMPAIGN_VIEW = `${API_BASE}campaigns`
 export const API_CAMPAIGN_CREATE = `${API_BASE}campaigns/create`
 export const API_CAMPAIGN_EDIT = `${API_BASE}campaigns/edit-campaign`

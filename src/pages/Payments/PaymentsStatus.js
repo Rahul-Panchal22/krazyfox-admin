@@ -9,27 +9,28 @@ import {
   InputAdornment,
   TextField,
   Modal,
-  Typography,
-  TextareaAutosize
+  TextareaAutosize,
+  FormControl,
+  InputLabel
 } from "@mui/material";
 import Stack from '@mui/material/Stack';
-import { ActionArrow, RightStatus, SearchIcon, SparkFill, SparkOutline } from "../../svg";
+import { ActionArrow, SearchIcon } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { PaymentListing, paymentUpdate, paymentCreateBucket } from "../../actions/Payment";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 const PaymentsStatus = () => {
 
@@ -134,6 +135,11 @@ const PaymentsStatus = () => {
       sortable: false,
     },
     {
+      field: "creator_name",
+      headerName: "Creator Name",
+      flex: 1.5,
+    },
+    {
       field: "campaign_title",
       headerName: "Campaign Title",
       flex: 1.5,
@@ -183,19 +189,19 @@ const PaymentsStatus = () => {
   }
 
   const handleCallSatatus = (item) => {
-      setOpen(true)
+    setOpen(true)
   }
 
   const updateStatus = (item) => {
     let data;
-    if(item === 1){
+    if (item === 1) {
       data = {
         payoutStatus: item.toString(),
         // id: selection[0]
         id: selectionModel[0]
       }
       setFilterNumber(1);
-    }else{
+    } else {
       data = {
         payoutStatus: item.toString(),
         id: selectionModel[0],
@@ -205,10 +211,10 @@ const PaymentsStatus = () => {
       setOpen(false)
     }
     dispatch(paymentUpdate(data))
-    .then((res) => {
-      if (res.code === 200) {
-        toast.success(res.message);
-        // getPaymentList();
+      .then((res) => {
+        if (res.code === 200) {
+          toast.success(res.message);
+          // getPaymentList();
         } else {
           toast.error("error");
         }
@@ -224,18 +230,18 @@ const PaymentsStatus = () => {
       campaignId: parseInt(params?.payment)
     }
     dispatch(paymentCreateBucket(data))
-    .then((res) => {
-      if (res.code === 200) {
-        toast.success(res.message);
-        getPaymentList();
-        navigate('/backet-list')
-      } else {
-        toast.error("error");
-      }
-    })
-    .catch((err) => {
-      toast.error(err);
-    });
+      .then((res) => {
+        if (res.code === 200) {
+          toast.success(res.message);
+          getPaymentList();
+          navigate('/backet-list')
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
   const handleClose = () => setOpen(false);
@@ -326,7 +332,7 @@ const PaymentsStatus = () => {
                 const selectionSet = new Set(selectionModel);
                 const result = selection.filter((s) => !selectionSet.has(s));
                 setSelectionModel(result);
-                  setSelection(result);
+                setSelection(result);
               } else {
                 setSelectionModel(selection);
               }
@@ -344,9 +350,30 @@ const PaymentsStatus = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <TextareaAutosize minRows={4} placeholder="Note" onChange={(e) => setNote(e.target.value)} />
-          <Button onClick={() => updateStatus(2)}>Submit</Button>
+        <Box className="modal-box">
+          <InputLabel
+            id="demo-simple-select-label"
+            className="extra-label bold"
+            required
+          >
+            Price Range
+          </InputLabel>
+          <FormControl variant="filled">
+            <TextField
+              id="filled-multiline-static"
+              placeholder="Enter your reason for rejection"
+              multiline
+              minRows={4}
+              variant="filled"
+              name="campaign_guidelines"
+              // value={campaign_guidelines}
+              onChange={(e) => setNote(e.target.value)}
+            />
+          </FormControl>
+          {/* <Button onClick={() => updateStatus(2)}>Submit</Button> */}
+          <div className="d-flex-center-end">
+            <Button variant="contained" className="delete-contained mar-top-20-imp" onClick={() => updateStatus(2)}>Reject</Button>
+          </div>
         </Box>
       </Modal>
     </>
