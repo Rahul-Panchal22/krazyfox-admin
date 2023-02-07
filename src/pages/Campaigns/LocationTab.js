@@ -16,6 +16,7 @@ function LocationTab() {
   const [districtValue, setDistrictValue] = useState('');
   const [creatorsList, setCreatorsList] = useState([]);
   const [dist, setDist] = useState([]);
+  console.log('dist: ', dist);
 
   useEffect(() => {
     // if (stateValue !== '') {
@@ -44,7 +45,7 @@ function LocationTab() {
           toast.error(err);
         });
     }
-  }, [stateValue, districtValue])
+  }, [stateValue, districtValue, dist])
 
   const onMutate = (e, value) => {
     // const findDis = states.find(item => item.state.includes(value));
@@ -57,7 +58,7 @@ function LocationTab() {
 
   const onSelectDis = (e, value) => {
     setDistrictValue(value);
-    setDist([value])
+    setDist(value)
   }
 
   const columns = [

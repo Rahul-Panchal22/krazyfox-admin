@@ -24,7 +24,8 @@ import { useNavigate } from "react-router-dom";
 const filterMenu = [
   {
     id: 1, name: "KYC Complete"
-  }, { id: 2, name: "KYC Incomplete" }, { id: 3, name: "Aadhar verified" }, { id: 4, name: "Pan Card Verified" }, { id: 5, name: "Bank Details verified" }
+  }, { id: 2, name: "KYC Incomplete" }, { id: 3, name: "Aadhar verified" }, { id: 4, name: "Pan Card Verified" }, { id: 5, name: "Bank Details verified" },
+  { id: 6, name: "Document verification pending" },{ id: 7, name: "Bank verification pending" }
 ]
 
 const Kyc = () => {

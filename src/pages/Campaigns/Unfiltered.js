@@ -12,15 +12,25 @@ function Unfiltered() {
   const dispatch = useDispatch();
 
   const [search, setSearched] = useState("");
-  const [creatorsList, setCreatorsList] = useState([]);
+  // const [creatorsList, setCreatorsList] = useState([]);
   const [creatorsId, setCreatorsId] = useState([]);
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    limit: 10,
+    page: 0
+  })
 
   const getAllCreatorsListing = () => {
-    dispatch(CreatorsAllListing())
+    setPageState(old => ({ ...old, isLoading: true }))
+
+    dispatch(CreatorsAllListing(`?page=${pageState.page}&limit=${pageState.limit}`))
       .then((res) => {
         if (res.code === 200) {
           toast.success("Creators Listing fetch successfully");
-          setCreatorsList(res.data);
+          setPageState(old => ({ ...old, isLoading: false, data: res.data.data, total: res.data.total }))
+          // setCreatorsList(res.data);
         }
       })
       .catch((err) => {
@@ -36,11 +46,16 @@ function Unfiltered() {
     if (search === null || search === '' || search === undefined) {
       getAllCreatorsListing();
     } else {
-      setCreatorsList(
-        creatorsList.filter((column) => column.name.includes(search))
-      );
+      setPageState(old => ({
+        ...old,
+        data: pageState.data.filter((column) => search.includes(column.name)),
+        total:  pageState.data.filter((column) => search.includes(column.name)).length
+      }))
+      // setCreatorsList(
+      //   creatorsList.filter((column) => column.name.includes(search))
+      // );
     }
-  }, [search]);
+  }, [search,pageState.page, pageState.limit]);
 
   const columns = [
     {
@@ -112,9 +127,9 @@ function Unfiltered() {
 
   const handleSelectLocation = () => {
     const newArray = [];
-    const datas = creatorsList.map(item => {
-      newArray.push(item.creator_id);
-    })
+    // const datas = creatorsList.map(item => {
+    //   newArray.push(item.creator_id);
+    // })
     const data = {
       creatorsIds: newArray,
       campaignId: localStorage.getItem("campaignId")
@@ -134,8 +149,6 @@ function Unfiltered() {
       });
   }
 
-  console.log("creatorsList", creatorsList);
-
   return (
     <>
       <div className="search-row">
@@ -152,7 +165,8 @@ function Unfiltered() {
                 id="free-solo-demo"
                 freeSolo
                 size="small"
-                options={creatorsList.map((option) => option.name)}
+                options={pageState.data.map((option) => option.name)}
+                // options={creatorsList.map((option) => option.name)}
                 onChange={(e, value) => onMutate(e, value)}
                 renderInput={(params) => (
                   <TextField
@@ -179,10 +193,19 @@ function Unfiltered() {
       <Box sx={{ height: 632, width: "auto" }}>
         <DataGrid
           getRowId={(row) => row.creator_id}
-          rows={creatorsList}
+          disableColumnMenu
+          rows={pageState.data}
+          rowCount={pageState.total}
+          loading={pageState.isLoading}
+          rowsPerPageOptions={[10, 30, 50, 70, 100]}
+          pagination
+          page={pageState.page}
+          pageSize={pageState.limit}
           columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5]}
+          // pageSize={10}
+          // rowsPerPageOptions={[5]}
+          onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage }))}
+          onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, limit: newPageSize }))}
           // checkboxSelection
           // onSelectionModelChange={(newSelection) => {
           //   setCreatorsId(newSelection)

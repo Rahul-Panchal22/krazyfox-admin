@@ -111,6 +111,8 @@ const SelectCreatorsLocation = () => {
       console.log(`Formatted Address: ${formattedAddress}`);
       console.log('place: ', place.geometry.location);
       setCenter({lat : latData , lng : lngData })
+    setMarker([...markers, { lat: latData, lng: lngData }])
+
     } else {
       alert("Please enter text");
     }
@@ -243,7 +245,7 @@ const SelectCreatorsLocation = () => {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={10}
+            // zoom={10}
             onLoad={onLoad}
             onUnmount={onUnmount}
             style={{width: '100%'}}
