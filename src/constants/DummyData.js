@@ -18,7 +18,7 @@ export const Sidermenu = [
     submenu: true,
     submenulist: [
       // { id: 11, matchpath:'/campaigns' , menuId: 14, name: 'View Applications ', icon: <ApplicationMenu />, submenupath: '/campaign-applications', },
-      {id: 11, matchpath:  '/campaigns',  menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/view-applications', },
+      { id: 11, matchpath: '/campaigns', menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/view-applications', },
     ]
   },
   {
@@ -43,7 +43,7 @@ export const Sidermenu = [
     menulist: 'KYCs',
     menuicon: <KycMenu svgFill="#ffffff" />,
     menupath: '/kyc',
-    submenu: false,    
+    submenu: false,
   },
   {
     id: 7,
@@ -51,12 +51,14 @@ export const Sidermenu = [
     menulist: 'Payments',
     menuicon: <PaymentsMenu />,
     menupath: '/payments',
-    submenu: true,
+    submenu: false,
     submenulist: [
-      // {id: 1, menuId: 3, name: 'Master Transaction', icon: <MasterMenu />, submenupath: '', },
-      {id: 11, matchpath:  '/payments',  menuId: 4, name: 'Bucket Transaction', icon: <BucketMenu />, submenupath: '/backet-list', },
+      // { id: 1, menuId: 3, name: 'Master Transaction', icon: <MasterMenu />, submenupath: '/mastertransactionlist', },
+      // { id: 11, matchpath: '/payments', menuId: 4, name: 'Bucket Transaction', icon: <BucketMenu />, submenupath: '/backet-list', },
     ]
   },
+  { id: 8, menuId: 11, menulist: 'Master Transaction', menuicon: <MasterMenu />, menupath: '/mastertransactionlist', submenu: false },
+  { id: 9, menuId: 12, menulist: 'Bucket Transaction', menuicon: <BucketMenu />, menupath: '/backet-list', submenu: false },
   {
     id: 6,
     menuId: 10,

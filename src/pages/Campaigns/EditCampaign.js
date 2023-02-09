@@ -118,9 +118,9 @@ const EditCampaign = () => {
   }, []);
 
   const getAllBrandListing = () => {
-    dispatch(BrandsListing())
+    dispatch(BrandsListing(`?page=0&limit=10000`))
       .then((res) => {
-        setBrandList(res.data);
+        setBrandList(res.data.data);
       })
       .catch((err) => {
         toast.success(err);
