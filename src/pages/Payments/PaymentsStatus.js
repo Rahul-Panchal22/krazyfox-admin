@@ -134,11 +134,11 @@ const PaymentsStatus = () => {
       flex: 1.5,
       sortable: false,
     },
-    {
-      field: "creator_name",
-      headerName: "Creator Name",
-      flex: 1.5,
-    },
+    // {
+    //   field: "creator_name",
+    //   headerName: "Creator Name",
+    //   flex: 1.5,
+    // },
     {
       field: "campaign_title",
       headerName: "Campaign Title",
