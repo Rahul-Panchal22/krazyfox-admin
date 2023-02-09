@@ -15,10 +15,10 @@ export const Sidermenu = [
     menulist: 'Campaigns',
     menuicon: <CampaignMenu />,
     menupath: '/campaigns',
-    submenu: true,
+    submenu: false,
     submenulist: [
       // { id: 11, matchpath:'/campaigns' , menuId: 14, name: 'View Applications ', icon: <ApplicationMenu />, submenupath: '/campaign-applications', },
-      { id: 11, matchpath: '/campaigns', menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/view-applications', },
+      // { id: 11, matchpath: '/campaigns', menuId: 4, name: 'View Applications', icon: <ApplicationMenu />, submenupath: '/view-applications', },
     ]
   },
   {
