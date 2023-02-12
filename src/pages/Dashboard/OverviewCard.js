@@ -1,20 +1,21 @@
 import React from "react";
-import { Graph } from "../../svg";
+import { toAbsoluteUrl } from "../../utils";
 import './OverviewCard.scss'
 
 
 const OverviewCard = (props) => {
 
+  const { cardIcon, cardHeading, averageView } = props
+
   return (
     <>
       <div className="overview-card">
-        <div className="card-inner">
-          <div className="d-flex-center-between mar-bottom-20">
-            <div className="card-icon">{props.cardIcon}</div>
-            <div className="graph-icon"><Graph /></div>
-          </div>
-          <h6 className="card-heading">{props.cardHeading}</h6>
-          <h3 className="card-view">{props.averageView}</h3>
+        <div className="card-icon">
+          <img src={toAbsoluteUrl(`/images/${cardIcon}`)} alt="" />
+        </div>
+        <div className="card-content">
+          <h6 className="card-heading">{cardHeading}</h6>
+          <h3 className="card-disc">{averageView}</h3>
         </div>
       </div>
     </>

@@ -2,19 +2,19 @@ import React from "react";
 import { Chart } from "react-google-charts";
 
 export const data = [
-  ["Task", "Hours per Day"],
-  ["Likes", 11],
-  ["Comments", 2],
+  ["Age", "Hours per Day"],
+  ["Minor", 70],
+  ["Adult", 30],
 ];
 
 export const options = {
-  pieHole: 0.4,
+  pieHole: 0,
   is3D: false,
-  legend: { position: "bottom", maxLines: 2 },
-  colors: ['#003f5c', '#58508d']
+  legend: { position: "bottom", maxLines: 2, },
+  colors: ['#5E3FBE', '#FFA500'],
 };
 
-const EngagementSplit = () => {
+const CreatorsAge = () => {
 
   return (
     <>
@@ -29,4 +29,4 @@ const EngagementSplit = () => {
   );
 };
 
-export default EngagementSplit;
+export default CreatorsAge;

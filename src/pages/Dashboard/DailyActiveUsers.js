@@ -11,19 +11,34 @@ export const data = [
 
 export const options = {
   isStacked: true,
-  height: 300,
-  legend: { position: "top", maxLines: 2 },
-  vAxis: { minValue: 0 },
+  chartArea: {
+    top: 10,
+    right: 0,
+    left: 20,
+  },
+  height: 180,
+  width: '100%',
+  legend: {position: 'none'},
+  hAxis: {
+    textPosition: 'none',
+    title: "Date",
+    minValue: 100,
+  },
+  vAxis: {
+    textPosition: 'none',
+    title: "Users",
+    minValue: 0
+  }
 };
 
-const ChartContentPerformance = () => {
+const DailyActiveUsers = () => {
 
   return (
     <>
       <Chart
         chartType="AreaChart"
-        width="320px"
-        height="280px"
+        width="100%"
+        height="160px"
         data={data}
         options={options}
       />
@@ -31,4 +46,4 @@ const ChartContentPerformance = () => {
   );
 };
 
-export default ChartContentPerformance;
+export default DailyActiveUsers;

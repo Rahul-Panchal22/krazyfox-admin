@@ -224,49 +224,49 @@ const Campaigns = () => {
       renderCell: (params) =>
         params.value === 1 ? (<SparkFill />) : params.value === 3 ? (<RightStatus />) : (<SparkOutline />),
     },
-    {
-      field: "viewApplication",
-      headerName: "View Application",
-      flex: 0.4,
-      renderCell: (params, row) => {
-        const onClick = (e) => {
-          console.log('params, row: ', params, row);
-          e.stopPropagation();
+    // {
+    //   field: "viewApplication",
+    //   headerName: "View Application",
+    //   flex: 0.4,
+    //   renderCell: (params, row) => {
+    //     const onClick = (e) => {
+    //       console.log('params, row: ', params, row);
+    //       e.stopPropagation();
 
-          const api = params.api;
-          const thisRow = {};
+    //       const api = params.api;
+    //       const thisRow = {};
 
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== "__check__" && !!c)
-            .forEach(
-              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-            );
-            if(pathname === "/hyperlocal"){
-              navigate({
-                pathname: `/view-campaign/${thisRow.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
-            else{
-              navigate({
-                pathname: `/view-campaign/${thisRow.id}`,
-                search: `?${createSearchParams({
-                  name: params.row.brand_name+" "+ params.row.campaign_title
-                })}`
-              });
-            }
-            }
+    //       api
+    //         .getAllColumns()
+    //         .filter((c) => c.field !== "__check__" && !!c)
+    //         .forEach(
+    //           (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+    //         );
+    //         if(pathname === "/hyperlocal"){
+    //           navigate({
+    //             pathname: `/hyper-applications/${thisRow.id}`,
+    //             search: `?${createSearchParams({
+    //               name: params.row.brand_name+" "+ params.row.campaign_title
+    //             })}`
+    //           });
+    //         }
+    //         else{
+    //           navigate({
+    //             pathname: `/campaign-applications/${thisRow.id}`,
+    //             search: `?${createSearchParams({
+    //               name: params.row.brand_name+" "+ params.row.campaign_title
+    //             })}`
+    //           });
+    //         }
+    //         }
 
-        return (
-          <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
-            <Visibility />
-          </IconButton>
-        );
-      },
-    },
+    //     return (
+    //       <IconButton aria-label="fingerprint" onClick={(e) => onClick(e)}>
+    //         <Visibility />
+    //       </IconButton>
+    //     );
+    //   },
+    // },
     {
       field: "action",
       headerName: "",
@@ -430,8 +430,7 @@ const Campaigns = () => {
           paginationMode="server"
           onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage }))}
           onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, limit: newPageSize }))}
-          // columns={pathname.includes('view-applications') ? columns1 : columns}
-          columns={columns1}
+          columns={pathname.includes('view-applications') ? columns1 : columns}
           disableSelectionOnClick={true}
           onRowClick={(item) => {
             if (pathname === "/hyperlocal") {

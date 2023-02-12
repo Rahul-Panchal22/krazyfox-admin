@@ -180,7 +180,7 @@ const BacketDetails = () => {
 
             <Button variant="contained" className="filter-btn" >
               <CSVLink
-                filename={"Bucket_data.xlsx"}
+                filename={"Bucket_data.xls"}
                 data={paymentList}>
                 Export Excel
               </CSVLink>

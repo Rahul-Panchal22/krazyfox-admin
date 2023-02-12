@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
-import {  Box, Button, ButtonGroup, Chip, FilledInput, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
+import { Button, ButtonGroup, Grid, InputAdornment, Stack, TextField } from '@mui/material';
 import { SearchIcon } from '../../svg';
 import { Autocomplete, GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import './Campaigns.scss'
 import { useDispatch } from 'react-redux';
 import { latLongCamp } from '../../actions/campaign';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import './Campaigns.scss'
 // import Dropzone from 'react-dropzone';
-
-const categoriesList = ['Surat', 'Maharashtra']
-
 
 const containerStyle = {
   width: '100%',
@@ -23,14 +20,9 @@ const SelectCreatorsLocation = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [kycList, setKycList] = useState([]);
-  const [multiSelect, setMultiSelect] = useState([])
-  const [search, setSearched] = useState("")
-  const [filter, /* setFilter */] = useState()
   const [map, setMap] = React.useState(null)
   const [searchResult, setSearchResult] = useState('');
   const [activeMarker, setActiveMarker] = useState(null);
-  console.log('activeMarker: ', activeMarker);
 
   const [center, setCenter] = useState({
     lat: 23.0225,
@@ -40,17 +32,17 @@ const SelectCreatorsLocation = () => {
   const [markers, setMarker] = useState(
     [])
     
-  const handleSelect = (e) => {
-    const {
-      target: { value },
-    } = e;
-    setMultiSelect(
-      // On autofill we get a the stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  // const handleSelect = (e) => {
+  //   const {
+  //     target: { value },
+  //   } = e;
+  //   setMultiSelect(
+  //     // On autofill we get a the stringified value.
+  //     typeof value === "string" ? value.split(",") : value
+  //   );
+  // };
 
-  const handleChangeFilter = (e) => {
+  // const handleChangeFilter = (e) => {
     // if (e.target.value == '5') {
     //   getAllKycListing();
     // } else {
@@ -62,11 +54,11 @@ const SelectCreatorsLocation = () => {
     //       toast.error(err);
     //     });
     // }
-  };
+  // };
 
-  const onMutate = (e, value) => {
-    setSearched(value);
-  };
+  // const onMutate = (e, value) => {
+  //   setSearched(value);
+  // };
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',

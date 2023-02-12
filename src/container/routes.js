@@ -9,7 +9,8 @@ import PublicRoute from "./PublicRoute";
 const PageLayout = lazy(() => import("../pages/Layout"));
 const SignIn = lazy(() => import("../pages/SignIn"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
-const DashboardOverview = lazy(() => import("../pages/Dashboard/DashboardOverview"));
+// const DashboardOverview = lazy(() => import("../pages/Dashboard/DashboardOverview"));
+const NewDashboardOverview = lazy(() => import("../pages/Dashboard/NewDashboardOverview"));
 const SelectLocations = lazy(() => import("../pages/Dashboard/SelectLocations"));
 const Campaigns = lazy(() => import("../pages/Campaigns"));
 const EditCampaign = lazy(() => import("../pages/Campaigns/EditCampaign"));
@@ -43,8 +44,9 @@ const Routing = () => {
         <Route path="/signin" element={<PublicRoute><SignIn /></PublicRoute>} />
         <Route path="/" element={<PageLayout />}>
           <Route path='/' element={<Navigate replace to="/dashboard" />} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/dashboard-overview" element={<PrivateRoute><DashboardOverview /></PrivateRoute>} />
+          {/* <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} /> */}
+          {/* <Route path="/dashboard-overview" element={<PrivateRoute><DashboardOverview /></PrivateRoute>} /> */}
+          <Route path="/dashboard" element={<PrivateRoute><NewDashboardOverview /></PrivateRoute>} />
           <Route path="/select-locations" element={<PrivateRoute><SelectLocations /></PrivateRoute>} />
           <Route path="/campaigns" element={<PrivateRoute><Campaigns /></PrivateRoute>} />
           <Route path="/view-applications" element={<PrivateRoute><Campaigns /></PrivateRoute>} />
