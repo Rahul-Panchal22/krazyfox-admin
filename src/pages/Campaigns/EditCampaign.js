@@ -265,19 +265,20 @@ const EditCampaign = () => {
     } else {
       dispatch(AddCampaign(formData))
         .then((res) => {
-          if (res.code === 201) {
+          console.log('res: ', res);
+          if (res.code === 201 || res.code === 200) {
             toast.success(res.message);
-            if (pathname === "/hyper-local-campaign") {
+            if (pathname.includes("hyper-local-campaign")) {
               localStorage.setItem("campaignId", res.data.id);
               navigate("/select-creators-location");
-            } else if (pathname === "/add-campaign") {
+            } else if (pathname.includes("add-campaign")) {
               localStorage.setItem("campaignId", res.data.id);
               navigate("/select-creators-by");
             } else {
               navigate("/campaigns");
             }
           } else {
-            toast.error(res.message);
+            toast.error(res.message.message);
           }
         })
         .catch((err) => {
@@ -639,14 +640,42 @@ const EditCampaign = () => {
                 className="upload-video "
               >
                 {videoUrl && fileupload == undefined ? (
+                  <>
                   <ReactPlayer
                     url={videoUrl}
                     controls
                     width={"480px"}
                     height={"240px"}
-                  />
+                    />
+                  <input
+                      type="file"
+                      name="video"
+                      id="video"
+                      onChange={(e) => {
+                        UploadVideo(e);
+                        // handleChangeImage(e)
+                      }}
+                      accept="image/*,video/*"
+                      multiple
+                      required
+                      />
+                      </>
                 ) : imageUrl ? (
+                  <>
                   <img src={imageUrl} alt="" />
+                  <input
+                      type="file"
+                      name="video"
+                      id="video"
+                      onChange={(e) => {
+                        UploadVideo(e);
+                        // handleChangeImage(e)
+                      }}
+                      accept="image/*,video/*"
+                      multiple
+                      required
+                      />
+                      </>
                 ) : (
                   <>
                     <span className="upload-plus-btn">+</span>

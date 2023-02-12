@@ -7,6 +7,7 @@ export const API_CATEGORIES_LISTING = `${API_BASE}categories`
 
 // Creators
 export const API_CREATORS_LISTING = `${API_BASE}dashboard`
+export const API_DASHBOARD_COUNT = `${API_BASE}dashboardCounts`
 export const API_CREATORS_VIEW = `${API_BASE}creators`
 export const API_CREATORS_LIST = `${API_BASE}creators/all/`
 export const API_CREATORS_LIST_BASED_FILTER = `${API_BASE}creators/fetchCreatorBasedOnFilter`

@@ -7,6 +7,10 @@ export const LOGIN_S = 'LOGIN_SUCCESS'
 export const LOGIN_F = 'LOGIN_FAIL'
 export const LOGOUT = 'LOGOUT'
 
+// dashboard
+export const DASHBOARD_S = "Dashboard listed successfully"
+export const DASHBOARD_F = "Dashboard listing failed"
+
 // creators
 export const CATEGORY_S = "Categories listed successfully"
 export const CATEGORY_F = "Categories listing failed"
