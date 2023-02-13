@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-google-charts";
 
 export const data = [
@@ -18,28 +18,12 @@ export const options = {
 };
 
 const CreatorsGenre = ({ creatorsGenre }) => {
-  const [ageData , setAgeData ] = useState([]);
-  let data = [["Age", "Hours per Day"]] ;
-  var hashMap = {}
-
-  useEffect(()=>{
-
-    creatorsGenre?.map((item) => {
-        data.push(...data,[item?.genre,item?.genreCount])
-    })
-    console.log('data: ', data);
-    data.forEach(function(arr){
-      // If your subArrays can be in any order, you can use .sort to have consistant order
-      hashMap[arr.join("|")] = arr;
-    });
+  const chartData = [['Age', 'Hours per Day']];
+  creatorsGenre?.forEach(item => {
+    chartData.push([item?.genre,item?.genreCount]);
+  });
+  console.log('chartData: ', chartData);
     
-    var result = Object.keys(hashMap).map(function(k){
-      return hashMap[k]
-    });
-    
-    setAgeData(result)
-  },[creatorsGenre])
-
   return (
     <>
     <h3>Genre</h3>
@@ -47,7 +31,7 @@ const CreatorsGenre = ({ creatorsGenre }) => {
         chartType="PieChart"
         width="100%"
         height="280px"
-        data={ageData}
+        data={chartData}
         options={options}
       />
     </>

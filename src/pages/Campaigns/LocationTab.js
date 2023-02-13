@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { CreatorsFiletrList } from '../../actions/creators';
 import { states } from '../../utils/State';
+import { useNavigate } from 'react-router-dom';
 
 function LocationTab() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const statelist = states.map(item => item.state);
   const [stateValue, setStateValue] = useState('');

@@ -18,14 +18,14 @@ import CreatorsGenre from "./CreatorsGenre";
 import { useDispatch } from "react-redux";
 import { DashboardData } from "../../actions/dashboard";
 import { useNavigate } from "react-router-dom";
-import { GoogleMap, Marker, useJsApiLoader , HeatmapLayer, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap , HeatmapLayer, LoadScript, useLoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
     height: '100%'
   };
   
-  const placesLibrary = ['places','visualization']
+  // const placesLibrary = ['places','visualization']
   
 const NewDashboardOverview = () => {
 
@@ -36,101 +36,8 @@ const NewDashboardOverview = () => {
   const [searchResult, setSearchResult] = useState('');
   const [activeMarker, setActiveMarker] = useState(null);
   const [dashboardCountData , setDashBoardCountData] = useState(null);
-
-  const [center, setCenter] = useState({
-    lat: 23.0225,
-    lng: 72.5714
-  });
-
-  const [markers, setMarker] = useState(
-    [])
-    
-  // const handleSelect = (e) => {
-  //   const {
-  //     target: { value },
-  //   } = e;
-  //   setMultiSelect(
-  //     // On autofill we get a the stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  // };
-
-  // const handleChangeFilter = (e) => {
-    // if (e.target.value == '5') {
-    //   getAllKycListing();
-    // } else {
-    //   dispatch(KycFilterListing(`?kyc_filter=${e.target.value}`))
-    //     .then((res) => {
-    //       setKycList(res.data);
-    //     })
-    //     .catch((err) => {
-    //       toast.error(err);
-    //     });
-    // }
-  // };
-
-  // const onMutate = (e, value) => {
-  //   setSearched(value);
-  // };
-
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyB3qfOgTiJdEa5hv_l03saH8RMne_sQzqM",
-    libraries: placesLibrary
-  })
-
-  // const { isLoaded } = useLoadScript({
-  //     id: 'google-map-script',
-  //     googleMapsApiKey: "AIzaSyB3qfOgTiJdEa5hv_l03saH8RMne_sQzqM",
-  //     libraries: placesLibrary
-  //   })
+  // const [heatmapData, setHeatmapData] = useState(dashboardCountData?.getUserLatLong);
   
-
-  // var sanFrancisco = new window.google.maps.LatLng(37.774546, -122.433523);
-
-  const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
-  const onLoaded = (autocomplete) =>  {
-    console.log('autocomplete: ', autocomplete);
-    setSearchResult(autocomplete)
-  }
-
-  function onPlaceChanged() {
-    if (searchResult != null) {
-      //variable to store the result
-      const place = searchResult.getPlace();
-      //variable to store the name from place details result 
-      const name = place.name;
-      //variable to store the status from place details result
-      const status = place.business_status;
-      //variable to store the formatted address from place details result
-      const formattedAddress = place.formatted_address;
-      // lat and lng
-      const latData = place.geometry.location.lat();
-      const lngData = place.geometry.location.lng();
-      // console.log(place);
-      //console log all results
-      console.log(`Name: ${name}`);
-      console.log(`Business Status: ${status}`);
-      console.log(`Formatted Address: ${formattedAddress}`);
-      console.log('place: ', place.geometry.location);
-      setCenter({lat : latData , lng : lngData })
-    setMarker([...markers, { lat: latData, lng: lngData }])
-
-    } else {
-      alert("Please enter text");
-    }
-  }
-
   useEffect(()=> {
     dispatch(DashboardData())
     .then(res =>
@@ -176,6 +83,7 @@ const NewDashboardOverview = () => {
                       completedToday={0}
                       completedCard={true}
                       cardColor="green"
+                      navigationPath='/creator'
                     />
                     <CampaignsCard
                       campaignTitle="Pending Campaigns"
@@ -199,6 +107,7 @@ const NewDashboardOverview = () => {
                       completedToday={0}
                       completedCard={true}
                       cardColor="green"
+                      navigationPath='/hyperlocal'
                     />
                     <CampaignsCard
                       campaignTitle="Pending Campaigns"
@@ -221,6 +130,7 @@ const NewDashboardOverview = () => {
                       completedToday={0}
                       completedCard={true}
                       cardColor="green"
+                      navigationPath='/campaigns'
                     />
                     <CampaignsCard
                       campaignTitle="Pending Campaigns"
@@ -270,19 +180,19 @@ const NewDashboardOverview = () => {
           <Grid item xs={12} className="h-100">
             <h6 className="chart-heading">Creator Locations</h6>
             <div className="map-section">
-            {isLoaded ? (
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            // center={center}
-            // zoom={10}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-            style={{width: '100%'}}
-            // data={center}
-          >
-            {/* <HeatmapLayer data={heatmapData}></HeatmapLayer> */}
-          </GoogleMap> 
-        ) : <></>}
+            <LoadScript
+  googleMapsApiKey={process.env.GOOGLEMAP_API_KEY}
+  libraries={['visualization']}
+>
+<GoogleMap
+  mapContainerStyle={{ height: "400px", width: "100%" }}
+  zoom={13}
+  center={{ lat: 37.782551, lng: -122.445368 }}
+>
+  {/* <HeatmapLayer data={heatmapData} /> */}
+</GoogleMap>
+
+</LoadScript>
             </div>
           </Grid>
         </Grid>

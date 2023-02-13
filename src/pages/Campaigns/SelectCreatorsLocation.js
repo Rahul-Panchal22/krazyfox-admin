@@ -62,7 +62,7 @@ const SelectCreatorsLocation = () => {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyB3qfOgTiJdEa5hv_l03saH8RMne_sQzqM",
+    googleMapsApiKey: process.env.GOOGLEMAP_API_KEY,
     libraries: placesLibrary
   })
 

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { CreatorsFiletrList, notification } from '../../actions/creators'
 import { SearchIcon } from '../../svg'
+import { useNavigate } from 'react-router-dom'
 
 const columns = [
     {
@@ -47,6 +48,7 @@ const toOption = ["10000", "30000", "150000"]
 function FollowerRangeTab() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [search, setSearched] = useState("");
     const [filterList, setFilterList] = useState(1);
@@ -139,6 +141,8 @@ function FollowerRangeTab() {
             .then((res) => {
                 if (res.code === 200) {
                     toast.success(res.message);
+          navigate('/campaigns')
+
                     newArray = [];
                 }else{
                     toast.error(res.message);

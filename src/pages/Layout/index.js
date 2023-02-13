@@ -197,8 +197,6 @@ export default function MiniDrawer(props) {
   //   ));
   // };
 
-console.log(Sidermenu);
-
   return (
     <Box sx={{ display: "flex" }} className="page-layout">
       <AppBar

@@ -18,30 +18,14 @@ export const options = {
 };
 
 const CreatorsState = ({ creatorsState }) => {
-  console.log('creatorsState: ', creatorsState);
-  const [ageData , setAgeData ] = useState([]);
-  let data = [["Age", "Hours per Day"]] ;
-  var hashMap = {}
-
-  useEffect(()=>{
-
-    creatorsState?.map((item) => {
-        data.push(...data,[item?.state,item?.stateCount])
-    })
-    console.log('data: ', data);
-    data.forEach(function(arr){
-      // If your subArrays can be in any order, you can use .sort to have consistant order
-      hashMap[arr.join("|")] = arr;
-    });
-    
-    var result = Object.keys(hashMap).map(function(k){
-      return hashMap[k]
-    });
-    
-    setAgeData(result)
-  },[creatorsState])
-  console.log('creatorsState: ', creatorsState);
-
+  // console.log('creatorsState: ', creatorsState);
+  
+  const chartData = [['Age', 'Hours per Day']];
+creatorsState?.forEach(item => {
+  chartData.push([item?.state,item?.stateCount]);
+});
+console.log('chartData: ', chartData);
+ 
   return (
     <>
     <h3>State</h3>
@@ -49,7 +33,7 @@ const CreatorsState = ({ creatorsState }) => {
         chartType="PieChart"
         width="100%"
         height="280px"
-        data={ageData}
+        data={chartData}
         options={options}
       />
     </>

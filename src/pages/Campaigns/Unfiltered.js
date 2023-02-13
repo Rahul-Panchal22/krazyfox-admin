@@ -10,7 +10,7 @@ import { KycStatus, SearchIcon } from '../../svg'
 function Unfiltered() {
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [search, setSearched] = useState("");
   // const [creatorsList, setCreatorsList] = useState([]);
   const [creatorsId, setCreatorsId] = useState([]);
@@ -138,6 +138,7 @@ function Unfiltered() {
       .then((res) => {
         if (res.code === 200) {
           toast.success(res.message);
+          navigate('/campaigns')
           newArray = [];
         }else{
           toast.error(res.message);
