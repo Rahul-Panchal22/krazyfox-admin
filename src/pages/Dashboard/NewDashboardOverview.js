@@ -18,31 +18,13 @@ import CreatorsGenre from "./CreatorsGenre";
 import { useDispatch } from "react-redux";
 import { DashboardData } from "../../actions/dashboard";
 import { useNavigate } from "react-router-dom";
-import {
-  GoogleMap,
-  HeatmapLayer,
-  LoadScript,
-  useJsApiLoader,
-  useLoadScript,
-} from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
 import GoogleMapReact from "google-map-react";
-
-const containerStyle = {
-  width: "100%",
-  height: "100%",
-};
-
-const placesLibrary = ["places"];
-
-// const placesLibrary = ['places','visualization']
 
 const NewDashboardOverview = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [value, setValue] = React.useState("1");
-  const [map, setMap] = React.useState(null);
-  const [searchResult, setSearchResult] = useState("");
-  const [activeMarker, setActiveMarker] = useState(null);
   const [dashboardCountData, setDashBoardCountData] = useState(null);
   const [heatmapData, setHeatmapData] = useState([]);
   const [center, setCenter] = useState({
@@ -80,7 +62,10 @@ const NewDashboardOverview = () => {
       <Grid container spacing={2} className="mar-bottom-40">
         <Grid item xs={6}>
           <h6 className="overview-heading">User</h6>
-          <div className="border-paper padd-24 h-100--56 d-block" onClick={() => navigate('/creator')}>
+          <div
+            className="border-paper padd-24 h-100--56 d-block"
+            onClick={() => navigate("/creator")}
+          >
             <OverviewCard
               cardHeading={dashboardCountData?.totalUser}
               averageView="Today's Active Users"
@@ -124,7 +109,6 @@ const NewDashboardOverview = () => {
                       completedCampaign={
                         dashboardCountData?.completedCampaignCount
                       }
-                      // totalCampaign={160}
                       completedToday={0}
                       completedCard={true}
                       cardColor="orange"
@@ -248,8 +232,7 @@ const NewDashboardOverview = () => {
                   center={center}
                   heatmapLibrary={true}
                   heatmap={heatmapDatas}
-                >
-                </GoogleMapReact>
+                ></GoogleMapReact>
               ) : (
                 <></>
               )}
