@@ -79,8 +79,15 @@ function Unfiltered() {
     },
     {
       field: "address",
+      headerName: "City",
+      flex: 1.2,
+      renderCell: (params) => (params.value ? params.value : "-"),
+    },
+    {
+      field: "state",
       headerName: "State",
       flex: 1.2,
+      sortable: false,
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
@@ -90,18 +97,14 @@ function Unfiltered() {
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
-      field: "categoriesArrayList",
+      field: "categories",
       headerName: "Category",
       flex: 1,
-      renderCell: (params) => {
-        const value = params.value;
-        return (
-          <Chip
-            label={`${value.length > 0 ? value[0].name : "Not Data"}`}
-            variant="outlined"
-          />
-        );
-      },
+      sortable: false,
+      renderCell: (params) => (params.value ? <Chip
+        label={`${params.value}`}
+        variant="outlined"
+      /> : "-")
     },
     {
       field: "kyc_status",

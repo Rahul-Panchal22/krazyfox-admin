@@ -72,10 +72,17 @@ const Creator = () => {
       headerName: "Followers",
       flex: 1,
       sortable: false,
-      renderCell: (params) => (params.value ? params.value : "-"),
+      renderCell: (params) => (params.value ? params.value : "0"),
     },
     {
       field: "address",
+      headerName: "City",
+      flex: 1.2,
+      sortable: false,
+      renderCell: (params) => (params.value ? params.value : "-"),
+    },
+    {
+      field: "state",
       headerName: "State",
       flex: 1.2,
       sortable: false,
@@ -88,19 +95,14 @@ const Creator = () => {
       renderCell: (params) => (params.value ? params.value : "-"),
     },
     {
-      field: "categoriesArrayList",
+      field: "categories",
       headerName: "Category",
       flex: 1,
       sortable: false,
-      renderCell: (params) => {
-        const value = params.value;
-        return (
-          <Chip
-            label={`${value.length > 0 ? value[0].name : "Not Data"}`}
-            variant="outlined"
-          />
-        );
-      },
+      renderCell: (params) => (params.value ? <Chip
+        label={`${params.value}`}
+        variant="outlined"
+      /> : "-")
     },
     {
       field: "kyc_status",
